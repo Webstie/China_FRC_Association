@@ -3,10 +3,413 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Information Websites — FRC Wiki CN</title>
+  <title>Information Hub — FRC Wiki CN</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ===== Info page — scoped dark tech theme ===== */
+    body.info-dark {
+      background: #0a0e1a;
+      color: #e0e0e8;
+    }
+
+    .info-dark main {
+      max-width: 1280px;
+    }
+
+    /* Hero */
+    .info-hero {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 212, 255, 0.18), transparent 70%),
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(237, 28, 36, 0.12), transparent 60%),
+        linear-gradient(180deg, #0a0e1a 0%, #11162a 100%);
+      padding: 100px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+    }
+
+    .info-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at center, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at center, black 30%, transparent 80%);
+      pointer-events: none;
+    }
+
+    .info-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #00d4ff;
+      padding: 6px 16px;
+      border: 1px solid rgba(0, 212, 255, 0.4);
+      border-radius: 100px;
+      background: rgba(0, 212, 255, 0.06);
+      margin-bottom: 24px;
+    }
+
+    .info-hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, #ffffff 0%, #00d4ff 50%, #4361ee 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      line-height: 1.05;
+    }
+
+    .info-hero .chinese-title {
+      font-size: 1.4rem;
+      color: #b0b0c8;
+      margin-bottom: 8px;
+      font-weight: 300;
+    }
+
+    .info-hero .tagline {
+      color: #8888a8;
+      max-width: 620px;
+      margin: 24px auto 0;
+      font-size: 1.05rem;
+    }
+
+    /* Stats strip */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      max-width: 900px;
+      margin: 48px auto 0;
+    }
+
+    .stat {
+      padding: 20px;
+      background: rgba(20, 25, 45, 0.6);
+      border: 1px solid rgba(0, 212, 255, 0.15);
+      border-radius: 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00d4ff, #4361ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      color: #8888a0;
+      font-size: 0.78rem;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* Main content */
+    .info-dark main {
+      padding: 64px 24px;
+    }
+
+    .info-dark h2 {
+      color: white;
+      border: none;
+      padding: 0;
+      display: block;
+      font-size: 2rem;
+    }
+
+    /* Featured card */
+    .featured-block {
+      background:
+        linear-gradient(135deg, rgba(0, 102, 179, 0.2) 0%, rgba(237, 28, 36, 0.1) 100%),
+        rgba(20, 25, 45, 0.6);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 64px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00d4ff, #ED1C24, #00d4ff, transparent);
+    }
+
+    .featured-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ED1C24;
+      padding: 4px 12px;
+      border: 1px solid rgba(237, 28, 36, 0.5);
+      border-radius: 100px;
+      background: rgba(237, 28, 36, 0.08);
+      margin-bottom: 12px;
+    }
+
+    .featured-block h3 {
+      font-size: 1.75rem;
+      color: white;
+      margin: 0 0 8px;
+    }
+
+    .featured-block .chinese {
+      color: #00d4ff;
+      margin-bottom: 16px;
+    }
+
+    .featured-block p {
+      color: #b0b0c8;
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+
+    .featured-cta {
+      display: inline-block;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #00d4ff, #4361ee);
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .featured-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+    }
+
+    /* Category sections */
+    .category-section {
+      margin-bottom: 64px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(0, 212, 255, 0.12);
+    }
+
+    .category-icon {
+      font-size: 1.8rem;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(67, 97, 238, 0.1));
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      border-radius: 14px;
+      flex-shrink: 0;
+    }
+
+    .category-meta {
+      flex: 1;
+    }
+
+    .category-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin: 0;
+      display: block;
+    }
+
+    .category-subtitle {
+      color: #8888a0;
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    .category-count {
+      color: #00d4ff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      background: rgba(0, 212, 255, 0.08);
+      border: 1px solid rgba(0, 212, 255, 0.25);
+      border-radius: 100px;
+    }
+
+    /* Resource grid */
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .tech-card {
+      background: linear-gradient(145deg, rgba(20, 25, 45, 0.7), rgba(15, 20, 35, 0.4));
+      border: 1px solid rgba(0, 212, 255, 0.12);
+      border-radius: 14px;
+      padding: 24px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tech-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #00d4ff, transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tech-card:hover {
+      border-color: rgba(0, 212, 255, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0, 212, 255, 0.12);
+      background: linear-gradient(145deg, rgba(25, 30, 55, 0.8), rgba(20, 25, 45, 0.5));
+    }
+
+    .tech-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-logo {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.25));
+    }
+
+    .tech-card h3 {
+      color: white;
+      margin: 0 0 4px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .tech-card .chinese-name {
+      color: #00d4ff;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    .tech-card .desc {
+      color: #9090a8;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.65rem;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.25);
+      color: #5ce1ff;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .tag.official {
+      background: rgba(237, 28, 36, 0.08);
+      border-color: rgba(237, 28, 36, 0.35);
+      color: #ff6b75;
+    }
+
+    .tag.chinese {
+      background: rgba(255, 195, 0, 0.08);
+      border-color: rgba(255, 195, 0, 0.35);
+      color: #ffd44d;
+    }
+
+    .tag.beginner {
+      background: rgba(76, 217, 100, 0.08);
+      border-color: rgba(76, 217, 100, 0.35);
+      color: #6ee082;
+    }
+
+    .tag.advanced {
+      background: rgba(175, 82, 222, 0.1);
+      border-color: rgba(175, 82, 222, 0.35);
+      color: #c78fff;
+    }
+
+    /* Callout in dark theme */
+    .info-dark .callout {
+      background: rgba(255, 195, 0, 0.06);
+      border-left: 3px solid #ffd44d;
+      color: #d0d0e0;
+    }
+
+    .info-dark .callout strong {
+      color: #ffd44d;
+    }
+
+    .info-dark .callout.todo {
+      background: rgba(237, 28, 36, 0.06);
+      border-left-color: #ff6b75;
+    }
+
+    .info-dark .callout.todo strong {
+      color: #ff6b75;
+    }
+
+    /* Footer override */
+    .info-dark footer {
+      background: #050810;
+      margin-top: 0;
+      border-top: 1px solid rgba(0, 212, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .info-hero h1 { font-size: 2.5rem; }
+      .featured-block {
+        grid-template-columns: 1fr;
+        padding: 28px;
+      }
+    }
+  </style>
 </head>
-<body>
+<body class="info-dark">
 
   <nav class="navbar">
     <div class="nav-container">
@@ -23,96 +426,446 @@
     </div>
   </nav>
 
-  <header class="page-header">
-    <h1>Information Websites</h1>
-    <p class="chinese">信息网站 — 官方与社区资源</p>
+  <header class="info-hero">
+    <span class="hero-eyebrow">◆ Knowledge Base ◆</span>
+    <h1>Information Hub</h1>
+    <p class="chinese-title">中国FRC队伍的信息中心</p>
+    <p class="tagline">
+      Curated resources, official documentation, and community knowledge — everything a Chinese FRC team needs in one place.
+    </p>
+
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-number">25+</span>
+        <div class="stat-label">Resources 资源</div>
+      </div>
+      <div class="stat">
+        <span class="stat-number">6</span>
+        <div class="stat-label">Categories 分类</div>
+      </div>
+      <div class="stat">
+        <span class="stat-number">100%</span>
+        <div class="stat-label">Free 免费</div>
+      </div>
+      <div class="stat">
+        <span class="stat-number">∞</span>
+        <div class="stat-label">Coffee Required</div>
+      </div>
+    </div>
   </header>
 
   <main>
-    <section>
-      <h2>Official FIRST Resources 官方资源</h2>
-      <ul class="resource-list">
-        <li>
-          <a href="https://www.firstinspires.org/" target="_blank">FIRST Inspires</a>
-          <span class="desc">Official home of FIRST Robotics — team registration, event listings, news.</span>
-        </li>
-        <li>
-          <a href="https://www.thebluealliance.com/" target="_blank">The Blue Alliance</a>
-          <span class="desc">Match results, team stats, event data — essential scouting resource.</span>
-        </li>
-        <li>
-          <a href="https://www.statbotics.io/" target="_blank">Statbotics</a>
-          <span class="desc">Advanced team performance analytics and EPA ratings.</span>
-        </li>
-        <li>
-          <a href="#" target="_blank">FRC Game Manual</a>
-          <span class="desc">官方规则手册 — released at kickoff each January. <em>(link to be updated each season)</em></span>
-        </li>
-      </ul>
-    </section>
+    <!-- ========== Featured Pick ========== -->
+    <div class="featured-block">
+      <div>
+        <span class="featured-badge">★ Editor's Pick</span>
+        <h3>WPILib Documentation</h3>
+        <div class="chinese">WPILib 官方文档 — 编程入门首选</div>
+        <p>
+          The single most important resource for FRC programmers. Covers everything from "hello robot" to advanced swerve kinematics. Start here, return here often.
+        </p>
+      </div>
+      <a href="https://docs.wpilib.org/" target="_blank" class="featured-cta">Open Docs →</a>
+    </div>
 
-    <section>
-      <h2>Technical Documentation 技术文档</h2>
-      <ul class="resource-list">
-        <li>
-          <a href="https://docs.wpilib.org/" target="_blank">WPILib Documentation</a>
-          <span class="desc">The official robot programming framework — read this first.</span>
-        </li>
-        <li>
-          <a href="https://docs.ctr-electronics.com/" target="_blank">CTRE Phoenix Docs</a>
-          <span class="desc">Documentation for Talon FX, Pigeon, CANcoder, and other CTRE devices.</span>
-        </li>
-        <li>
-          <a href="https://docs.revrobotics.com/" target="_blank">REV Robotics Docs</a>
-          <span class="desc">SPARK MAX, NEO motors, control hub documentation.</span>
-        </li>
-      </ul>
-    </section>
+    <!-- ========== Official FIRST Resources ========== -->
+    <section class="category-section">
+      <div class="category-header">
+        <div class="category-icon">🏆</div>
+        <div class="category-meta">
+          <div class="category-title">Official FIRST Resources</div>
+          <div class="category-subtitle">官方资源 — sources of truth for rules, events, and registration</div>
+        </div>
+        <span class="category-count">5 links</span>
+      </div>
 
-    <section>
-      <h2>Chinese Community 中文社区</h2>
-      <ul class="resource-list">
-        <li>
-          <a href="#" target="_blank">FRC China 官方网站</a>
-          <span class="desc">中国FRC官方网站 — <em>to be added</em></span>
-        </li>
-        <li>
-          <a href="#" target="_blank">中文论坛 / 微信群</a>
-          <span class="desc">Chinese-language community forums and WeChat groups — Lorem ipsum dolor sit amet.</span>
-        </li>
-        <li>
-          <a href="#" target="_blank">B站 FRC 教程合集</a>
-          <span class="desc">Bilibili tutorial playlists for Chinese-speaking learners.</span>
-        </li>
-      </ul>
-    </section>
+      <div class="resource-grid">
 
-    <section>
-      <h2>Learning &amp; Knowledge Bases 学习资源</h2>
-      <ul class="resource-list">
-        <li>
-          <a href="https://www.chiefdelphi.com/" target="_blank">Chief Delphi</a>
-          <span class="desc">The largest English-language FRC discussion forum.</span>
-        </li>
-        <li>
-          <a href="#" target="_blank">FRC Design (frcdesign.org)</a>
-          <span class="desc">Curated design references and case studies.</span>
-        </li>
-        <li>
-          <a href="#" target="_blank">Team White Papers</a>
-          <span class="desc">A collection of technical write-ups from top teams. <em>To be implemented.</em></span>
-        </li>
-      </ul>
-      <div class="callout todo">
-        <strong>TODO</strong>
-        Expand this list with Chinese-language tutorials, recommended YouTube
-        channels, and translations of community white papers.
+        <a class="tech-card" href="https://www.firstinspires.org/" target="_blank">
+          <div class="card-logo">🚀</div>
+          <h3>FIRST Inspires</h3>
+          <div class="chinese-name">FIRST 官方主页</div>
+          <p class="desc">Team registration, event listings, news, and the central hub for everything FIRST.</p>
+          <div class="tags">
+            <span class="tag official">Official</span>
+            <span class="tag">Essential</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://www.thebluealliance.com/" target="_blank">
+          <div class="card-logo">📊</div>
+          <h3>The Blue Alliance</h3>
+          <div class="chinese-name">蓝盟数据库</div>
+          <p class="desc">Match results, team stats, scouting data. The de-facto FRC database.</p>
+          <div class="tags">
+            <span class="tag">Stats</span>
+            <span class="tag">Scouting</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://www.statbotics.io/" target="_blank">
+          <div class="card-logo">📈</div>
+          <h3>Statbotics</h3>
+          <div class="chinese-name">数据分析</div>
+          <p class="desc">Advanced team analytics, EPA ratings, and predictive performance metrics.</p>
+          <div class="tags">
+            <span class="tag advanced">Advanced</span>
+            <span class="tag">Analytics</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://www.firstinspires.org/resource-library/frc/competition-manual-and-related-documents" target="_blank">
+          <div class="card-logo">📖</div>
+          <h3>Game Manual</h3>
+          <div class="chinese-name">官方规则手册</div>
+          <p class="desc">Annual game rules — released at kickoff each January. Read it twice.</p>
+          <div class="tags">
+            <span class="tag official">Official</span>
+            <span class="tag">Rules</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://frc-events.firstinspires.org/" target="_blank">
+          <div class="card-logo">🗓️</div>
+          <h3>FRC Events</h3>
+          <div class="chinese-name">赛事系统</div>
+          <p class="desc">Live event results, rankings, schedules, and match webcast links.</p>
+          <div class="tags">
+            <span class="tag official">Official</span>
+            <span class="tag">Live</span>
+          </div>
+        </a>
+
       </div>
     </section>
+
+    <!-- ========== Technical Documentation ========== -->
+    <section class="category-section">
+      <div class="category-header">
+        <div class="category-icon">⚙️</div>
+        <div class="category-meta">
+          <div class="category-title">Technical Documentation</div>
+          <div class="category-subtitle">技术文档 — read these before opening Phoenix Tuner</div>
+        </div>
+        <span class="category-count">5 links</span>
+      </div>
+
+      <div class="resource-grid">
+
+        <a class="tech-card" href="https://docs.wpilib.org/" target="_blank">
+          <div class="card-logo">☕</div>
+          <h3>WPILib Docs</h3>
+          <div class="chinese-name">WPILib 文档</div>
+          <p class="desc">The robot programming framework — Java, C++, Python. Start with "Zero to Robot."</p>
+          <div class="tags">
+            <span class="tag beginner">Beginner</span>
+            <span class="tag">Essential</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://docs.ctr-electronics.com/" target="_blank">
+          <div class="card-logo">⚡</div>
+          <h3>CTRE Phoenix</h3>
+          <div class="chinese-name">CTRE 电机文档</div>
+          <p class="desc">Talon FX / Kraken X60 / Pigeon 2 / CANcoder configuration and code examples.</p>
+          <div class="tags">
+            <span class="tag">Motors</span>
+            <span class="tag">CAN</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://docs.revrobotics.com/" target="_blank">
+          <div class="card-logo">🔧</div>
+          <h3>REV Robotics Docs</h3>
+          <div class="chinese-name">REV 文档</div>
+          <p class="desc">SPARK MAX, NEO motors, Power Distribution Hub, and Control Hub references.</p>
+          <div class="tags">
+            <span class="tag">Motors</span>
+            <span class="tag">Hardware</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://pathplanner.dev/" target="_blank">
+          <div class="card-logo">🛤️</div>
+          <h3>PathPlanner</h3>
+          <div class="chinese-name">路径规划器</div>
+          <p class="desc">The most popular path-planning tool for autonomous routines in FRC.</p>
+          <div class="tags">
+            <span class="tag advanced">Advanced</span>
+            <span class="tag">Auto</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://docs.photonvision.org/" target="_blank">
+          <div class="card-logo">👁️</div>
+          <h3>PhotonVision</h3>
+          <div class="chinese-name">视觉处理</div>
+          <p class="desc">Open-source vision processing — AprilTag detection, object tracking, pose estimation.</p>
+          <div class="tags">
+            <span class="tag advanced">Advanced</span>
+            <span class="tag">Vision</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ========== Chinese Community ========== -->
+    <section class="category-section">
+      <div class="category-header">
+        <div class="category-icon">🇨🇳</div>
+        <div class="category-meta">
+          <div class="category-title">Chinese Community</div>
+          <div class="category-subtitle">中文社区 — 国内队伍最常用的中文渠道</div>
+        </div>
+        <span class="category-count">4 links</span>
+      </div>
+
+      <div class="resource-grid">
+
+        <a class="tech-card" href="#" target="_blank">
+          <div class="card-logo">🌐</div>
+          <h3>FRC China 官网</h3>
+          <div class="chinese-name">China FRC Association</div>
+          <p class="desc">中国 FRC 官方网站 — 赛区信息、新队伍入门指南。<em>To be linked.</em></p>
+          <div class="tags">
+            <span class="tag chinese">中文</span>
+            <span class="tag official">Official</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://space.bilibili.com/" target="_blank">
+          <div class="card-logo">📺</div>
+          <h3>B站 FRC 教程</h3>
+          <div class="chinese-name">Bilibili Tutorials</div>
+          <p class="desc">Bilibili 上由中国队伍录制的入门教程合集 — 适合中文学习者。</p>
+          <div class="tags">
+            <span class="tag chinese">中文</span>
+            <span class="tag beginner">入门</span>
+            <span class="tag">Video</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="#" target="_blank">
+          <div class="card-logo">💬</div>
+          <h3>微信交流群</h3>
+          <div class="chinese-name">WeChat Groups</div>
+          <p class="desc">中国 FRC 队伍微信交流群 — 联系导师或老队员加入。<em>Contact info TBD.</em></p>
+          <div class="tags">
+            <span class="tag chinese">中文</span>
+            <span class="tag">Community</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="#" target="_blank">
+          <div class="card-logo">📰</div>
+          <h3>知乎 FRC 话题</h3>
+          <div class="chinese-name">Zhihu FRC Topics</div>
+          <p class="desc">知乎上关于 FRC 的讨论与经验分享 — 适合阅读队伍故事和深度复盘。</p>
+          <div class="tags">
+            <span class="tag chinese">中文</span>
+            <span class="tag">Discussion</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ========== Forums & Community ========== -->
+    <section class="category-section">
+      <div class="category-header">
+        <div class="category-icon">💬</div>
+        <div class="category-meta">
+          <div class="category-title">Forums &amp; Community</div>
+          <div class="category-subtitle">英文社区论坛 — where the global FRC community lives</div>
+        </div>
+        <span class="category-count">4 links</span>
+      </div>
+
+      <div class="resource-grid">
+
+        <a class="tech-card" href="https://www.chiefdelphi.com/" target="_blank">
+          <div class="card-logo">🏛️</div>
+          <h3>Chief Delphi</h3>
+          <div class="chinese-name">CD 论坛</div>
+          <p class="desc">The largest English-language FRC forum. Strategy, design, software — all here.</p>
+          <div class="tags">
+            <span class="tag">Forum</span>
+            <span class="tag">Essential</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://www.reddit.com/r/FRC/" target="_blank">
+          <div class="card-logo">🤖</div>
+          <h3>r/FRC Reddit</h3>
+          <div class="chinese-name">Reddit FRC 板块</div>
+          <p class="desc">Casual discussion, memes, and quick questions. Less formal than Chief Delphi.</p>
+          <div class="tags">
+            <span class="tag">Forum</span>
+            <span class="tag">Casual</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://www.thebluealliance.com/discord" target="_blank">
+          <div class="card-logo">🎮</div>
+          <h3>FRC Discord</h3>
+          <div class="chinese-name">FRC Discord 服务器</div>
+          <p class="desc">Real-time chat with mentors and students worldwide. Multiple topic channels.</p>
+          <div class="tags">
+            <span class="tag">Chat</span>
+            <span class="tag">Live</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://www.chiefdelphi.com/c/general/open-alliance/" target="_blank">
+          <div class="card-logo">📂</div>
+          <h3>Open Alliance</h3>
+          <div class="chinese-name">公开同盟</div>
+          <p class="desc">Top teams publish their CAD, code, and build blogs publicly each season. Goldmine.</p>
+          <div class="tags">
+            <span class="tag advanced">Advanced</span>
+            <span class="tag">CAD</span>
+            <span class="tag">Code</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ========== Learning Resources ========== -->
+    <section class="category-section">
+      <div class="category-header">
+        <div class="category-icon">🎓</div>
+        <div class="category-meta">
+          <div class="category-title">Tutorials &amp; Learning</div>
+          <div class="category-subtitle">学习资源 — 从零开始的入门指南</div>
+        </div>
+        <span class="category-count">4 links</span>
+      </div>
+
+      <div class="resource-grid">
+
+        <a class="tech-card" href="https://docs.wpilib.org/en/stable/docs/zero-to-robot/introduction.html" target="_blank">
+          <div class="card-logo">🌱</div>
+          <h3>Zero to Robot</h3>
+          <div class="chinese-name">从零开始</div>
+          <p class="desc">Official WPILib walkthrough — first robot setup, control system, basic programming.</p>
+          <div class="tags">
+            <span class="tag beginner">Beginner</span>
+            <span class="tag official">Official</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="#" target="_blank">
+          <div class="card-logo">🎬</div>
+          <h3>FRC 0 to Autonomous</h3>
+          <div class="chinese-name">自动周期教程</div>
+          <p class="desc">Video series covering everything needed to get robust autonomous routines running.</p>
+          <div class="tags">
+            <span class="tag">Video</span>
+            <span class="tag advanced">Advanced</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://www.youtube.com/@team1678" target="_blank">
+          <div class="card-logo">📺</div>
+          <h3>Team 1678 Software Sessions</h3>
+          <div class="chinese-name">1678 软件教程</div>
+          <p class="desc">Citrus Circuits' deep technical sessions — swerve, vision, advanced control.</p>
+          <div class="tags">
+            <span class="tag advanced">Advanced</span>
+            <span class="tag">Video</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="#" target="_blank">
+          <div class="card-logo">📚</div>
+          <h3>FRC Design Resources</h3>
+          <div class="chinese-name">机械设计参考</div>
+          <p class="desc">Curated mechanical design references — common drivetrains, intakes, manipulators.</p>
+          <div class="tags">
+            <span class="tag">Design</span>
+            <span class="tag">CAD</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ========== Tools & Software ========== -->
+    <section class="category-section">
+      <div class="category-header">
+        <div class="category-icon">🛠️</div>
+        <div class="category-meta">
+          <div class="category-title">Tools &amp; Software</div>
+          <div class="category-subtitle">工具软件 — 你需要安装的东西</div>
+        </div>
+        <span class="category-count">4 links</span>
+      </div>
+
+      <div class="resource-grid">
+
+        <a class="tech-card" href="https://www.onshape.com/en/education/" target="_blank">
+          <div class="card-logo">📐</div>
+          <h3>Onshape</h3>
+          <div class="chinese-name">在线 CAD</div>
+          <p class="desc">Cloud CAD — free for education. The dominant CAD tool for modern FRC teams.</p>
+          <div class="tags">
+            <span class="tag">CAD</span>
+            <span class="tag beginner">Beginner</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://github.com/Mechanical-Advantage/AdvantageScope" target="_blank">
+          <div class="card-logo">📡</div>
+          <h3>AdvantageScope</h3>
+          <div class="chinese-name">遥测可视化</div>
+          <p class="desc">Telemetry visualization, log replay, 3D field rendering. Essential for debugging.</p>
+          <div class="tags">
+            <span class="tag advanced">Advanced</span>
+            <span class="tag">Debug</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://store.ctr-electronics.com/software/" target="_blank">
+          <div class="card-logo">🎛️</div>
+          <h3>Phoenix Tuner X</h3>
+          <div class="chinese-name">CTRE 配置工具</div>
+          <p class="desc">Configure and tune CTRE motors. Required for any team using Falcon/Kraken.</p>
+          <div class="tags">
+            <span class="tag">Tools</span>
+            <span class="tag">Required</span>
+          </div>
+        </a>
+
+        <a class="tech-card" href="https://www.ni.com/en/support/downloads/drivers/download.frc-game-tools.html" target="_blank">
+          <div class="card-logo">🕹️</div>
+          <h3>FRC Driver Station</h3>
+          <div class="chinese-name">驾驶员控制台</div>
+          <p class="desc">Required software for connecting to and controlling the robot. Windows only.</p>
+          <div class="tags">
+            <span class="tag official">Official</span>
+            <span class="tag">Required</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <div class="callout">
+      <strong>💡 Pro tip</strong>
+      Bookmark Chief Delphi and WPILib Docs first — you'll visit them more than any other site this season.
+    </div>
+
+    <div class="callout todo">
+      <strong>TODO — community contributions welcome</strong>
+      Add direct links to: FRC China 官方网站, 微信群 invitation flow, recommended Bilibili channels, and 知乎 FRC topic feed. Submit PRs to add resources you've found valuable.
+    </div>
+
   </main>
 
   <footer>
-    <p>FRC Wiki CN · <a href="index.html">Back to home</a></p>
+    <p>FRC Wiki CN · <a href="index.html">Back to home</a> · Information Hub</p>
   </footer>
 
 </body>
