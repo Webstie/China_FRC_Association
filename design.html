@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intro to Design — FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html">代码 Code</a></li>
+        <li><a href="design.html" class="active">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>Intro to Design</h1>
+    <p class="chinese">机械设计入门 — CAD、传动系统、子系统</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>CAD Software CAD 软件</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="icon">🔧</div>
+          <h3>Onshape (推荐)</h3>
+          <p>云端 CAD — 浏览器即可使用，对教育用户免费，团队协作流畅。Most FRC teams now use Onshape.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🏗️</div>
+          <h3>SolidWorks</h3>
+          <p>Traditional FRC CAD tool. Powerful but Windows-only and licensing can be tricky in China.</p>
+        </div>
+        <div class="card">
+          <div class="icon">📐</div>
+          <h3>Fusion 360</h3>
+          <p>Autodesk 的轻量级 CAD，学生免费。An alternative for teams without Onshape access.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Drivetrain Options 传动系统</h2>
+      <p>选择合适的传动方案是赛季初最重要的设计决定之一。</p>
+
+      <ul class="resource-list">
+        <li>
+          <strong>Tank Drive 坦克底盘</strong>
+          <span class="desc">Simplest, cheapest, most reliable. Great for first-year teams. 最简单可靠，适合新队伍。</span>
+        </li>
+        <li>
+          <strong>West Coast Drive (WCD)</strong>
+          <span class="desc">Tank drive with dropped center wheel — improves turning. 经典进阶方案。</span>
+        </li>
+        <li>
+          <strong>Swerve Drive 全向轮</strong>
+          <span class="desc">Each wheel independently steers. Maximum maneuverability but complex and expensive. Lorem ipsum.</span>
+        </li>
+        <li>
+          <strong>Mecanum / H-Drive</strong>
+          <span class="desc">Less common in modern FRC. 现代 FRC 较少使用。</span>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Common Subsystems 常见子系统</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Subsystem 子系统</th>
+            <th>Purpose 作用</th>
+            <th>Common Approach 常见方案</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Intake 进料</td>
+            <td>Pick game pieces off the floor</td>
+            <td>Over-the-bumper roller intake</td>
+          </tr>
+          <tr>
+            <td>Elevator 升降</td>
+            <td>Lift mechanisms / scoring</td>
+            <td>Cascade or continuous elevator</td>
+          </tr>
+          <tr>
+            <td>Arm 机械臂</td>
+            <td>Reach scoring zones</td>
+            <td>Single-jointed or double-jointed</td>
+          </tr>
+          <tr>
+            <td>Shooter 发射器</td>
+            <td>Launch game pieces</td>
+            <td>Flywheel + hood + indexer</td>
+          </tr>
+          <tr>
+            <td>Climber 攀爬</td>
+            <td>Endgame chain/bar climb</td>
+            <td>Winch + telescoping arm — to be detailed</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Design Principles 设计原则</h2>
+      <ol style="margin-left: 20px; line-height: 2;">
+        <li><strong>KISS</strong> — Keep It Simple, Stupid. 简单方案往往更可靠。</li>
+        <li><strong>Iterate fast</strong> — Build a prototype before finalizing CAD. 先做原型再画图。</li>
+        <li><strong>Design for manufacture</strong> — Avoid features your team can't actually make.</li>
+        <li><strong>Bumper rules</strong> — Always design around the bumper-zone constraint.</li>
+        <li><strong>Weight budget</strong> — 125 lb limit. Track weight in your CAD assembly.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>References &amp; Inspiration 参考资料</h2>
+      <ul class="resource-list">
+        <li>
+          <a href="#" target="_blank">Open Alliance Builds</a>
+          <span class="desc">Top teams publish their CAD, code, and build logs publicly each season.</span>
+        </li>
+        <li>
+          <a href="#" target="_blank">Ri3D (Robot in 3 Days)</a>
+          <span class="desc">Demonstrates rapid prototyping approaches each kickoff weekend.</span>
+        </li>
+        <li>
+          <a href="#" target="_blank">FRC Design (frcdesign.org)</a>
+          <span class="desc">Curated design lessons — to be linked properly.</span>
+        </li>
+      </ul>
+
+      <div class="callout todo">
+        <strong>TODO</strong>
+        Add diagrams for each drivetrain type, photos of common subsystems,
+        and a downloadable CAD template for new teams.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="index.html">Back to home</a></p>
+  </footer>
+
+</body>
+</html>
