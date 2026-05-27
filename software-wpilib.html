@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WPILib VS Code - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="software-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html" class="active">代码 Code</a></li>
+        <li><a href="design.html">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html#software">Back to Required Software</a>
+      <p class="eyebrow">Programming Environment</p>
+      <h1>WPILib VS Code</h1>
+      <p>FRC Java / C++ / Python 队伍最先需要安装的编程环境：写代码、建项目、仿真、部署机器人，都从这里开始。</p>
+    </div>
+    <aside class="software-summary">
+      <span>Best for</span>
+      <strong>All programming laptops</strong>
+      <span>Install timing</span>
+      <strong>Before creating robot projects</strong>
+    </aside>
+  </header>
+
+  <main class="software-main">
+    <article class="software-article">
+      <section>
+        <h2>它有什么用</h2>
+        <p>
+          WPILib 是 FRC 官方生态里最核心的软件包。它把 VS Code、FRC 项目模板、构建工具、仿真、部署命令和常用机器人库整合到一起，
+          让队伍可以从同一个环境创建 robot project、写 subsystem 和 command、部署到 roboRIO。
+        </p>
+        <p>
+          对新队伍来说，WPILib VS Code 的价值不是“另一个编辑器”，而是把 FRC 需要的工具链预先配置好，
+          减少 Gradle、JDK、机器人 IP、部署命令这些初期最容易卡住的设置。
+        </p>
+      </section>
+
+      <section>
+        <h2>下载前确认</h2>
+        <div class="check-grid">
+          <div>
+            <strong>操作系统</strong>
+            <p>选择和电脑系统匹配的 Windows、macOS 或 Linux 安装包。</p>
+          </div>
+          <div>
+            <strong>赛季版本</strong>
+            <p>比赛机器人应使用当前赛季对应的 WPILib 版本，避免和 Driver Station、roboRIO image 不匹配。</p>
+          </div>
+          <div>
+            <strong>安装位置</strong>
+            <p>建议使用默认安装路径，减少队友之间环境差异。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>安装步骤</h2>
+        <ol class="article-steps">
+          <li>打开官方安装指南或 GitHub Releases，下载当前赛季的 WPILib installer。</li>
+          <li>关闭普通版 VS Code，运行安装器，安装类型选择 Everything 或默认推荐选项。</li>
+          <li>安装完成后打开 WPILib VS Code，而不是普通 VS Code。</li>
+          <li>用 WPILib 命令面板创建一个新 robot project，语言建议新队伍先选 Java。</li>
+          <li>连接 roboRIO 后运行 Deploy Robot Code，确认电脑能成功部署。</li>
+        </ol>
+      </section>
+
+      <section class="download-panel">
+        <div>
+          <p class="eyebrow">Official links</p>
+          <h2>下载与官方文档</h2>
+          <p>先看安装指南确认系统和版本，再进入 Releases 下载对应安装包。</p>
+        </div>
+        <div class="download-actions">
+          <a href="https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html" target="_blank" rel="noopener">Open install guide</a>
+          <a href="https://github.com/wpilibsuite/allwpilib/releases" target="_blank" rel="noopener">Download from GitHub</a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html#software">Back to Required Software</a></p>
+  </footer>
+
+</body>
+</html>

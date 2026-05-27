@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoenix Tuner X - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="software-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html" class="active">代码 Code</a></li>
+        <li><a href="design.html">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html#software">Back to Required Software</a>
+      <p class="eyebrow">CTRE Devices</p>
+      <h1>Phoenix Tuner X</h1>
+      <p>CTRE 硬件的配置与诊断工具，用于 Talon FX、Kraken、CANcoder、Pigeon 等设备的 firmware、CAN ID 和信号检查。</p>
+    </div>
+    <aside class="software-summary">
+      <span>Best for</span>
+      <strong>CTRE motor + sensor setup</strong>
+      <span>Common devices</span>
+      <strong>Talon FX / CANcoder</strong>
+    </aside>
+  </header>
+
+  <main class="software-main">
+    <article class="software-article">
+      <section>
+        <h2>它有什么用</h2>
+        <p>
+          Phoenix Tuner X 是 CTRE Phoenix 6 生态的配置工具。它可以发现 CAN bus 上的 CTRE 设备，更新 firmware，设置 CAN ID，
+          查看设备状态和 faults，并帮助你确认电机控制器、编码器和陀螺仪是否正常工作。
+        </p>
+        <p>
+          如果你的机器人使用 Talon FX、Kraken X60、CANcoder 或 Pigeon，Phoenix Tuner X 应该和 WPILib 一样尽早安装。
+          这样机械、电控、程序调试时可以快速定位问题来自 wiring、firmware、CAN ID 还是代码。
+        </p>
+      </section>
+
+      <section>
+        <h2>下载前确认</h2>
+        <div class="check-grid">
+          <div>
+            <strong>连接方式</strong>
+            <p>常见方式是通过 roboRIO CAN 网络、CANivore 或 USB-CAN 设备发现硬件。</p>
+          </div>
+          <div>
+            <strong>Phoenix 版本</strong>
+            <p>机器人代码里的 Phoenix library、设备 firmware 和 Tuner X 版本应尽量保持同一赛季范围。</p>
+          </div>
+          <div>
+            <strong>CAN ID 规划</strong>
+            <p>更新前先规划 ID，避免 drivetrain、swerve module 或 sensor 出现重复 CAN ID。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>安装步骤</h2>
+        <ol class="article-steps">
+          <li>打开 CTRE 官方 Phoenix Tuner X 文档，根据系统选择安装方式。</li>
+          <li>安装完成后启动 Tuner X，连接机器人或 CTRE 设备所在的 CAN 网络。</li>
+          <li>扫描设备，确认所有 Talon FX、CANcoder、Pigeon 等设备都能被发现。</li>
+          <li>更新 firmware，设置 CAN ID，并清除旧 faults 后重新上电检查。</li>
+          <li>把最终 CAN ID 写入机器人代码常量表，提交到队伍代码库。</li>
+        </ol>
+      </section>
+
+      <section class="download-panel">
+        <div>
+          <p class="eyebrow">Official link</p>
+          <h2>下载与官方文档</h2>
+          <p>CTRE 官方文档会说明 Phoenix Tuner X 的安装方式、平台支持和 Phoenix 6 工作流。</p>
+        </div>
+        <div class="download-actions">
+          <a href="https://v6.docs.ctr-electronics.com/en/latest/docs/tuner/index.html" target="_blank" rel="noopener">Open Phoenix Tuner X docs</a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html#software">Back to Required Software</a></p>
+  </footer>
+
+</body>
+</html>

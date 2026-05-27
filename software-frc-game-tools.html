@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRC Game Tools - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="software-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html" class="active">代码 Code</a></li>
+        <li><a href="design.html">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html#software">Back to Required Software</a>
+      <p class="eyebrow">Driver Station</p>
+      <h1>FRC Game Tools</h1>
+      <p>比赛笔记本必备的 NI 工具包，包含 Driver Station 和 roboRIO 配置工具，用来连接、启用和管理机器人。</p>
+    </div>
+    <aside class="software-summary">
+      <span>Best for</span>
+      <strong>Driver station laptop</strong>
+      <span>Platform</span>
+      <strong>Windows</strong>
+    </aside>
+  </header>
+
+  <main class="software-main">
+    <article class="software-article">
+      <section>
+        <h2>它有什么用</h2>
+        <p>
+          FRC Game Tools 是驾驶站电脑上的核心软件。Driver Station 负责显示机器人连接状态、电池电压、模式切换、Joystick 输入和 field communication 状态。
+          没有它，队伍无法像比赛现场一样 enable 机器人，也很难排查通信问题。
+        </p>
+        <p>
+          它还提供 roboRIO imaging / configuration 相关工具，常用于给 roboRIO 写入赛季 image、设置队号和更新底层系统。
+        </p>
+      </section>
+
+      <section>
+        <h2>下载前确认</h2>
+        <div class="check-grid">
+          <div>
+            <strong>电脑类型</strong>
+            <p>优先安装在正式 Driver Station 笔记本上，开发电脑也可以装一份用于测试。</p>
+          </div>
+          <div>
+            <strong>Windows 环境</strong>
+            <p>FRC Game Tools 主要面向 Windows 驾驶站电脑，比赛现场也通常使用 Windows Driver Station。</p>
+          </div>
+          <div>
+            <strong>队号信息</strong>
+            <p>安装后在 Driver Station 中设置正确 team number，否则无法按 FRC 网络规则连接机器人。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>安装步骤</h2>
+        <ol class="article-steps">
+          <li>进入 NI 官方下载页，选择当前赛季的 FRC Game Tools。</li>
+          <li>下载在线安装器或离线安装包，按 NI 安装器提示完成安装。</li>
+          <li>安装完成后重启电脑，打开 FRC Driver Station。</li>
+          <li>在 Setup 页面填写队号，连接机器人 radio 或 USB。</li>
+          <li>使用 roboRIO Imaging Tool 检查 roboRIO image 和 team number 是否正确。</li>
+        </ol>
+      </section>
+
+      <section class="download-panel">
+        <div>
+          <p class="eyebrow">Official link</p>
+          <h2>下载入口</h2>
+          <p>NI 官方页面会提供当前可用版本、安装包和系统支持说明。</p>
+        </div>
+        <div class="download-actions">
+          <a href="https://www.ni.com/en/support/downloads/drivers/download.frc-game-tools.html" target="_blank" rel="noopener">Open NI download page</a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html#software">Back to Required Software</a></p>
+  </footer>
+
+</body>
+</html>
