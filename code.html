@@ -24,126 +24,160 @@
   </nav>
 
   <header class="code-hero">
-    <div class="code-hero-content">
-      <p class="eyebrow">FRC Robot Programming</p>
-      <h1>Intro to Code</h1>
-      <p class="hero-copy">从 WPILib 环境搭建到 Command-Based 架构，用一条清晰路线进入机器人编程。</p>
-      <div class="hero-actions">
-        <a href="#learning-path" class="primary-action">Start learning</a>
-        <a href="#software" class="secondary-action">Required tools</a>
+    <span class="code-hero-eyebrow">◆ Robot Programming ◆</span>
+    <h1>Intro to Code</h1>
+    <p class="code-chinese-title">FRC 机器人编程入门</p>
+    <p class="code-tagline">
+      A focused path from WPILib setup to command-based robot code, tuned for Chinese FRC teams getting ready for their first reliable deploy.
+    </p>
+
+    <div class="code-stats-row">
+      <div class="code-stat">
+        <span class="code-stat-number">3</span>
+        <div class="code-stat-label">Languages 语言</div>
       </div>
-    </div>
-    <div class="code-console" aria-label="Robot status preview">
-      <div class="console-bar">
-        <span></span>
-        <span></span>
-        <span></span>
+      <div class="code-stat">
+        <span class="code-stat-number">4</span>
+        <div class="code-stat-label">Tools 工具</div>
       </div>
-      <pre><code>robotInit();
-drivetrain.zeroGyro();
-chooser.setDefaultOption("Taxi", taxiAuto);
-DriverStation.reportWarning("Robot ready", false);</code></pre>
-      <div class="console-status">
-        <span>RIO Connected</span>
-        <strong>Enabled</strong>
+      <div class="code-stat">
+        <span class="code-stat-number">5</span>
+        <div class="code-stat-label">Steps 路线</div>
+      </div>
+      <div class="code-stat">
+        <span class="code-stat-number">RIO</span>
+        <div class="code-stat-label">Deploy Ready</div>
       </div>
     </div>
   </header>
 
   <main class="code-main">
-    <section class="intro-panel">
+    <section class="code-featured-block">
       <div>
+        <span class="code-featured-badge">Start Here</span>
         <h2>Getting Started 入门</h2>
+        <div class="code-featured-subtitle">WPILib + Command-Based 是 FRC 编程的主线</div>
         <p>
-          FRC robots are programmed with <strong>WPILib</strong>, a robotics library maintained by WPI and the FIRST community.
-          It supports Java, C++, and Python, and provides templates, simulation tools, drivetrain helpers, and deployment tools.
+          FRC robots are programmed with WPILib, a robotics library maintained by WPI and the FIRST community.
+          It supports Java, C++, and Python, and includes project templates, simulation tools, drivetrain helpers, and deploy commands.
         </p>
         <p>
-          对新队伍来说，建议从 <strong>Java</strong> 开始。它的官方文档最完整、示例最多，也最容易在比赛季找到社区答案。
+          对新队伍来说，建议从 Java 开始。它的官方文档最完整、示例最多，也最容易在比赛季找到社区答案。
         </p>
       </div>
-      <aside class="quick-facts">
-        <div>
-          <span>Recommended</span>
-          <strong>Java</strong>
-        </div>
-        <div>
-          <span>Framework</span>
-          <strong>Command-Based</strong>
-        </div>
-        <div>
-          <span>First Goal</span>
-          <strong>Drive + Deploy</strong>
-        </div>
-      </aside>
+      <a href="#software" class="code-featured-cta">Open Toolchain</a>
     </section>
 
-    <section>
-      <div class="section-heading">
-        <p class="eyebrow">Pick a language</p>
-        <h2>Choosing a Language 选择语言</h2>
+    <section class="code-category-section">
+      <div class="code-category-header">
+        <div class="code-category-icon">{ }</div>
+        <div class="code-category-meta">
+          <div class="code-category-title">Choosing a Language</div>
+          <div class="code-category-subtitle">选择语言 — pick the path your team can maintain all season</div>
+        </div>
+        <span class="code-category-count">3 options</span>
       </div>
-      <div class="language-grid">
-        <article class="language-card featured">
-          <span class="language-mark">01</span>
+
+      <div class="code-resource-grid">
+        <article class="code-tech-card code-tech-card-featured">
+          <div class="code-card-logo">J</div>
           <h3>Java</h3>
-          <p class="tag">推荐新队伍使用</p>
-          <p>Most popular in FRC, with the strongest WPILib documentation and the most reusable team examples.</p>
+          <div class="code-chinese-name">推荐新队伍使用</div>
+          <p class="code-desc">Most popular in FRC, with the strongest WPILib documentation and the most reusable team examples.</p>
+          <div class="code-tags">
+            <span class="code-tag beginner">Beginner</span>
+            <span class="code-tag official">Recommended</span>
+          </div>
         </article>
-        <article class="language-card">
-          <span class="language-mark">02</span>
+
+        <article class="code-tech-card">
+          <div class="code-card-logo">C++</div>
           <h3>C++</h3>
-          <p class="tag">适合有经验的程序组</p>
-          <p>Fast and powerful, but the syntax and memory model make it less friendly for a first robot season.</p>
+          <div class="code-chinese-name">适合有经验的程序组</div>
+          <p class="code-desc">Fast and powerful, but syntax, build details, and debugging make it less friendly for a first robot season.</p>
+          <div class="code-tags">
+            <span class="code-tag advanced">Advanced</span>
+            <span class="code-tag">Performance</span>
+          </div>
         </article>
-        <article class="language-card">
-          <span class="language-mark">03</span>
+
+        <article class="code-tech-card">
+          <div class="code-card-logo">Py</div>
           <h3>Python / RobotPy</h3>
-          <p class="tag">适合教学和快速实验</p>
-          <p>Readable syntax and quick iteration, with a smaller but active community around RobotPy.</p>
+          <div class="code-chinese-name">适合教学和快速实验</div>
+          <p class="code-desc">Readable syntax and quick iteration, with a smaller but active community around RobotPy.</p>
+          <div class="code-tags">
+            <span class="code-tag beginner">Teaching</span>
+            <span class="code-tag">RobotPy</span>
+          </div>
         </article>
       </div>
     </section>
 
-    <section id="software">
-      <div class="section-heading">
-        <p class="eyebrow">Toolchain</p>
-        <h2>Required Software 必备软件</h2>
+    <section id="software" class="code-category-section">
+      <div class="code-category-header">
+        <div class="code-category-icon">CLI</div>
+        <div class="code-category-meta">
+          <div class="code-category-title">Required Software</div>
+          <div class="code-category-subtitle">必备软件 — local setup guides before jumping to official downloads</div>
+        </div>
+        <span class="code-category-count">4 guides</span>
       </div>
-      <div class="tool-list">
-        <a class="tool-item" href="software-wpilib.html">
-          <span>WPILib VS Code</span>
-          <strong>Install first</strong>
-          <p>Pre-configured VS Code with WPILib extensions, templates, simulation, and deploy commands.</p>
-          <em>Read setup guide</em>
+
+      <div class="code-resource-grid">
+        <a class="code-tech-card" href="software-wpilib.html">
+          <div class="code-card-logo">WP</div>
+          <h3>WPILib VS Code</h3>
+          <div class="code-chinese-name">Install first</div>
+          <p class="code-desc">Pre-configured VS Code with WPILib extensions, templates, simulation, and deploy commands.</p>
+          <div class="code-tags">
+            <span class="code-tag official">Official</span>
+            <span class="code-tag beginner">Essential</span>
+          </div>
         </a>
-        <a class="tool-item" href="software-frc-game-tools.html">
-          <span>FRC Game Tools</span>
-          <strong>Driver Station</strong>
-          <p>Driver Station and roboRIO imaging tool for Windows competition laptops.</p>
-          <em>Read setup guide</em>
+
+        <a class="code-tech-card" href="software-frc-game-tools.html">
+          <div class="code-card-logo">DS</div>
+          <h3>FRC Game Tools</h3>
+          <div class="code-chinese-name">Driver Station</div>
+          <p class="code-desc">Driver Station and roboRIO imaging tool for Windows competition laptops.</p>
+          <div class="code-tags">
+            <span class="code-tag official">NI</span>
+            <span class="code-tag">roboRIO</span>
+          </div>
         </a>
-        <a class="tool-item" href="software-rev-hardware-client.html">
-          <span>REV Hardware Client</span>
-          <strong>Firmware + CAN</strong>
-          <p>Update and configure SPARK MAX, SPARK Flex, PDH, PH, and other REV devices.</p>
-          <em>Read setup guide</em>
+
+        <a class="code-tech-card" href="software-rev-hardware-client.html">
+          <div class="code-card-logo">REV</div>
+          <h3>REV Hardware Client</h3>
+          <div class="code-chinese-name">Firmware + CAN</div>
+          <p class="code-desc">Update and configure SPARK MAX, SPARK Flex, PDH, PH, and other REV devices.</p>
+          <div class="code-tags">
+            <span class="code-tag">Motors</span>
+            <span class="code-tag">CAN</span>
+          </div>
         </a>
-        <a class="tool-item" href="software-phoenix-tuner-x.html">
-          <span>Phoenix Tuner X</span>
-          <strong>CTRE devices</strong>
-          <p>Configure Talon FX, Kraken, CANcoder, Pigeon, and other CTRE hardware.</p>
-          <em>Read setup guide</em>
+
+        <a class="code-tech-card" href="software-phoenix-tuner-x.html">
+          <div class="code-card-logo">PX</div>
+          <h3>Phoenix Tuner X</h3>
+          <div class="code-chinese-name">CTRE devices</div>
+          <p class="code-desc">Configure Talon FX, Kraken, CANcoder, Pigeon, and other CTRE hardware.</p>
+          <div class="code-tags">
+            <span class="code-tag">CTRE</span>
+            <span class="code-tag advanced">Tuning</span>
+          </div>
         </a>
       </div>
     </section>
 
-    <section class="code-sample-section">
+    <section class="code-featured-block code-sample-block">
       <div>
-        <p class="eyebrow">First deploy</p>
+        <span class="code-featured-badge">First Deploy</span>
         <h2>Hello, Robot 你的第一段代码</h2>
+        <div class="code-featured-subtitle">Start tiny, then move behavior into subsystems and commands.</div>
         <p>
-          Start with a tiny robot program, then move behavior into subsystems and commands as the robot grows.
+          Your first goal is not a perfect architecture. It is a working deploy, a controller input, and a drivetrain that responds predictably.
         </p>
       </div>
       <pre class="code-window"><code>public class Robot extends TimedRobot {
@@ -162,60 +196,56 @@ DriverStation.reportWarning("Robot ready", false);</code></pre>
 }</code></pre>
     </section>
 
-    <section id="learning-path">
-      <div class="section-heading">
-        <p class="eyebrow">Roadmap</p>
-        <h2>Recommended Learning Path 学习路径</h2>
+    <section id="learning-path" class="code-category-section">
+      <div class="code-category-header">
+        <div class="code-category-icon">01</div>
+        <div class="code-category-meta">
+          <div class="code-category-title">Recommended Learning Path</div>
+          <div class="code-category-subtitle">学习路径 — build confidence one deploy at a time</div>
+        </div>
+        <span class="code-category-count">5 steps</span>
       </div>
-      <ol class="timeline-list">
+
+      <ol class="code-path-grid">
         <li>
-          <span>1</span>
-          <div>
-            <h3>Install and deploy</h3>
-            <p>Install WPILib VS Code, create a template project, connect to the roboRIO, and deploy successfully.</p>
-          </div>
+          <span>01</span>
+          <h3>Install and deploy</h3>
+          <p>Install WPILib VS Code, create a template project, connect to the roboRIO, and deploy successfully.</p>
         </li>
         <li>
-          <span>2</span>
-          <div>
-            <h3>Read Zero to Robot</h3>
-            <p>Follow the official WPILib Zero to Robot guide and understand robot modes, build files, and vendor libraries.</p>
-          </div>
+          <span>02</span>
+          <h3>Read Zero to Robot</h3>
+          <p>Follow the official WPILib guide and understand robot modes, build files, and vendor libraries.</p>
         </li>
         <li>
-          <span>3</span>
-          <div>
-            <h3>Use Command-Based</h3>
-            <p>Create subsystems for drivetrain, intake, shooter, and elevator, then bind controller buttons to commands.</p>
-          </div>
+          <span>03</span>
+          <h3>Use Command-Based</h3>
+          <p>Create subsystems for drivetrain, intake, shooter, and elevator, then bind controller buttons to commands.</p>
         </li>
         <li>
-          <span>4</span>
-          <div>
-            <h3>Add control loops</h3>
-            <p>Learn PID, feedforward, sensors, and basic telemetry so mechanisms move predictably.</p>
-          </div>
+          <span>04</span>
+          <h3>Add control loops</h3>
+          <p>Learn PID, feedforward, sensors, and basic telemetry so mechanisms move predictably.</p>
         </li>
         <li>
-          <span>5</span>
-          <div>
-            <h3>Build autonomous</h3>
-            <p>Move into odometry, PathPlanner or Choreo, AprilTags, and autonomous routine design.</p>
-          </div>
+          <span>05</span>
+          <h3>Build autonomous</h3>
+          <p>Move into odometry, PathPlanner or Choreo, AprilTags, and autonomous routine design.</p>
         </li>
       </ol>
     </section>
 
-    <section class="advanced-panel">
-      <div>
-        <p class="eyebrow">Next topics</p>
-        <h2>Vision & Advanced Topics 进阶</h2>
-        <p>
-          After the robot can drive reliably, explore PhotonVision, Limelight, AprilTags, swerve drive kinematics,
-          path planning, logging, and autonomous strategy.
-        </p>
+    <section class="code-category-section">
+      <div class="code-category-header">
+        <div class="code-category-icon">AI</div>
+        <div class="code-category-meta">
+          <div class="code-category-title">Vision & Advanced Topics</div>
+          <div class="code-category-subtitle">进阶主题 — useful after the robot drives reliably</div>
+        </div>
+        <span class="code-category-count">6 topics</span>
       </div>
-      <div class="topic-tags">
+
+      <div class="code-topic-tags">
         <span>PhotonVision</span>
         <span>Limelight</span>
         <span>AprilTags</span>
