@@ -12,92 +12,95 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
       <ul class="nav-links">
-        <li><a href="index.html">主页</a></li>
-        <li><a href="info.html">信息</a></li>
-        <li><a href="shopping.html">购物</a></li>
-        <li><a href="code.html" class="active">代码</a></li>
-        <li><a href="design.html">设计</a></li>
-        <li><a href="calendar.html">日历</a></li>
-        <li><a href="registration.html">注册</a></li>
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
       </ul>
     </div>
   </nav>
 
   <header class="software-hero">
     <div>
-      <a class="back-link" href="code.html#software">返回必备软件</a>
-      <p class="eyebrow">编程环境</p>
+      <a class="back-link" href="code.html#software" data-en="Back to Required Software">返回必备软件</a>
+      <p class="eyebrow" data-en="Programming Environment">编程环境</p>
       <h1>WPILib VS Code</h1>
-      <p>FRC Java / C++ / Python 队伍最先需要安装的编程环境：写代码、建项目、仿真、部署机器人，都从这里开始。</p>
+      <p data-en="The first programming environment FRC Java / C++ / Python teams should install: code, project creation, simulation, and robot deploys all start here.">FRC Java / C++ / Python 队伍最先需要安装的编程环境：写代码、建项目、仿真、部署机器人，都从这里开始。</p>
     </div>
     <aside class="software-summary">
-      <span>适合安装在</span>
-      <strong>所有编程电脑</strong>
-      <span>安装时机</span>
-      <strong>创建机器人项目之前</strong>
+      <span data-en="Best for">适合安装在</span>
+      <strong data-en="All programming laptops">所有编程电脑</strong>
+      <span data-en="Install timing">安装时机</span>
+      <strong data-en="Before creating robot projects">创建机器人项目之前</strong>
     </aside>
   </header>
 
   <main class="software-main">
     <article class="software-article">
       <section>
-        <h2>它有什么用</h2>
-        <p>
+        <h2 data-en="What it does">它有什么用</h2>
+        <p data-en="WPILib is the core software package in the official FRC ecosystem. It combines VS Code, FRC project templates, build tools, simulation, deploy commands, and common robot libraries so teams can create robot projects, write subsystems and commands, and deploy to the roboRIO from one environment.">
           WPILib 是 FRC 官方生态里最核心的软件包。它把 VS Code、FRC 项目模板、构建工具、仿真、部署命令和常用机器人库整合到一起，
           让队伍可以从同一个环境创建机器人项目、编写 subsystem 和 command，并部署到 roboRIO。
         </p>
-        <p>
+        <p data-en="For new teams, WPILib VS Code is not just another editor. It preconfigures the FRC toolchain and reduces early setup friction around Gradle, JDK, robot IPs, and deploy commands.">
           对新队伍来说，WPILib VS Code 的价值不是“另一个编辑器”，而是把 FRC 需要的工具链预先配置好，
           减少 Gradle、JDK、机器人 IP、部署命令这些初期最容易卡住的设置。
         </p>
       </section>
 
       <section>
-        <h2>下载前确认</h2>
+        <h2 data-en="Before downloading">下载前确认</h2>
         <div class="check-grid">
           <div>
-            <strong>操作系统</strong>
-            <p>选择和电脑系统匹配的 Windows、macOS 或 Linux 安装包。</p>
+            <strong data-en="Operating system">操作系统</strong>
+            <p data-en="Choose the Windows, macOS, or Linux installer that matches your computer.">选择和电脑系统匹配的 Windows、macOS 或 Linux 安装包。</p>
           </div>
           <div>
-            <strong>赛季版本</strong>
-            <p>比赛机器人应使用当前赛季对应的 WPILib 版本，避免和 Driver Station、roboRIO image 不匹配。</p>
+            <strong data-en="Season version">赛季版本</strong>
+            <p data-en="Competition robots should use the WPILib version for the current season to avoid mismatches with Driver Station and the roboRIO image.">比赛机器人应使用当前赛季对应的 WPILib 版本，避免和 Driver Station、roboRIO image 不匹配。</p>
           </div>
           <div>
-            <strong>安装位置</strong>
-            <p>建议使用默认安装路径，减少队友之间环境差异。</p>
+            <strong data-en="Install location">安装位置</strong>
+            <p data-en="Use the default install location when possible to reduce environment differences between teammates.">建议使用默认安装路径，减少队友之间环境差异。</p>
           </div>
         </div>
       </section>
 
       <section>
-        <h2>安装步骤</h2>
+        <h2 data-en="Install steps">安装步骤</h2>
         <ol class="article-steps">
-          <li>打开官方安装指南或 GitHub Releases，下载当前赛季的 WPILib 安装器。</li>
-          <li>关闭普通版 VS Code，运行安装器，安装类型选择 Everything 或默认推荐选项。</li>
-          <li>安装完成后打开 WPILib VS Code，而不是普通 VS Code。</li>
-          <li>用 WPILib 命令面板创建一个新的机器人项目，语言建议新队伍先选 Java。</li>
-          <li>连接 roboRIO 后运行 Deploy Robot Code，确认电脑能成功部署代码。</li>
+          <li data-en="Open the official install guide or GitHub Releases, then download the current season WPILib installer.">打开官方安装指南或 GitHub Releases，下载当前赛季的 WPILib 安装器。</li>
+          <li data-en="Close regular VS Code, run the installer, and choose Everything or the recommended default options.">关闭普通版 VS Code，运行安装器，安装类型选择 Everything 或默认推荐选项。</li>
+          <li data-en="After installation, open WPILib VS Code instead of regular VS Code.">安装完成后打开 WPILib VS Code，而不是普通 VS Code。</li>
+          <li data-en="Create a new robot project from the WPILib command palette. New teams should usually start with Java.">用 WPILib 命令面板创建一个新的机器人项目，语言建议新队伍先选 Java。</li>
+          <li data-en="Connect to the roboRIO and run Deploy Robot Code to confirm the laptop can deploy successfully.">连接 roboRIO 后运行 Deploy Robot Code，确认电脑能成功部署代码。</li>
         </ol>
       </section>
 
       <section class="download-panel">
         <div>
-          <p class="eyebrow">官方链接</p>
-          <h2>下载与官方文档</h2>
-          <p>先看安装指南确认系统和版本，再进入 Releases 下载对应安装包。</p>
+          <p class="eyebrow" data-en="Official links">官方链接</p>
+          <h2 data-en="Downloads and official docs">下载与官方文档</h2>
+          <p data-en="Read the install guide first to confirm system and version, then open Releases to download the matching installer.">先看安装指南确认系统和版本，再进入 Releases 下载对应安装包。</p>
         </div>
         <div class="download-actions">
-          <a href="https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html">打开安装指南</a>
-          <a href="https://github.com/wpilibsuite/allwpilib/releases">从 GitHub 下载</a>
+          <a href="https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html" data-en="Open install guide">打开安装指南</a>
+          <a href="https://github.com/wpilibsuite/allwpilib/releases" data-en="Download from GitHub">从 GitHub 下载</a>
         </div>
       </section>
     </article>
   </main>
 
   <footer>
-    <p>FRC Wiki CN · <a href="code.html#software">返回必备软件</a></p>
+    <p>FRC Wiki CN · <a href="code.html#software" data-en="Back to Required Software">返回必备软件</a></p>
   </footer>
+
+  <script src="language-toggle.js"></script>
 
 </body>
 </html>

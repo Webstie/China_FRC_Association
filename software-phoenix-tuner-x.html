@@ -12,28 +12,29 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
       <ul class="nav-links">
-        <li><a href="index.html">主页</a></li>
-        <li><a href="info.html">信息</a></li>
-        <li><a href="shopping.html">购物</a></li>
-        <li><a href="code.html" class="active">代码</a></li>
-        <li><a href="design.html">设计</a></li>
-        <li><a href="calendar.html">日历</a></li>
-        <li><a href="registration.html">注册</a></li>
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
       </ul>
     </div>
   </nav>
 
   <header class="software-hero">
     <div>
-      <a class="back-link" href="code.html#software">返回必备软件</a>
-      <p class="eyebrow">CTRE 设备</p>
+      <a class="back-link" href="code.html#software" data-en="Back to Required Software">返回必备软件</a>
+      <p class="eyebrow" data-en="CTRE Devices">CTRE 设备</p>
       <h1>Phoenix Tuner X</h1>
-      <p>CTRE 硬件的配置与诊断工具，用于 Talon FX、Kraken、CANcoder、Pigeon 等设备的固件、CAN ID 和信号检查。</p>
+      <p data-en="A CTRE hardware configuration and diagnostics tool for firmware, CAN ID, and signal checks on Talon FX, Kraken, CANcoder, Pigeon, and other devices.">CTRE 硬件的配置与诊断工具，用于 Talon FX、Kraken、CANcoder、Pigeon 等设备的固件、CAN ID 和信号检查。</p>
     </div>
     <aside class="software-summary">
-      <span>适合用途</span>
-      <strong>CTRE 电机与传感器配置</strong>
-      <span>常见设备</span>
+      <span data-en="Best for">适合用途</span>
+      <strong data-en="CTRE motor and sensor setup">CTRE 电机与传感器配置</strong>
+      <span data-en="Common devices">常见设备</span>
       <strong>Talon FX / CANcoder</strong>
     </aside>
   </header>
@@ -41,78 +42,80 @@
   <main class="software-main">
     <article class="software-article">
       <section>
-        <h2>它有什么用</h2>
-        <p>
+        <h2 data-en="What it does">它有什么用</h2>
+        <p data-en="Phoenix Tuner X is the configuration tool for the CTRE Phoenix 6 ecosystem. It can discover CTRE devices on the CAN bus, update firmware, set CAN IDs, view device status and faults, and help confirm that motor controllers, encoders, and gyros work correctly.">
           Phoenix Tuner X 是 CTRE Phoenix 6 生态的配置工具。它可以发现 CAN bus 上的 CTRE 设备，更新固件，设置 CAN ID，
           查看设备状态和故障信息，并帮助你确认电机控制器、编码器和陀螺仪是否正常工作。
         </p>
-        <p>
+        <p data-en="If your robot uses Talon FX, Kraken X60, CANcoder, or Pigeon, Phoenix Tuner X should be installed as early as WPILib. It helps mechanical, electrical, and programming work quickly identify whether problems come from wiring, firmware, CAN IDs, or code.">
           如果你的机器人使用 Talon FX、Kraken X60、CANcoder 或 Pigeon，Phoenix Tuner X 应该和 WPILib 一样尽早安装。
           这样机械、电控、程序调试时可以快速定位问题来自接线、固件、CAN ID 还是代码。
         </p>
       </section>
 
       <section>
-        <h2>下载前确认</h2>
+        <h2 data-en="Before downloading">下载前确认</h2>
         <div class="check-grid">
           <div>
-            <strong>连接方式</strong>
-            <p>常见方式是通过 roboRIO CAN 网络、CANivore 或 USB-CAN 设备发现硬件。</p>
+            <strong data-en="Connection method">连接方式</strong>
+            <p data-en="Common options include discovering hardware through the roboRIO CAN network, CANivore, or a USB-CAN device.">常见方式是通过 roboRIO CAN 网络、CANivore 或 USB-CAN 设备发现硬件。</p>
           </div>
           <div>
-            <strong>Phoenix 版本</strong>
-            <p>机器人代码里的 Phoenix library、设备固件和 Tuner X 版本应尽量保持同一赛季范围。</p>
+            <strong data-en="Phoenix version">Phoenix 版本</strong>
+            <p data-en="The Phoenix library in robot code, device firmware, and Tuner X should stay within the same season range when possible.">机器人代码里的 Phoenix library、设备固件和 Tuner X 版本应尽量保持同一赛季范围。</p>
           </div>
           <div>
-            <strong>CAN ID 规划</strong>
-            <p>更新前先规划 ID，避免 drivetrain、swerve module 或 sensor 出现重复 CAN ID。</p>
+            <strong data-en="CAN ID plan">CAN ID 规划</strong>
+            <p data-en="Plan IDs before updating to avoid duplicate CAN IDs in drivetrain, swerve modules, or sensors.">更新前先规划 ID，避免 drivetrain、swerve module 或 sensor 出现重复 CAN ID。</p>
           </div>
         </div>
       </section>
 
       <section>
-        <h2>安装步骤</h2>
+        <h2 data-en="Install steps">安装步骤</h2>
         <ol class="article-steps">
-          <li>打开 CTRE 官方 Phoenix Tuner X 文档，根据系统选择安装方式。</li>
-          <li>安装完成后启动 Tuner X，连接机器人或 CTRE 设备所在的 CAN 网络。</li>
-          <li>扫描设备，确认所有 Talon FX、CANcoder、Pigeon 等设备都能被发现。</li>
-          <li>更新固件，设置 CAN ID，并清除旧故障信息后重新上电检查。</li>
-          <li>把最终 CAN ID 写入机器人代码常量表，提交到队伍代码库。</li>
+          <li data-en="Open the CTRE official Phoenix Tuner X docs and choose the install method for your system.">打开 CTRE 官方 Phoenix Tuner X 文档，根据系统选择安装方式。</li>
+          <li data-en="After installation, launch Tuner X and connect to the robot or the CAN network containing CTRE devices.">安装完成后启动 Tuner X，连接机器人或 CTRE 设备所在的 CAN 网络。</li>
+          <li data-en="Scan devices and confirm all Talon FX, CANcoder, Pigeon, and other devices appear.">扫描设备，确认所有 Talon FX、CANcoder、Pigeon 等设备都能被发现。</li>
+          <li data-en="Update firmware, set CAN IDs, clear old faults, then power cycle and check again.">更新固件，设置 CAN ID，并清除旧故障信息后重新上电检查。</li>
+          <li data-en="Write final CAN IDs into robot code constants and commit them to the team repository.">把最终 CAN ID 写入机器人代码常量表，提交到队伍代码库。</li>
         </ol>
       </section>
 
       <section>
-        <h2>Windows 应用商店安装</h2>
-        <p>
+        <h2 data-en="Install from Microsoft Store on Windows">Windows 应用商店安装</h2>
+        <p data-en="Windows 10 1903 or later and Windows 11 can install Phoenix Tuner X directly from Microsoft Store. This is ideal for Driver Station or programming laptops because Store handles installation and later updates.">
           Windows 10 1903 及以上版本和 Windows 11 可以直接通过 Microsoft Store 安装 Phoenix Tuner X。
           这种方式最适合 Driver Station 或程序组电脑，因为 Store 会负责安装和后续更新。
         </p>
         <ol class="article-steps">
-          <li>点击下方的 Microsoft Store 下载按钮，打开 Phoenix Tuner X 商店页面。</li>
-          <li>在浏览器页面中选择 Get 或 Open in Microsoft Store。</li>
-          <li>Microsoft Store 打开后点击 Get / Install，等待安装完成。</li>
-          <li>安装完成后从开始菜单搜索 Phoenix Tuner X 并启动。</li>
-          <li>如果商店页面无法打开，可以在 Microsoft Store 里搜索 Phoenix Tuner X，确认发布者为 CTR Electronics。</li>
+          <li data-en="Click the Microsoft Store download button below to open the Phoenix Tuner X store page.">点击下方的 Microsoft Store 下载按钮，打开 Phoenix Tuner X 商店页面。</li>
+          <li data-en="In the browser page, choose Get or Open in Microsoft Store.">在浏览器页面中选择 Get 或 Open in Microsoft Store。</li>
+          <li data-en="After Microsoft Store opens, click Get / Install and wait for installation to finish.">Microsoft Store 打开后点击 Get / Install，等待安装完成。</li>
+          <li data-en="After installation, search Phoenix Tuner X from the Start menu and launch it.">安装完成后从开始菜单搜索 Phoenix Tuner X 并启动。</li>
+          <li data-en="If the store page cannot open, search Phoenix Tuner X in Microsoft Store and confirm the publisher is CTR Electronics.">如果商店页面无法打开，可以在 Microsoft Store 里搜索 Phoenix Tuner X，确认发布者为 CTR Electronics。</li>
         </ol>
       </section>
 
       <section class="download-panel">
         <div>
-          <p class="eyebrow">官方链接</p>
-          <h2>下载与官方文档</h2>
-          <p>Windows 用户可以优先使用 Microsoft Store；CTRE 官方文档会说明平台支持和 Phoenix 6 工作流。</p>
+          <p class="eyebrow" data-en="Official links">官方链接</p>
+          <h2 data-en="Downloads and official docs">下载与官方文档</h2>
+          <p data-en="Windows users can prefer Microsoft Store; CTRE official docs explain platform support and the Phoenix 6 workflow.">Windows 用户可以优先使用 Microsoft Store；CTRE 官方文档会说明平台支持和 Phoenix 6 工作流。</p>
         </div>
         <div class="download-actions">
-          <a href="https://apps.microsoft.com/detail/9nvv4pwdw27z?hl=en-US&gl=US">从 Microsoft Store 下载</a>
-          <a href="https://v6.docs.ctr-electronics.com/en/latest/docs/tuner/index.html">打开 Phoenix Tuner X 文档</a>
+          <a href="https://apps.microsoft.com/detail/9nvv4pwdw27z?hl=en-US&gl=US" data-en="Download from Microsoft Store">从 Microsoft Store 下载</a>
+          <a href="https://v6.docs.ctr-electronics.com/en/latest/docs/tuner/index.html" data-en="Open Phoenix Tuner X docs">打开 Phoenix Tuner X 文档</a>
         </div>
       </section>
     </article>
   </main>
 
   <footer>
-    <p>FRC Wiki CN · <a href="code.html#software">返回必备软件</a></p>
+    <p>FRC Wiki CN · <a href="code.html#software" data-en="Back to Required Software">返回必备软件</a></p>
   </footer>
+
+  <script src="language-toggle.js"></script>
 
 </body>
 </html>

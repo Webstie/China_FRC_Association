@@ -12,41 +12,42 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
       <ul class="nav-links">
-        <li><a href="index.html">主页</a></li>
-        <li><a href="info.html">信息</a></li>
-        <li><a href="shopping.html">购物</a></li>
-        <li><a href="code.html" class="active">代码</a></li>
-        <li><a href="design.html">设计</a></li>
-        <li><a href="calendar.html">日历</a></li>
-        <li><a href="registration.html">注册</a></li>
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
       </ul>
     </div>
   </nav>
 
   <header class="code-hero">
-    <span class="code-hero-eyebrow">◆ 机器人编程 ◆</span>
+    <span class="code-hero-eyebrow" data-en="◆ Robot Programming ◆">◆ 机器人编程 ◆</span>
     <h1>Intro to Code</h1>
-    <p class="code-chinese-title">FRC 机器人编程入门</p>
-    <p class="code-tagline">
+    <p class="code-chinese-title" data-en="FRC robot programming introduction">FRC 机器人编程入门</p>
+    <p class="code-tagline" data-en="A focused path from WPILib setup to Command-Based robot code, tuned for Chinese FRC teams getting ready for their first reliable deploy.">
       从 WPILib 环境搭建到 Command-Based 机器人代码，用一条清晰路线帮助中国 FRC 队伍完成第一次可靠部署。
     </p>
 
     <div class="code-stats-row">
       <div class="code-stat">
         <span class="code-stat-number">3</span>
-        <div class="code-stat-label">编程语言</div>
+        <div class="code-stat-label" data-en="Languages">编程语言</div>
       </div>
       <div class="code-stat">
         <span class="code-stat-number">4</span>
-        <div class="code-stat-label">必备工具</div>
+        <div class="code-stat-label" data-en="Required Tools">必备工具</div>
       </div>
       <div class="code-stat">
         <span class="code-stat-number">5</span>
-        <div class="code-stat-label">学习步骤</div>
+        <div class="code-stat-label" data-en="Learning Steps">学习步骤</div>
       </div>
       <div class="code-stat">
         <span class="code-stat-number">RIO</span>
-        <div class="code-stat-label">部署准备</div>
+        <div class="code-stat-label" data-en="Deploy Ready">部署准备</div>
       </div>
     </div>
   </header>
@@ -54,60 +55,60 @@
   <main class="code-main">
     <section class="code-featured-block">
       <div>
-        <span class="code-featured-badge">从这里开始</span>
-        <h2>编程入门</h2>
-        <div class="code-featured-subtitle">WPILib + Command-Based 是 FRC 编程的主线</div>
-        <p>
+        <span class="code-featured-badge" data-en="Start Here">从这里开始</span>
+        <h2 data-en="Getting Started">编程入门</h2>
+        <div class="code-featured-subtitle" data-en="WPILib + Command-Based is the main path for FRC programming">WPILib + Command-Based 是 FRC 编程的主线</div>
+        <p data-en="FRC robots are usually programmed with WPILib. It is a robotics library maintained by WPI and the FIRST community. It supports Java, C++, and Python, and includes project templates, simulation tools, drivetrain helpers, and deploy commands.">
           FRC 机器人通常使用 WPILib 编程。它是由 WPI 和 FIRST 社区维护的机器人编程库，
           支持 Java、C++ 和 Python，并包含项目模板、仿真工具、底盘辅助库和部署命令。
         </p>
-        <p>
+        <p data-en="For new teams, Java is the recommended starting point. It has the most complete official documentation, the most examples, and the easiest path to community help during build season.">
           对新队伍来说，建议从 Java 开始。它的官方文档最完整、示例最多，也最容易在比赛季找到社区答案。
         </p>
       </div>
-      <a href="#software" class="code-featured-cta">查看工具链</a>
+      <a href="#software" class="code-featured-cta" data-en="Open Toolchain">查看工具链</a>
     </section>
 
     <section class="code-category-section">
       <div class="code-category-header">
         <div class="code-category-icon">{ }</div>
         <div class="code-category-meta">
-          <div class="code-category-title">选择编程语言</div>
-          <div class="code-category-subtitle">选择队伍整个赛季都能维护的技术路线</div>
+          <div class="code-category-title" data-en="Choosing a Language">选择编程语言</div>
+          <div class="code-category-subtitle" data-en="Pick the path your team can maintain all season">选择队伍整个赛季都能维护的技术路线</div>
         </div>
-        <span class="code-category-count">3 个选项</span>
+        <span class="code-category-count" data-en="3 options">3 个选项</span>
       </div>
 
       <div class="code-resource-grid">
         <article class="code-tech-card code-tech-card-featured">
           <div class="code-card-logo">J</div>
           <h3>Java</h3>
-          <div class="code-chinese-name">推荐新队伍使用</div>
-          <p class="code-desc">FRC 中最常见的语言，WPILib 文档最完整，社区示例也最多，适合新队伍长期维护。</p>
+          <div class="code-chinese-name" data-en="Recommended for new teams">推荐新队伍使用</div>
+          <p class="code-desc" data-en="The most common language in FRC, with the strongest WPILib documentation and the most reusable team examples.">FRC 中最常见的语言，WPILib 文档最完整，社区示例也最多，适合新队伍长期维护。</p>
           <div class="code-tags">
-            <span class="code-tag beginner">入门友好</span>
-            <span class="code-tag official">推荐</span>
+            <span class="code-tag beginner" data-en="Beginner">入门友好</span>
+            <span class="code-tag official" data-en="Recommended">推荐</span>
           </div>
         </article>
 
         <article class="code-tech-card">
           <div class="code-card-logo">C++</div>
           <h3>C++</h3>
-          <div class="code-chinese-name">适合有经验的程序组</div>
-          <p class="code-desc">性能强、控制细，但语法、构建和调试门槛更高，更适合已有经验的程序组。</p>
+          <div class="code-chinese-name" data-en="Better for experienced programmers">适合有经验的程序组</div>
+          <p class="code-desc" data-en="Fast and powerful, but syntax, build details, and debugging make it less friendly for a first robot season.">性能强、控制细，但语法、构建和调试门槛更高，更适合已有经验的程序组。</p>
           <div class="code-tags">
-            <span class="code-tag advanced">进阶</span>
-            <span class="code-tag">性能</span>
+            <span class="code-tag advanced" data-en="Advanced">进阶</span>
+            <span class="code-tag" data-en="Performance">性能</span>
           </div>
         </article>
 
         <article class="code-tech-card">
           <div class="code-card-logo">Py</div>
           <h3>Python / RobotPy</h3>
-          <div class="code-chinese-name">适合教学和快速实验</div>
-          <p class="code-desc">语法清晰、迭代很快，适合教学和实验；RobotPy 社区规模较小但活跃。</p>
+          <div class="code-chinese-name" data-en="Good for teaching and quick experiments">适合教学和快速实验</div>
+          <p class="code-desc" data-en="Readable syntax and quick iteration, with a smaller but active community around RobotPy.">语法清晰、迭代很快，适合教学和实验；RobotPy 社区规模较小但活跃。</p>
           <div class="code-tags">
-            <span class="code-tag beginner">教学</span>
+            <span class="code-tag beginner" data-en="Teaching">教学</span>
             <span class="code-tag">RobotPy</span>
           </div>
         </article>
@@ -116,31 +117,31 @@
 
     <section id="software" class="code-category-section">
       <div class="code-category-header">
-        <div class="code-category-icon">工具</div>
+        <div class="code-category-icon" data-en="CLI">工具</div>
         <div class="code-category-meta">
-          <div class="code-category-title">必备软件</div>
-          <div class="code-category-subtitle">先阅读本地安装说明，再前往官方页面下载</div>
+          <div class="code-category-title" data-en="Required Software">必备软件</div>
+          <div class="code-category-subtitle" data-en="Read the local setup guide before jumping to official downloads">先阅读本地安装说明，再前往官方页面下载</div>
         </div>
-        <span class="code-category-count">4 篇指南</span>
+        <span class="code-category-count" data-en="4 guides">4 篇指南</span>
       </div>
 
       <div class="code-resource-grid">
         <a class="code-tech-card" href="software-wpilib.html">
           <div class="code-card-logo">WP</div>
           <h3>WPILib VS Code</h3>
-          <div class="code-chinese-name">优先安装</div>
-          <p class="code-desc">预配置的 VS Code，包含 WPILib 扩展、项目模板、仿真和部署命令。</p>
+          <div class="code-chinese-name" data-en="Install first">优先安装</div>
+          <p class="code-desc" data-en="Pre-configured VS Code with WPILib extensions, templates, simulation, and deploy commands.">预配置的 VS Code，包含 WPILib 扩展、项目模板、仿真和部署命令。</p>
           <div class="code-tags">
-            <span class="code-tag official">官方</span>
-            <span class="code-tag beginner">必备</span>
+            <span class="code-tag official" data-en="Official">官方</span>
+            <span class="code-tag beginner" data-en="Essential">必备</span>
           </div>
         </a>
 
         <a class="code-tech-card" href="software-frc-game-tools.html">
           <div class="code-card-logo">DS</div>
           <h3>FRC Game Tools</h3>
-          <div class="code-chinese-name">驾驶站工具</div>
-          <p class="code-desc">面向 Windows 比赛电脑的 Driver Station 和 roboRIO 镜像工具。</p>
+          <div class="code-chinese-name" data-en="Driver Station">驾驶站工具</div>
+          <p class="code-desc" data-en="Driver Station and roboRIO imaging tool for Windows competition laptops.">面向 Windows 比赛电脑的 Driver Station 和 roboRIO 镜像工具。</p>
           <div class="code-tags">
             <span class="code-tag official">NI</span>
             <span class="code-tag">roboRIO</span>
@@ -150,10 +151,10 @@
         <a class="code-tech-card" href="software-rev-hardware-client.html">
           <div class="code-card-logo">REV</div>
           <h3>REV Hardware Client</h3>
-          <div class="code-chinese-name">固件与 CAN 配置</div>
-          <p class="code-desc">用于更新和配置 SPARK MAX、SPARK Flex、PDH、PH 等 REV 设备。</p>
+          <div class="code-chinese-name" data-en="Firmware + CAN">固件与 CAN 配置</div>
+          <p class="code-desc" data-en="Update and configure SPARK MAX, SPARK Flex, PDH, PH, and other REV devices.">用于更新和配置 SPARK MAX、SPARK Flex、PDH、PH 等 REV 设备。</p>
           <div class="code-tags">
-            <span class="code-tag">电机</span>
+            <span class="code-tag" data-en="Motors">电机</span>
             <span class="code-tag">CAN</span>
           </div>
         </a>
@@ -161,11 +162,11 @@
         <a class="code-tech-card" href="software-phoenix-tuner-x.html">
           <div class="code-card-logo">PX</div>
           <h3>Phoenix Tuner X</h3>
-          <div class="code-chinese-name">CTRE 设备配置</div>
-          <p class="code-desc">用于配置 Talon FX、Kraken、CANcoder、Pigeon 等 CTRE 硬件。</p>
+          <div class="code-chinese-name" data-en="CTRE devices">CTRE 设备配置</div>
+          <p class="code-desc" data-en="Configure Talon FX, Kraken, CANcoder, Pigeon, and other CTRE hardware.">用于配置 Talon FX、Kraken、CANcoder、Pigeon 等 CTRE 硬件。</p>
           <div class="code-tags">
             <span class="code-tag">CTRE</span>
-            <span class="code-tag advanced">调试</span>
+            <span class="code-tag advanced" data-en="Tuning">调试</span>
           </div>
         </a>
       </div>
@@ -173,10 +174,10 @@
 
     <section class="code-featured-block code-sample-block">
       <div>
-        <span class="code-featured-badge">第一次部署</span>
-        <h2>你的第一段机器人代码</h2>
-        <div class="code-featured-subtitle">先从最小可运行代码开始，再把行为拆进 subsystem 和 command。</div>
-        <p>
+        <span class="code-featured-badge" data-en="First Deploy">第一次部署</span>
+        <h2 data-en="Hello, Robot">你的第一段机器人代码</h2>
+        <div class="code-featured-subtitle" data-en="Start tiny, then move behavior into subsystems and commands.">先从最小可运行代码开始，再把行为拆进 subsystem 和 command。</div>
+        <p data-en="Your first goal is not a perfect architecture. It is a working deploy, a controller input, and a drivetrain that responds predictably.">
           第一阶段目标不是完美架构，而是能成功部署、能读取手柄输入，并让底盘稳定响应。
         </p>
       </div>
@@ -200,49 +201,49 @@
       <div class="code-category-header">
         <div class="code-category-icon">01</div>
         <div class="code-category-meta">
-          <div class="code-category-title">推荐学习路径</div>
-          <div class="code-category-subtitle">一次完成一个小目标，逐步建立可靠部署的信心</div>
+          <div class="code-category-title" data-en="Recommended Learning Path">推荐学习路径</div>
+          <div class="code-category-subtitle" data-en="Build confidence one deploy at a time">一次完成一个小目标，逐步建立可靠部署的信心</div>
         </div>
-        <span class="code-category-count">5 个步骤</span>
+        <span class="code-category-count" data-en="5 steps">5 个步骤</span>
       </div>
 
       <ol class="code-path-grid">
         <li>
           <span>01</span>
-          <h3>安装并完成部署</h3>
-          <p>安装 WPILib VS Code，创建模板项目，连接 roboRIO，并完成一次成功部署。</p>
+          <h3 data-en="Install and deploy">安装并完成部署</h3>
+          <p data-en="Install WPILib VS Code, create a template project, connect to the roboRIO, and deploy successfully.">安装 WPILib VS Code，创建模板项目，连接 roboRIO，并完成一次成功部署。</p>
         </li>
         <li>
           <span>02</span>
-          <h3>阅读 Zero to Robot</h3>
-          <p>跟随 WPILib 官方指南，理解机器人模式、构建文件和 vendor libraries。</p>
+          <h3 data-en="Read Zero to Robot">阅读 Zero to Robot</h3>
+          <p data-en="Follow the official WPILib guide and understand robot modes, build files, and vendor libraries.">跟随 WPILib 官方指南，理解机器人模式、构建文件和 vendor libraries。</p>
         </li>
         <li>
           <span>03</span>
-          <h3>使用 Command-Based</h3>
-          <p>为底盘、intake、shooter、elevator 等机构创建 subsystem，再把手柄按钮绑定到 command。</p>
+          <h3 data-en="Use Command-Based">使用 Command-Based</h3>
+          <p data-en="Create subsystems for drivetrain, intake, shooter, and elevator, then bind controller buttons to commands.">为底盘、intake、shooter、elevator 等机构创建 subsystem，再把手柄按钮绑定到 command。</p>
         </li>
         <li>
           <span>04</span>
-          <h3>加入控制闭环</h3>
-          <p>学习 PID、feedforward、传感器和基础 telemetry，让机构运动更稳定可预测。</p>
+          <h3 data-en="Add control loops">加入控制闭环</h3>
+          <p data-en="Learn PID, feedforward, sensors, and basic telemetry so mechanisms move predictably.">学习 PID、feedforward、传感器和基础 telemetry，让机构运动更稳定可预测。</p>
         </li>
         <li>
           <span>05</span>
-          <h3>构建自动阶段</h3>
-          <p>继续学习 odometry、PathPlanner 或 Choreo、AprilTags，以及自动路径设计。</p>
+          <h3 data-en="Build autonomous">构建自动阶段</h3>
+          <p data-en="Move into odometry, PathPlanner or Choreo, AprilTags, and autonomous routine design.">继续学习 odometry、PathPlanner 或 Choreo、AprilTags，以及自动路径设计。</p>
         </li>
       </ol>
     </section>
 
     <section class="code-category-section">
       <div class="code-category-header">
-        <div class="code-category-icon">视觉</div>
+        <div class="code-category-icon" data-en="AI">视觉</div>
         <div class="code-category-meta">
-          <div class="code-category-title">视觉与进阶主题</div>
-          <div class="code-category-subtitle">当机器人能可靠行驶后，再逐步学习这些内容</div>
+          <div class="code-category-title" data-en="Vision & Advanced Topics">视觉与进阶主题</div>
+          <div class="code-category-subtitle" data-en="Useful after the robot drives reliably">当机器人能可靠行驶后，再逐步学习这些内容</div>
         </div>
-        <span class="code-category-count">6 个主题</span>
+        <span class="code-category-count" data-en="6 topics">6 个主题</span>
       </div>
 
       <div class="code-topic-tags">
@@ -257,8 +258,10 @@
   </main>
 
   <footer>
-    <p>FRC Wiki CN · <a href="index.html">返回主页</a></p>
+    <p>FRC Wiki CN · <a href="index.html" data-en="Back to home">返回主页</a></p>
   </footer>
+
+  <script src="language-toggle.js"></script>
 
 </body>
 </html>
