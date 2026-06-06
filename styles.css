@@ -268,6 +268,60 @@ a {
   margin-top: 4px;
 }
 
+/* ===== Process / Checklist ===== */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.process-step {
+  background: white;
+  border: 1px solid var(--frc-border);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--frc-blue);
+  color: white;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.process-step h3 {
+  margin: 0 0 8px;
+  color: var(--frc-dark);
+}
+
+.process-step p {
+  margin-bottom: 0;
+  color: var(--frc-gray);
+}
+
+.checklist {
+  background: white;
+  border: 1px solid var(--frc-border);
+  border-radius: 8px;
+  padding: 18px 22px 18px 42px;
+}
+
+.checklist li {
+  margin-bottom: 10px;
+  color: #374151;
+}
+
+.checklist li:last-child {
+  margin-bottom: 0;
+}
+
 /* ===== Calendar / Table ===== */
 table {
   width: 100%;
