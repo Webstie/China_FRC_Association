@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRC Game Tools - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="software-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html#software" data-en="Back to Required Software">返回必备软件</a>
+      <p class="eyebrow" data-en="Driver Station">驾驶站工具</p>
+      <h1>FRC Game Tools</h1>
+      <p data-en="The essential NI tool package for competition laptops, including Driver Station and roboRIO configuration tools for connecting, enabling, and managing the robot.">比赛笔记本必备的 NI 工具包，包含 Driver Station 和 roboRIO 配置工具，用来连接、启用和管理机器人。</p>
+    </div>
+    <aside class="software-summary">
+      <span data-en="Best for">适合安装在</span>
+      <strong data-en="Driver Station laptop">Driver Station 笔记本</strong>
+      <span data-en="Platform">平台</span>
+      <strong>Windows</strong>
+    </aside>
+  </header>
+
+  <main class="software-main">
+    <article class="software-article">
+      <section>
+        <h2 data-en="What it does">它有什么用</h2>
+        <p data-en="FRC Game Tools is core software for the driver station laptop. Driver Station displays robot connection status, battery voltage, mode changes, controller input, and field communication status. Without it, teams cannot enable the robot like they would at an event, and communication issues become much harder to debug.">
+          FRC Game Tools 是驾驶站电脑上的核心软件。Driver Station 负责显示机器人连接状态、电池电压、模式切换、手柄输入和场地通信状态。
+          没有它，队伍无法像比赛现场一样启用机器人，也很难排查通信问题。
+        </p>
+        <p data-en="It also provides roboRIO imaging and configuration tools, commonly used to write the season image to the roboRIO, set the team number, and update the base system.">
+          它还提供 roboRIO 镜像和配置工具，常用于给 roboRIO 写入赛季 image、设置队号和更新底层系统。
+        </p>
+      </section>
+
+      <section>
+        <h2 data-en="Before downloading">下载前确认</h2>
+        <div class="check-grid">
+          <div>
+            <strong data-en="Laptop type">电脑类型</strong>
+            <p data-en="Install it first on the official Driver Station laptop. Development laptops can also install it for testing.">优先安装在正式 Driver Station 笔记本上，开发电脑也可以装一份用于测试。</p>
+          </div>
+          <div>
+            <strong data-en="Windows environment">Windows 环境</strong>
+            <p data-en="FRC Game Tools is mainly for Windows driver station laptops, and events usually use Windows Driver Station as well.">FRC Game Tools 主要面向 Windows 驾驶站电脑，比赛现场也通常使用 Windows Driver Station。</p>
+          </div>
+          <div>
+            <strong data-en="Team number">队号信息</strong>
+            <p data-en="Set the correct team number in Driver Station after installation, or the laptop will not connect using FRC networking rules.">安装后在 Driver Station 中设置正确队号，否则无法按 FRC 网络规则连接机器人。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 data-en="Install steps">安装步骤</h2>
+        <ol class="article-steps">
+          <li data-en="Open the NI official download page and choose the current season FRC Game Tools.">进入 NI 官方下载页，选择当前赛季的 FRC Game Tools。</li>
+          <li data-en="Download the online installer or offline installer, then follow the NI installer prompts.">下载在线安装器或离线安装包，按 NI 安装器提示完成安装。</li>
+          <li data-en="Restart the laptop after installation and open FRC Driver Station.">安装完成后重启电脑，打开 FRC Driver Station。</li>
+          <li data-en="Enter the team number on the Setup page and connect to the robot radio or USB.">在 Setup 页面填写队号，连接机器人 radio 或 USB。</li>
+          <li data-en="Use roboRIO Imaging Tool to check the roboRIO image and team number.">使用 roboRIO Imaging Tool 检查 roboRIO image 和队号是否正确。</li>
+        </ol>
+      </section>
+
+      <section class="download-panel">
+        <div>
+          <p class="eyebrow" data-en="Official link">官方链接</p>
+          <h2 data-en="Download entry">下载入口</h2>
+          <p data-en="The NI official page provides available versions, installers, and system support notes.">NI 官方页面会提供当前可用版本、安装包和系统支持说明。</p>
+        </div>
+        <div class="download-actions">
+          <a href="https://www.ni.com/en/support/downloads/drivers/download.frc-game-tools.html" data-en="Open NI download page">打开 NI 下载页面</a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html#software" data-en="Back to Required Software">返回必备软件</a></p>
+  </footer>
+
+  <script src="language-toggle.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REV Hardware Client - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="software-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html#software" data-en="Back to Required Software">返回必备软件</a>
+      <p class="eyebrow" data-en="REV Devices">REV 设备</p>
+      <h1>REV Hardware Client</h1>
+      <p data-en="The client for managing REV controllers and electrical devices: update firmware, inspect CAN, configure motor controllers, and check device status.">用于管理 REV 控制器和电气设备的客户端：更新固件、查看 CAN、配置电机控制器和检查设备状态。</p>
+    </div>
+    <aside class="software-summary">
+      <span data-en="Best for">适合使用者</span>
+      <strong data-en="Electrical and programming teams">电控组与程序组</strong>
+      <span data-en="Common devices">常见设备</span>
+      <strong>SPARK MAX / Flex / PDH</strong>
+    </aside>
+  </header>
+
+  <main class="software-main">
+    <article class="software-article">
+      <section>
+        <h2 data-en="What it does">它有什么用</h2>
+        <p data-en="REV Hardware Client is the most common tool for debugging REV hardware. You can connect SPARK MAX, SPARK Flex, Power Distribution Hub, Pneumatic Hub, and other devices over USB to view hardware information, update firmware, set CAN IDs, and check connection status.">
+          REV Hardware Client 是调试 REV 硬件时最常用的工具。你可以通过 USB 连接 SPARK MAX、SPARK Flex、Power Distribution Hub、
+          Pneumatic Hub 等设备，查看硬件信息、更新固件、设置 CAN ID，并检查连接状态。
+        </p>
+        <p data-en="At the start of the season, after replacing motor controllers, or when CAN issues appear, checking firmware and IDs in REV Hardware Client can prevent many deploy-time surprises.">
+          在赛季开始、换新电机控制器、或者 CAN 网络出现问题时，先用 REV Hardware Client 把设备固件和 ID 检查一遍，能减少很多部署后才发现的错误。
+        </p>
+      </section>
+
+      <section>
+        <h2 data-en="Before downloading">下载前确认</h2>
+        <div class="check-grid">
+          <div>
+            <strong data-en="USB cable">USB 线</strong>
+            <p data-en="Use a reliable data cable. Charge-only USB cables may not detect devices.">准备一根可靠的数据线。只能充电的 USB 线可能无法识别设备。</p>
+          </div>
+          <div>
+            <strong data-en="Device power">设备供电</strong>
+            <p data-en="Some devices need robot power or external power to enumerate and configure correctly.">部分设备需要机器人电源或外部供电才能正常枚举和配置。</p>
+          </div>
+          <div>
+            <strong data-en="Firmware version">固件版本</strong>
+            <p data-en="Similar devices on the same robot should stay on the recommended firmware for the same season.">同一机器人上的同类设备建议保持在同一赛季推荐固件版本。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 data-en="Install steps">安装步骤</h2>
+        <ol class="article-steps">
+          <li data-en="Open the Hardware Client page in REV official docs and download the installer for your system.">打开 REV 官方文档中的 Hardware Client 页面，下载适合系统的安装包。</li>
+          <li data-en="Install and launch REV Hardware Client, then allow required drivers or system permissions when prompted.">安装并启动 REV Hardware Client，按照提示允许必要的驱动或系统权限。</li>
+          <li data-en="Connect the REV device to the laptop over USB and wait for it to appear in the client.">用 USB 将 REV 设备连接到电脑，等待设备出现在客户端中。</li>
+          <li data-en="Update firmware first, then set CAN ID, motor type, idle mode, and other basic configuration.">先更新固件，再设置 CAN ID、motor type、idle mode 等基础配置。</li>
+          <li data-en="Record each device CAN ID and keep it consistent with constants in robot code.">记录每个设备的 CAN ID，和机器人代码里的常量保持一致。</li>
+        </ol>
+      </section>
+
+      <section class="download-panel">
+        <div>
+          <p class="eyebrow" data-en="Official link">官方链接</p>
+          <h2 data-en="Downloads and usage docs">下载与使用文档</h2>
+          <p data-en="The REV official page lists client downloads, supported systems, and device configuration notes.">REV 官方页面会列出客户端下载入口、支持系统和设备配置说明。</p>
+        </div>
+        <div class="download-actions">
+          <a href="https://docs.revrobotics.com/rev-hardware-client/" data-en="Open REV Hardware Client docs">打开 REV Hardware Client 文档</a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html#software" data-en="Back to Required Software">返回必备软件</a></p>
+  </footer>
+
+  <script src="language-toggle.js"></script>
+
+</body>
+</html>
