@@ -220,6 +220,38 @@ public class RobotContainer {
       </ol>
     </section>
 
+    <section id="command-based" class="intro-panel">
+      <div>
+        <p class="eyebrow" data-en="Core framework">核心框架</p>
+        <h2 data-en="Command-Based Framework">Command-Based 框架</h2>
+        <p data-en="Command-Based is WPILib's recommended way to structure FRC robot code. Instead of one big loop you split the robot into Subsystems that own hardware and Commands that describe actions, and let a single Scheduler resolve conflicts so everything stays predictable.">
+          Command-Based 是 WPILib 推荐的 FRC 代码组织方式。不再把一切塞进一个大循环，而是把机器人拆成持有硬件的 Subsystem 和描述动作的 Command，交给一个统一的 Scheduler 处理冲突，让整体行为可预测。
+        </p>
+        <p data-en="If you're new to FRC programming, the dedicated guide walks through it from scratch — project layout, robot boot-up, the four building blocks, writing your first subsystem and command, default commands, triggers, lifecycle, composition, and the most common beginner mistakes.">
+          如果你刚接触 FRC 编程，下面的详解页会从零讲起：项目结构、机器人启动、四个核心部分、写第一个 subsystem 和 command、默认命令、trigger、生命周期、组合，以及新手最常踩的坑。
+        </p>
+        <p style="margin-top: 18px;"><a href="code-command-based.html" class="primary-action" data-en="Read the full guide →">阅读完整指南 →</a></p>
+      </div>
+      <div class="quick-facts">
+        <div>
+          <span data-en="Entry / wiring file">入口与接线文件</span>
+          <strong>RobotContainer</strong>
+        </div>
+        <div>
+          <span data-en="One per mechanism">每个机构一个</span>
+          <strong>Subsystem</strong>
+        </div>
+        <div>
+          <span data-en="One per action">每个动作一个</span>
+          <strong>Command</strong>
+        </div>
+        <div>
+          <span data-en="Runs the loop">驱动整个循环</span>
+          <strong>CommandScheduler</strong>
+        </div>
+      </div>
+    </section>
+
     <section class="advanced-panel">
       <div>
         <p class="eyebrow" data-en="Next topics">下一步主题</p>
