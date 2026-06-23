@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>动手实战 · 一颗电机，一个按键 One Motor, One Button - FRC Wiki CN</title>
+<style>
+  :root{
+    --blue:#0066B3; --blue-soft:#e8f1ff;
+    --red:#ED1C24; --red-soft:#fff0f0;
+    --green:#10b981; --green-soft:#e7f9f0;
+    --amber:#f59e0b; --amber-soft:#fff7e6;
+    --ink:#16223a; --muted:#6b7280; --line:#e5e8ee;
+    --bg:#ffffff; --panel:#f7f9fc;
+    --code-bg:#0f172a; --code-ink:#e2e8f0;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.8; font-size:16.5px;
+  }
+  .wrap{max-width:880px; margin:0 auto; padding:0 22px}
+  code,kbd,.mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+
+  /* hero */
+  .hero{padding:56px 22px 40px; background:linear-gradient(180deg,#0b2348,#0f3a6e); color:#fff}
+  .hero .wrap{max-width:880px}
+  .hero .tag{display:inline-block; font-size:13px; letter-spacing:2px; text-transform:uppercase;
+    color:#9fc4ef; font-weight:700; margin:0 0 10px}
+  .hero h1{margin:0 0 6px; font-size:30px; line-height:1.3}
+  .hero h1 .en{display:block; font-size:16px; color:#aecbf0; font-weight:600; margin-top:6px}
+  .hero p{margin:14px 0 22px; color:#d6e3f5; max-width:680px}
+  .goal{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  .goal .pill{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+    border-radius:999px; padding:9px 16px; font-weight:600; font-size:15px}
+  .goal .arrow{color:#9fc4ef; font-size:20px}
+  .goal .pill.hot{background:rgba(237,28,36,.22); border-color:rgba(255,140,140,.5)}
+  .goal .pill.win{background:rgba(16,185,129,.22); border-color:rgba(110,231,183,.55)}
+
+  /* part banners */
+  .part{margin:46px 0 8px; display:flex; align-items:center; gap:16px}
+  .part .num{flex:0 0 auto; width:52px; height:52px; border-radius:14px; display:grid; place-items:center;
+    font-size:22px; font-weight:800; color:#fff; background:var(--blue)}
+  .part.b .num{background:var(--red)}
+  .part h2{margin:0; font-size:24px}
+  .part h2 small{display:block; font-size:13px; color:var(--muted); font-weight:600; letter-spacing:1px; margin-top:2px}
+
+  h3{font-size:19px; margin:34px 0 10px; padding-top:6px}
+  h3 .n{color:var(--blue); font-weight:800; margin-right:8px}
+  p{margin:12px 0}
+  .lead{color:var(--ink)}
+  .muted{color:var(--muted)}
+
+  /* figure */
+  figure{margin:22px 0; background:var(--panel); border:1px solid var(--line);
+    border-radius:14px; padding:18px 18px 10px}
+  figure svg{display:block; width:100%; height:auto}
+  figcaption{font-size:13.5px; color:var(--muted); text-align:center; margin-top:8px}
+
+  /* piece list */
+  .pieces{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:18px 0}
+  .pieces .pc{border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:#fff}
+  .pieces .pc b{display:block; font-size:16px}
+  .pieces .pc .role{font-size:12px; color:#fff; background:var(--blue); border-radius:6px;
+    padding:2px 8px; display:inline-block; margin-bottom:6px; font-weight:700}
+  .pieces .pc.c1 .role{background:var(--blue)} .pieces .pc.c2 .role{background:var(--amber)}
+  .pieces .pc.c3 .role{background:#8b5cf6} .pieces .pc.c4 .role{background:var(--green)}
+  .pieces .pc p{margin:6px 0 0; font-size:14px; color:var(--muted)}
+  .pieces .pc .mono{font-size:12.5px; color:var(--ink); background:var(--panel);
+    border-radius:6px; padding:2px 6px; display:inline-block; margin-top:8px}
+
+  /* verbs */
+  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:15px}
+  th,td{border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top}
+  th{background:var(--panel); font-weight:700}
+  td .mono{color:var(--blue); font-weight:700}
+
+  /* step */
+  .step{border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:12px;
+    padding:18px 20px; margin:18px 0; background:#fff}
+  .step .sh{display:flex; align-items:center; gap:12px; margin:0 0 6px}
+  .step .sh .b{flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:var(--blue);
+    color:#fff; display:grid; place-items:center; font-weight:800; font-size:15px}
+  .step .sh h3{margin:0; padding:0}
+  .step ul{margin:10px 0; padding-left:22px}
+  .step li{margin:5px 0}
+
+  /* code */
+  .code{margin:14px 0; border-radius:12px; overflow:hidden; border:1px solid #1e293b}
+  .code .name{background:#1e293b; color:#93c5fd; font-size:13px; padding:8px 14px;
+    font-family:"SFMono-Regular",Consolas,monospace; display:flex; justify-content:space-between}
+  .code .name .path{color:#64748b}
+  .code pre{margin:0; background:var(--code-bg); color:var(--code-ink); padding:16px 18px;
+    overflow-x:auto; font-size:14px; line-height:1.7}
+  .code pre .cm{color:#64748b}      /* comment */
+  .code pre .kw{color:#c084fc}      /* keyword */
+  .code pre .ty{color:#5eead4}      /* type */
+  .code pre .st{color:#fca5a5}      /* string/number */
+  .code pre .fn{color:#93c5fd}      /* method */
+
+  kbd{background:#fff; border:1px solid #cbd5e1; border-bottom-width:2px; border-radius:6px;
+    padding:1px 7px; font-size:13px; color:var(--ink)}
+
+  /* callouts */
+  .box{border-radius:12px; padding:14px 16px; margin:16px 0; font-size:15px; border:1px solid}
+  .box b{display:block; margin-bottom:3px}
+  .note{background:var(--blue-soft); border-color:#bcdcff}
+  .warn{background:var(--amber-soft); border-color:#f6d488}
+  .tip{background:var(--green-soft); border-color:#a7e8cf}
+
+  .tree{background:var(--code-bg); color:var(--code-ink); border-radius:12px; padding:16px 18px;
+    font-family:"SFMono-Regular",Consolas,monospace; font-size:14px; line-height:1.85; overflow-x:auto}
+  .tree .c{color:#64748b}
+
+  footer{margin:50px 0 60px; padding-top:22px; border-top:1px solid var(--line); color:var(--muted); font-size:14px}
+
+  /* site navbar (matches styles.css so this page sits inside the wiki) */
+  .navbar{background:#1a1a2e; color:#fff; position:sticky; top:0; z-index:100;
+    box-shadow:0 2px 10px rgba(0,0,0,.15)}
+  .nav-container{max-width:1200px; margin:0 auto; padding:0 24px; display:flex;
+    align-items:center; justify-content:space-between; height:64px}
+  .nav-logo{font-size:1.25rem; font-weight:700; color:#fff; text-decoration:none;
+    display:flex; align-items:center; gap:8px}
+  .nav-logo .accent{color:var(--red)}
+  .nav-links{display:flex; gap:4px; list-style:none; flex-wrap:wrap; margin:0; padding:0}
+  .nav-links a{color:#fff; text-decoration:none; padding:8px 14px; border-radius:6px;
+    font-size:.95rem; transition:background .2s}
+  .nav-links a:hover,.nav-links a.active{background:var(--blue)}
+
+  /* back link inside the dark hero */
+  .hero .back{display:inline-block; margin:0 0 14px; color:#aecbf0; font-weight:600;
+    font-size:14px; text-decoration:none}
+  .hero .back:hover{color:#fff}
+
+  footer a{color:var(--blue); text-decoration:none; font-weight:600}
+  footer a:hover{text-decoration:underline}
+
+  @media (max-width:640px){
+    .pieces{grid-template-columns:1fr}
+    .hero h1{font-size:24px}
+    .nav-container{height:auto; flex-direction:column; gap:8px; padding:10px 16px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+    <ul class="nav-links">
+      <li><a href="index.html">主页 Home</a></li>
+      <li><a href="info.html">信息 Info</a></li>
+      <li><a href="shopping.html">购物 Shopping</a></li>
+      <li><a href="code.html" class="active">代码 Code</a></li>
+      <li><a href="design.html">设计 Design</a></li>
+      <li><a href="calendar.html">日历 Calendar</a></li>
+      <li><a href="registration.html">注册 Registration</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="back" href="code-command-based.html">← 返回 Command-Based 指南 · Back to the Command-Based guide</a>
+    <p class="tag">FRC 代码 · Part 2</p>
+    <h1>第一次让东西动：一颗电机，一个按键
+      <span class="en">One Motor, One Button — Command-Based + Kraken</span>
+    </h1>
+    <p>本章只做一件极小的事，但用的是每台比赛机器人都在用的写法（Command-Based）。读完你会真正理解“按一个键，电机就转”背后发生了什么，并能自己从零写出来、部署到机器人上。</p>
+    <div class="goal">
+      <span class="pill hot">🎮 按住手柄 A 键</span>
+      <span class="arrow">→</span>
+      <span class="pill win">⚡ Kraken 电机转</span>
+      <span class="arrow">·</span>
+      <span class="pill">松开 → 停</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ PART A · 概念 ============ -->
+  <div class="part a">
+    <div class="num">A</div>
+    <h2>先看懂：它是怎么运作的<small>CONCEPTS — 动手前花 5 分钟建立画面感</small></h2>
+  </div>
+
+  <!-- §1 signal path -->
+  <h3><span class="n">1</span>大图景：一次按键如何变成电机转动</h3>
+  <p>不要把它想成“按键直接连电机”。中间有一条清晰的链条，每一环都是 Command-Based 的一个零件。记住这条链，等会儿出问题你就知道该查哪一段。</p>
+
+  <figure>
+    <svg viewBox="0 0 640 712" role="img" aria-label="从按下 A 到电机转动的信号链路">
+      <defs>
+        <marker id="ah" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/>
+        </marker>
+      </defs>
+      <style>
+        .bx{rx:11; ry:11; stroke-width:1.6}
+        .t1{font:700 15px "PingFang SC",sans-serif; fill:#16223a}
+        .t2{font:12.5px "SFMono-Regular",Consolas,monospace; fill:#64748b}
+        .lb{font:12px "PingFang SC",sans-serif; fill:#94a3b8}
+        .ln{stroke:#94a3b8; stroke-width:1.6; marker-end:url(#ah)}
+      </style>
+      <!-- box helper layout: x=40 w=560, h=58, step=92 -->
+      <!-- 1 human -->
+      <rect class="bx" x="40" y="8"  width="560" height="58" fill="#fff0f0" stroke="#ED1C24"/>
+      <text class="t1" x="64" y="34">🎮 你按住手柄 A 键</text>
+      <text class="t2" x="64" y="53">人的输入 · the only human action</text>
+      <line class="ln" x1="320" y1="66" x2="320" y2="98"/>
+      <!-- 2 transport -->
+      <rect class="bx" x="40" y="100" width="560" height="58" fill="#f6f8fb" stroke="#cbd5e1"/>
+      <text class="t1" x="64" y="126">Driver Station 把手柄状态发给 roboRIO</text>
+      <text class="t2" x="64" y="145">通过 USB / Wi-Fi</text>
+      <line class="ln" x1="320" y1="158" x2="320" y2="190"/>
+      <!-- 3 scheduler -->
+      <rect class="bx" x="40" y="192" width="560" height="58" fill="#e8f1ff" stroke="#0066B3"/>
+      <text class="t1" x="64" y="218">CommandScheduler 每 20ms 轮询，发现 A = true</text>
+      <text class="t2" x="64" y="237">CommandScheduler.getInstance().run()</text>
+      <line class="ln" x1="320" y1="250" x2="320" y2="282"/>
+      <!-- 4 whileTrue -->
+      <rect class="bx" x="40" y="284" width="560" height="58" fill="#e8f1ff" stroke="#0066B3"/>
+      <text class="t1" x="64" y="310">whileTrue 把命令调度起来</text>
+      <text class="t2" x="64" y="329">driver.a().whileTrue( roller.runCommand() )</text>
+      <line class="ln" x1="320" y1="342" x2="320" y2="374"/>
+      <!-- 5 command -->
+      <rect class="bx" x="40" y="376" width="560" height="58" fill="#fff4e6" stroke="#f59e0b"/>
+      <text class="t1" x="64" y="402">命令的 start 动作执行一次 → 命令电机</text>
+      <text class="t2" x="64" y="421">Roller.setSpeed(0.6) · 全项目唯一碰电机的地方</text>
+      <line class="ln" x1="320" y1="434" x2="320" y2="466"/>
+      <!-- 6 hardware -->
+      <rect class="bx" x="40" y="468" width="560" height="58" fill="#eef2f7" stroke="#475569"/>
+      <text class="t1" x="64" y="494">Phoenix 6 发一帧 CAN → TalonFX (id 5)</text>
+      <text class="t2" x="64" y="513">motor.setControl( request.withOutput(0.6) )</text>
+      <line class="ln" x1="320" y1="526" x2="320" y2="558"/>
+      <!-- 7 win -->
+      <rect class="bx" x="40" y="560" width="560" height="58" fill="#e7f9f0" stroke="#10b981"/>
+      <text class="t1" x="64" y="586">⚡ Kraken 转起来！并在你按住时一直转</text>
+      <text class="t2" x="64" y="605">success</text>
+      <!-- release -->
+      <rect x="40" y="640" width="560" height="58" rx="11" fill="#fafafa" stroke="#cbd5e1" stroke-dasharray="5 4"/>
+      <text class="t1" x="64" y="666" fill="#64748b">松开 A → whileTrue 中断命令 → end 动作执行</text>
+      <text class="t2" x="64" y="685">Roller.setSpeed(0.0) → 电机停（你没写任何“否则停”的代码）</text>
+    </svg>
+    <figcaption>图 1 · 一次按键的完整链路。蓝色是软件层，橙色是“命令电机”，灰色是硬件层。</figcaption>
+  </figure>
+
+  <div class="box tip">
+    <b>这里有个白送的好处</b>
+    裸写法里你必须自己写“按住就转、<u>否则就停</u>”。用 Command-Based，“否则停”这句话消失了 —— <code>whileTrue</code> 和命令的 end 动作替你处理了松手。
+  </div>
+
+  <!-- §2 four pieces -->
+  <h3><span class="n">2</span>四个零件：用一颗电机就能认全</h3>
+  <p>整个框架就四个零件。下面这张图是它们的关系，记住箭头的方向：</p>
+
+  <figure>
+    <svg viewBox="0 0 720 300" role="img" aria-label="Command-Based 四个零件的关系">
+      <defs>
+        <marker id="ah2" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/>
+        </marker>
+      </defs>
+      <style>
+        .p-t{font:700 15px "PingFang SC",sans-serif}
+        .p-s{font:12px "SFMono-Regular",monospace; fill:#475569}
+        .p-l{font:12px "PingFang SC",sans-serif; fill:#64748b}
+        .p-ln{stroke:#94a3b8; stroke-width:1.6; marker-end:url(#ah2)}
+        .p-dl{stroke:#94a3b8; stroke-width:1.4; stroke-dasharray:5 4; marker-end:url(#ah2)}
+      </style>
+      <!-- Trigger -->
+      <rect x="14" y="40" width="200" height="92" rx="12" fill="#f3e8ff" stroke="#8b5cf6" stroke-width="1.6"/>
+      <text class="p-t" x="34" y="70" fill="#6d28d9">Trigger</text>
+      <text class="p-l" x="34" y="92">“A 按住了吗”</text>
+      <text class="p-s" x="34" y="114">driver.a()</text>
+      <!-- Command -->
+      <rect x="260" y="40" width="200" height="92" rx="12" fill="#fff4e6" stroke="#f59e0b" stroke-width="1.6"/>
+      <text class="p-t" x="280" y="70" fill="#b45309">Command</text>
+      <text class="p-l" x="280" y="92">“转，松手就停”</text>
+      <text class="p-s" x="280" y="114">roller.runCommand()</text>
+      <!-- Subsystem -->
+      <rect x="506" y="40" width="200" height="92" rx="12" fill="#e8f1ff" stroke="#0066B3" stroke-width="1.6"/>
+      <text class="p-t" x="526" y="70" fill="#0066B3">Subsystem</text>
+      <text class="p-l" x="526" y="92">持有那颗 Kraken</text>
+      <text class="p-s" x="526" y="114">Roller</text>
+      <!-- arrows top row -->
+      <line class="p-ln" x1="214" y1="86" x2="258" y2="86"/>
+      <text class="p-l" x="216" y="78">whileTrue 调度</text>
+      <line class="p-ln" x1="460" y1="86" x2="504" y2="86"/>
+      <text class="p-l" x="466" y="78">requires 占用</text>
+      <!-- Scheduler -->
+      <rect x="180" y="214" width="360" height="66" rx="12" fill="#e7f9f0" stroke="#10b981" stroke-width="1.6"/>
+      <text class="p-t" x="206" y="244" fill="#047857">CommandScheduler</text>
+      <text class="p-l" x="206" y="266">每 20ms 驱动一切：轮询 Trigger、运行/停止 Command</text>
+      <!-- dashed up arrows -->
+      <line class="p-dl" x1="240" y1="214" x2="120" y2="134"/>
+      <line class="p-dl" x1="360" y1="214" x2="360" y2="134"/>
+      <line class="p-dl" x1="470" y1="214" x2="600" y2="134"/>
+    </svg>
+    <figcaption>图 2 · Trigger 决定“何时”，Command 描述“做什么”，Subsystem 持有硬件，Scheduler 是发动机。</figcaption>
+  </figure>
+
+  <div class="pieces">
+    <div class="pc c3"><span class="role">何时运行</span><b>Trigger</b>
+      <p>任意布尔信号：按键、传感器、时间。这里就是“A 键按住了吗”。</p>
+      <span class="mono">driver.a()</span></div>
+    <div class="pc c2"><span class="role">做什么</span><b>Command</b>
+      <p>一段动作。这里是“按住转、松开停”，用一行工厂方法 <code>startEnd</code> 造出来。</p>
+      <span class="mono">roller.runCommand()</span></div>
+    <div class="pc c1"><span class="role">持有硬件</span><b>Subsystem</b>
+      <p>包住一个机构的电机/传感器。<b>全项目唯一</b>允许命令电机的地方。</p>
+      <span class="mono">class Roller extends SubsystemBase</span></div>
+    <div class="pc c4"><span class="role">发动机</span><b>CommandScheduler</b>
+      <p>每 20ms 跑一次，把上面三个连起来。你只需在 <code>robotPeriodic</code> 调它一次。</p>
+      <span class="mono">CommandScheduler.getInstance().run()</span></div>
+  </div>
+
+  <!-- §3 whileTrue -->
+  <h3><span class="n">3</span>看懂 <span class="mono">whileTrue</span>：按住和松开各发生一次</h3>
+  <p>这是最容易搞混的地方。把一次按下沿时间轴走一遍，你会发现“开始”和“结束”各只触发一次，中间什么都不用管。</p>
+
+  <figure>
+    <svg viewBox="0 0 680 250" role="img" aria-label="whileTrue 时间轴：按键波形与电机输出">
+      <style>
+        .ax{stroke:#cbd5e1; stroke-width:1.4}
+        .wv{fill:none; stroke-width:2.6}
+        .gd{stroke:#cbd5e1; stroke-width:1.2; stroke-dasharray:4 4}
+        .tx{font:13px "PingFang SC",sans-serif; fill:#64748b}
+        .tb{font:700 13px "PingFang SC",sans-serif; fill:#16223a}
+      </style>
+      <!-- track 1: button -->
+      <text class="tb" x="14" y="40">A 按键</text>
+      <line class="ax" x1="120" y1="86" x2="660" y2="86"/>
+      <path class="wv" stroke="#8b5cf6" d="M120,76 L240,76 L240,36 L480,36 L480,76 L660,76"/>
+      <!-- track 2: motor -->
+      <text class="tb" x="14" y="170">电机输出</text>
+      <line class="ax" x1="120" y1="206" x2="660" y2="206"/>
+      <path class="wv" stroke="#10b981" d="M120,196 L240,196 L240,156 L480,156 L480,196 L660,196"/>
+      <!-- guides -->
+      <line class="gd" x1="240" y1="30" x2="240" y2="212"/>
+      <line class="gd" x1="480" y1="30" x2="480" y2="212"/>
+      <!-- labels -->
+      <text class="tx" x="245" y="26">按下</text>
+      <text class="tx" x="340" y="26">按住中…</text>
+      <text class="tx" x="485" y="26">松开</text>
+      <text class="tx" x="150" y="80">0</text>
+      <text class="tx" x="246" y="150">0.6 (60%)</text>
+      <text class="tx" x="150" y="200">0</text>
+      <text class="tx" x="505" y="200">0</text>
+      <!-- event notes -->
+      <text class="tx" x="170" y="232" fill="#b45309">start: setSpeed(0.6)</text>
+      <text class="tx" x="430" y="232" fill="#b45309">end: setSpeed(0.0)</text>
+    </svg>
+    <figcaption>图 3 · 按下触发一次 start，松开触发一次 end。按住期间你的代码什么都不做，电机自己保持 0.6。</figcaption>
+  </figure>
+
+  <p>同一条命令，换个“绑定动词”就是完全不同的按键手感：</p>
+  <table>
+    <tr><th>绑定方法</th><th>行为</th><th>什么时候用</th></tr>
+    <tr><td><span class="mono">.whileTrue()</span></td><td>按住运行，松开立刻停</td><td>本章用的（按住吸球这类）</td></tr>
+    <tr><td><span class="mono">.toggleOnTrue()</span></td><td>按一下开，再按一下关</td><td>开关式机构（灯、夹爪锁定）</td></tr>
+    <tr><td><span class="mono">.onTrue()</span></td><td>按一下启动，命令自己跑到结束</td><td>会自己结束的动作（前进 1 米）</td></tr>
+    <tr><td><span class="mono">.onFalse()</span></td><td>松开时才启动</td><td>释放类动作</td></tr>
+  </table>
+  <div class="box note">
+    <b>记住这个对比</b>
+    把“按住运行”改成“按一下切换”，只要把 <code>whileTrue</code> 改成 <code>toggleOnTrue</code> —— 改一个词。裸写法做同样的事得自己加状态变量。
+  </div>
+
+
+  <!-- ============ PART B · 实操 ============ -->
+  <div class="part b">
+    <div class="num">B</div>
+    <h2>动手做：从空项目到电机转<small>HANDS-ON — 跟着做，每一步都有验证点</small></h2>
+  </div>
+
+  <div class="box warn">
+    <b>开始前确认</b>
+    ① 已装好 WPILib VS Code、FRC Game Tools；② 一颗 Kraken X60 接在机器人上、用 Phoenix Tuner X 确认过它在线；③ 知道它的 CAN ID（本教程假设是 <b>5</b>，你的不同就改代码里的数字）。
+  </div>
+
+  <!-- Step 1 -->
+  <div class="step">
+    <div class="sh"><span class="b">1</span><h3>新建一个 Command-Based 项目</h3></div>
+    <ul>
+      <li>VS Code 里按 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>（Mac 是 <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>），输入并选择 <b>WPILib: Create a new project</b>。</li>
+      <li>Project Type 选 <b>Template</b> → 语言选 <b>java</b> → 模板选 <b>Command Robot Skeleton</b>。</li>
+      <li>选一个空文件夹、起个项目名、填你的<b>队号</b>，点 <b>Generate Project</b>。</li>
+      <li>VS Code 右下角弹窗点 <b>Yes (Current Window)</b> 打开项目。</li>
+    </ul>
+    <div class="box note"><b>为什么是 Skeleton</b>Skeleton（骨架）版只给你最干净的几个文件，没有一堆示例代码要删。我们从空白开始写，更清楚每一行是干嘛的。</div>
+    <p class="muted">✅ 验证：左侧 <span class="mono">src/main/java/frc/robot/</span> 下能看到 Main.java / Robot.java / RobotContainer.java / Constants.java。</p>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step">
+    <div class="sh"><span class="b">2</span><h3>装上 Phoenix 6 库（Kraken 必需）</h3></div>
+    <p>Kraken 用 CTRE 的 Phoenix 6 库，新项目默认没有，必须手动加一次，否则后面 <code>TalonFX</code> 会报红、编译不过。</p>
+    <ul>
+      <li>按 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> → <b>WPILib: Manage Vendor Libraries</b> → <b>Install new libraries (online)</b>。</li>
+      <li>粘贴 CTRE Phoenix 6 的 JSON 链接（去 CTRE 官方文档复制当年的那条，链接每年会变），回车。</li>
+      <li>装完右下角会提示 build，让它跑一次。</li>
+    </ul>
+    <div class="box warn"><b>坑</b>vendor 库的版本必须和你的 WPILib 年份一致。链接形如 <span class="mono">…/Phoenix6-frc<b>YYYY</b>-latest.json</span>，<b>YYYY</b> 要对上。</div>
+    <p class="muted">✅ 验证：项目里多出 <span class="mono">vendordeps/Phoenix6.json</span>。</p>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step">
+    <div class="sh"><span class="b">3</span><h3>写 Roller 子系统（持有电机）</h3></div>
+    <p>在 <span class="mono">subsystems/</span> 文件夹上右键 → New File，建 <b>Roller.java</b>，写入下面的内容。这是<b>唯一</b>碰电机的文件。</p>
+    <div class="code">
+      <div class="name"><span>Roller.java</span><span class="path">src/main/java/frc/robot/subsystems/</span></div>
+<pre><span class="kw">package</span> frc.robot.subsystems;
+
+<span class="kw">import</span> com.ctre.phoenix6.controls.DutyCycleOut;
+<span class="kw">import</span> com.ctre.phoenix6.hardware.TalonFX;
+<span class="kw">import</span> edu.wpi.first.wpilibj2.command.Command;
+<span class="kw">import</span> edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+<span class="kw">public class</span> <span class="ty">Roller</span> <span class="kw">extends</span> <span class="ty">SubsystemBase</span> {
+
+  <span class="cm">// Kraken X60 由 TalonFX 控制器驱动，所以类名是 TalonFX。括号里 5 是 CAN ID。</span>
+  <span class="kw">private final</span> <span class="ty">TalonFX</span> motor = <span class="kw">new</span> <span class="ty">TalonFX</span>(<span class="st">5</span>);
+
+  <span class="cm">// 复用同一个控制请求对象（Phoenix 6 推荐做法），用 withOutput() 改输出。</span>
+  <span class="kw">private final</span> <span class="ty">DutyCycleOut</span> request = <span class="kw">new</span> <span class="ty">DutyCycleOut</span>(<span class="st">0.0</span>);
+
+  <span class="cm">// 整个项目唯一命令电机的地方。设成 private：外面只能拿到 Command。</span>
+  <span class="kw">private void</span> <span class="fn">setSpeed</span>(<span class="kw">double</span> percent) {
+    motor.<span class="fn">setControl</span>(request.<span class="fn">withOutput</span>(percent));
+  }
+
+  <span class="cm">// 工厂方法：按住 → 0.6（60%），松开/被打断 → 0（停）。</span>
+  <span class="kw">public</span> <span class="ty">Command</span> <span class="fn">runCommand</span>() {
+    <span class="kw">return</span> <span class="fn">startEnd</span>(
+      () -> <span class="fn">setSpeed</span>(<span class="st">0.6</span>),
+      () -> <span class="fn">setSpeed</span>(<span class="st">0.0</span>)
+    );
+  }
+}</pre>
+    </div>
+    <p>逐行理解：</p>
+    <ul>
+      <li><b>那两个 import（phoenix6）</b>—— 来自 Step 2 装的库。如果它们报红，说明库没装好，回去重做 Step 2。</li>
+      <li><b><span class="mono">new TalonFX(5)</span></b>—— 在 CAN 总线上找 ID=5 的设备。改成你电机真实的 ID。</li>
+      <li><b><span class="mono">setSpeed()</span> 是 private</b>—— 外界（RobotContainer）不能直接拨电机，只能通过命令。这就是“硬件只住在一个地方”。</li>
+      <li><b><span class="mono">startEnd(开始, 结束)</span></b>—— 造一条命令：被调度时跑一次“开始”，被停/被打断时跑一次“结束”。它自己永远不结束，正好配 <code>whileTrue</code>。</li>
+    </ul>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step">
+    <div class="sh"><span class="b">4</span><h3>在 RobotContainer 里把 A 键绑上</h3></div>
+    <p>打开 <b>RobotContainer.java</b>，把内容改成下面这样（骨架里已有这个类，你只是填进去）。</p>
+    <div class="code">
+      <div class="name"><span>RobotContainer.java</span><span class="path">src/main/java/frc/robot/</span></div>
+<pre><span class="kw">package</span> frc.robot;
+
+<span class="kw">import</span> edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+<span class="kw">import</span> frc.robot.subsystems.Roller;
+
+<span class="kw">public class</span> <span class="ty">RobotContainer</span> {
+
+  <span class="cm">// 创建子系统 + 手柄（手柄插在 Driver Station 的 0 号 USB 口）。</span>
+  <span class="kw">private final</span> <span class="ty">Roller</span> roller = <span class="kw">new</span> <span class="ty">Roller</span>();
+  <span class="kw">private final</span> <span class="ty">CommandXboxController</span> driver = <span class="kw">new</span> <span class="ty">CommandXboxController</span>(<span class="st">0</span>);
+
+  <span class="kw">public</span> <span class="fn">RobotContainer</span>() {
+    <span class="fn">configureBindings</span>();
+  }
+
+  <span class="kw">private void</span> <span class="fn">configureBindings</span>() {
+    <span class="cm">// 核心就这一行：按住 A → 跑 roller 命令；松开 → 自动停。</span>
+    driver.<span class="fn">a</span>().<span class="fn">whileTrue</span>(roller.<span class="fn">runCommand</span>());
+  }
+}</pre>
+    </div>
+    <p>这个文件里<b>没有一个 setControl</b>、没有任何硬件，只有“引用 + 一行接线”。硬件住在 Roller，意图住在这里。</p>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="step">
+    <div class="sh"><span class="b">5</span><h3>确认 Robot.java 里那一行发动机</h3></div>
+    <p>骨架已经替你写好了，<b>你只需打开 Robot.java 确认它在</b>。漏了它，后面按 A 会毫无反应、还不报错 —— 这是新手第一大坑。</p>
+    <div class="code">
+      <div class="name"><span>Robot.java</span><span class="path">src/main/java/frc/robot/</span></div>
+<pre>  <span class="kw">@Override</span>
+  <span class="kw">public void</span> <span class="fn">robotPeriodic</span>() {
+    <span class="cm">// 整个项目最关键的一行。它每 20ms 驱动一次调度器。</span>
+    <span class="ty">CommandScheduler</span>.<span class="fn">getInstance</span>().<span class="fn">run</span>();
+  }</pre>
+    </div>
+    <p class="muted">✅ 验证：按 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> → <b>WPILib: Build Robot Code</b>，看到 <b>BUILD SUCCESSFUL</b>。报错的话先看是不是 phoenix6 import 的问题。</p>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="step">
+    <div class="sh"><span class="b">6</span><h3>部署到机器人</h3></div>
+    <p>用 USB 线或电台连上机器人（roboRIO 通电）。</p>
+    <figure style="margin:6px 0 14px">
+      <svg viewBox="0 0 700 120" role="img" aria-label="部署流程">
+        <defs><marker id="ah3" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
+        <style>.d-t{font:700 14px "PingFang SC",sans-serif;fill:#16223a}.d-s{font:11.5px monospace;fill:#64748b}.d-l{font:11.5px "PingFang SC",sans-serif;fill:#94a3b8}.d-ln{stroke:#94a3b8;stroke-width:1.6;marker-end:url(#ah3)}</style>
+        <rect x="8" y="34" width="150" height="52" rx="10" fill="#e8f1ff" stroke="#0066B3" stroke-width="1.5"/>
+        <text class="d-t" x="30" y="58">VS Code</text><text class="d-s" x="30" y="76">你的电脑</text>
+        <line class="d-ln" x1="158" y1="60" x2="206" y2="60"/><text class="d-l" x="158" y="50">编译</text>
+        <rect x="208" y="34" width="150" height="52" rx="10" fill="#f6f8fb" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text class="d-t" x="230" y="58">.jar 程序包</text><text class="d-s" x="230" y="76">build/libs/</text>
+        <line class="d-ln" x1="358" y1="60" x2="406" y2="60"/><text class="d-l" x="356" y="50">deploy/SCP</text>
+        <rect x="408" y="34" width="150" height="52" rx="10" fill="#eef2f7" stroke="#475569" stroke-width="1.5"/>
+        <text class="d-t" x="430" y="58">roboRIO</text><text class="d-s" x="430" y="76">运行你的代码</text>
+        <line class="d-ln" x1="558" y1="60" x2="606" y2="60"/>
+        <rect x="608" y="34" width="84" height="52" rx="10" fill="#e7f9f0" stroke="#10b981" stroke-width="1.5"/>
+        <text class="d-t" x="624" y="58" fill="#047857">🟢 绿灯</text><text class="d-s" x="624" y="76">Robot Code</text>
+      </svg>
+    </figure>
+    <ul>
+      <li>按 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> → <b>WPILib: Deploy Robot Code</b>。</li>
+      <li>等终端出现部署成功的提示（绿色 BUILD SUCCESSFUL + 一串部署日志）。</li>
+    </ul>
+    <p class="muted">✅ 验证：打开 <b>Driver Station</b>，左侧 <b>Robot Code</b> 和 <b>Communications</b> 两个灯变绿。</p>
+  </div>
+
+  <!-- Step 7 -->
+  <div class="step">
+    <div class="sh"><span class="b">7</span><h3>测试！</h3></div>
+    <ul>
+      <li>确认手柄插在电脑上，Driver Station 的 USB Devices 里能看到它在 0 号位。</li>
+      <li>Driver Station 选 <b>Teleoperated</b> 模式，点 <b>Enable</b>。</li>
+      <li><b>按住 A 键</b> → Kraken 转；<b>松开</b> → 停。</li>
+    </ul>
+    <div class="box tip"><b>成功了</b>你刚刚用 Command-Based 的完整四件套（Subsystem / Command / Trigger / Scheduler）让第一颗电机动了起来。加第二个机构时，你只要再写一个子系统 + 再加一行 <code>whileTrue</code>。</div>
+  </div>
+
+  <!-- troubleshooting -->
+  <h3><span class="n">🔧</span>不动？按这张表查</h3>
+  <table>
+    <tr><th>现象</th><th>最可能的原因</th><th>怎么查 / 怎么修</th></tr>
+    <tr><td>按 A 完全没反应</td><td>robotPeriodic 漏了那一行</td><td>回 Step 5，确认 <span class="mono">CommandScheduler.getInstance().run()</span> 在</td></tr>
+    <tr><td>那行在，还是没反应</td><td>CAN ID 不对</td><td>用 Phoenix Tuner X 看电机真实 ID，改 Roller 里的数字</td></tr>
+    <tr><td>电机在 Tuner X 里都看不到</td><td>接线 / 供电 / firmware</td><td>查 CAN 接线、给电机供电、刷对应年份 firmware</td></tr>
+    <tr><td>import 报红 / 编译失败</td><td>Phoenix 6 库没装好</td><td>回 Step 2 重装 vendordep，注意年份</td></tr>
+    <tr><td>Deploy 失败</td><td>队号错 / 没连上 rio</td><td>查 <span class="mono">.wpilib</span> 里队号、确认网络/USB 连接</td></tr>
+    <tr><td>电机转，但方向反了</td><td>默认旋转方向</td><td>在 Roller 构造函数里用 TalonFXConfiguration 配 inverted</td></tr>
+    <tr><td>Robot Code 红灯</td><td>代码运行时抛异常</td><td>看 Driver Station 控制台 / riolog 的报错堆栈</td></tr>
+  </table>
+
+  <footer>
+    <b>下一步：</b>把 <code>startEnd</code> 换成带 PID 的闭环让电机转到指定<u>位置</u>；给 Kraken 配电流限制保护电机；用 <code>.withTimeout(2)</code> 把这条命令塞进自动阶段。<br>
+    <span class="muted">FRC Wiki CN · <a href="code-command-based.html">返回 Command-Based 指南 · Back to the Command-Based guide</a></span>
+  </footer>
+
+</div>
+</body>
+</html>

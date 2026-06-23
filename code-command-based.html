@@ -154,6 +154,7 @@
         <li><a href="#default-commands" data-en="Default commands">默认命令</a></li>
         <li><a href="#triggers" data-en="Triggers & bindings">触发器与绑定</a></li>
         <li><a href="#worked-example" data-en="Worked example">完整示例</a></li>
+        <li><a href="#hands-on-demo" data-en="Hands-on demo">动手实战 Demo</a></li>
         <li><a href="#command-lifecycle" data-en="Command lifecycle">Command 生命周期</a></li>
         <li><a href="#composition" data-en="Combining commands">组合命令</a></li>
         <li><a href="#common-mistakes" data-en="Common mistakes">常见的坑</a></li>
@@ -579,6 +580,35 @@ public class RobotContainer {
     driver.a().whileTrue(intake.intakeCommand());
   }
 }</code></pre>
+    </section>
+
+    <section id="hands-on-demo" class="intro-panel">
+      <div>
+        <p class="eyebrow" data-en="Hands-on demo">动手实战</p>
+        <h2 data-en="Try It: One Motor, One Button">上手试试：一颗电机，一个按键</h2>
+        <p data-en="Reading is one thing — making a real motor spin is another. This standalone walkthrough takes the exact worked example above and turns it into a deploy-it-yourself lab: hold the A button and a Kraken spins, release and it stops. Concepts first, then seven verified steps from an empty project to a moving motor.">
+          看懂是一回事，让真电机转起来是另一回事。这份独立教程把上面的完整示例变成一个“自己动手部署”的实验：按住 A 键，Kraken 转；松开，停。先把概念讲清楚，再用七个带验证点的步骤，从空项目一路做到电机转动。
+        </p>
+        <p style="margin-top: 18px;"><a href="code-command-based-demo.html" class="primary-action" data-en="Open the hands-on demo →">打开动手实战教程 →</a></p>
+      </div>
+      <div class="quick-facts">
+        <div>
+          <span data-en="Format">形式</span>
+          <strong data-en="Step-by-step lab">分步实验</strong>
+        </div>
+        <div>
+          <span data-en="Goal">目标</span>
+          <strong data-en="Button → motor spins">按键 → 电机转</strong>
+        </div>
+        <div>
+          <span data-en="Motor">电机</span>
+          <strong>Kraken X60 · TalonFX</strong>
+        </div>
+        <div>
+          <span data-en="Starting point">起点</span>
+          <strong data-en="Empty project">空项目</strong>
+        </div>
+      </div>
     </section>
 
     <section id="command-lifecycle">
