@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第一次让机器人动 First Motion - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Page-specific TOC layout (only used here) */
+    .docs-layout {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+    }
+    .docs-layout > main.code-main {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+    .docs-toc {
+      position: sticky;
+      top: 88px;
+      align-self: start;
+      font-size: 0.92rem;
+    }
+    .docs-toc .toc-title {
+      margin: 0 0 12px;
+      padding: 0 14px;
+      color: var(--frc-gray);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+    .docs-toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-left: 2px solid var(--frc-border);
+      counter-reset: toc;
+    }
+    .docs-toc li {
+      margin: 0;
+      counter-increment: toc;
+    }
+    .docs-toc a {
+      display: block;
+      padding: 8px 14px;
+      margin-left: -2px;
+      border-left: 2px solid transparent;
+      color: var(--frc-gray);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .docs-toc a::before {
+      content: counter(toc, decimal-leading-zero) "\00a0\00a0";
+      color: rgba(107, 114, 128, 0.55);
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+    .docs-toc a:hover {
+      color: var(--frc-blue);
+      background: rgba(0, 102, 179, 0.05);
+    }
+    .docs-toc a.active {
+      color: var(--frc-blue);
+      border-left-color: var(--frc-blue);
+      font-weight: 700;
+      background: rgba(0, 102, 179, 0.06);
+    }
+    .docs-toc a.active::before { color: var(--frc-blue); }
+
+    /* Section anchors land below the sticky navbar */
+    section[id] { scroll-margin-top: 88px; }
+
+    @media (max-width: 960px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px 20px;
+      }
+      .docs-toc {
+        position: static;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--frc-border);
+      }
+      .docs-toc ol {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px 12px;
+        border-left: 0;
+      }
+      .docs-toc a {
+        margin-left: 0;
+        padding: 6px 4px;
+        border-left: 0;
+      }
+      .docs-toc a.active { border-left: 0; }
+    }
+  </style>
+</head>
+<body class="code-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html" data-en="Back to Code">返回代码</a>
+      <p class="eyebrow" data-en="First Motion">第一次让机器人动 · First Motion</p>
+      <h1>Your First Motion — One Motor, One Button</h1>
+      <p data-en="One motor, one button. The smallest traceable signal path proves your code compiles, the deploy reached the rio, and the rio talks to a motor over CAN.">
+        一颗电机、一个按键。用最小的可追踪信号链路，一次验证“代码能编译、部署到了 rio、rio 能通过 CAN 驱动电机”。
+      </p>
+    </div>
+    <aside class="software-summary">
+      <span data-en="Base class">基类</span>
+      <strong>TimedRobot</strong>
+      <span data-en="What you verify">验证目标</span>
+      <strong data-en="Compile → deploy → CAN → spin">编译 → 部署 → CAN → 转动</strong>
+    </aside>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-toc" aria-label="Table of contents">
+      <p class="toc-title" data-en="On this page">本页目录</p>
+      <ol>
+        <li><a href="#why-one-motor" data-en="Why one motor first">为什么从一颗电机开始</a></li>
+        <li><a href="#signal-path" data-en="The signal path">信号链路</a></li>
+        <li><a href="#minimum-code" data-en="The minimum code">最小代码</a></li>
+        <li><a href="#lifecycle" data-en="The lifecycle">生命周期细节</a></li>
+        <li><a href="#what-is-timedrobot" data-en="What TimedRobot is">TimedRobot 究竟是什么</a></li>
+        <li><a href="#command-based-route" data-en="The Command-Based route">另一条路：Command-Based</a></li>
+        <li><a href="#common-mistakes" data-en="Common mistakes">常见的坑</a></li>
+        <li><a href="#read-more" data-en="Where to read more">去哪读更多</a></li>
+      </ol>
+    </aside>
+    <main class="code-main">
+
+    <section id="why-one-motor" class="intro-panel">
+      <div>
+        <p class="eyebrow" data-en="Start small">从最小开始</p>
+        <h2 data-en="Why one motor first">为什么从一颗电机开始</h2>
+        <p data-en="You are about to verify three independent things at once: (1) your code compiles, (2) the deploy reached the rio, (3) the rio talks to the motor controller over CAN. If you start by writing drive code with four motors and a joystick, and it doesn't work, you cannot tell which link in the chain is broken.">
+          你即将一次验证三件独立的事：(1) 代码能编译，(2) 部署到了 rio 上，(3) rio 能通过 CAN 跟电机控制器对话。如果一上来就写四个电机 + 摇杆的底盘代码，挂了你根本不知道是哪一环出问题。
+        </p>
+        <p data-en="One motor plus one button equals a single, traceable signal path. When something goes wrong — and on your first deploy something usually does — there is exactly one chain to walk, and you can find the broken link in minutes instead of hours.">
+          一颗电机 + 一个按键 = 一条可追踪的信号链路。一旦出问题 —— 第一次部署通常都会出点问题 —— 你只有一条链可走，几分钟就能定位故障，而不是花上几个小时。
+        </p>
+      </div>
+      <div class="quick-facts">
+        <div>
+          <span data-en="Verify #1">验证 1</span>
+          <strong data-en="Code compiles">代码能编译</strong>
+        </div>
+        <div>
+          <span data-en="Verify #2">验证 2</span>
+          <strong data-en="Deploy reached the rio">部署到了 rio</strong>
+        </div>
+        <div>
+          <span data-en="Verify #3">验证 3</span>
+          <strong data-en="rio talks over CAN">rio 通过 CAN 对话</strong>
+        </div>
+        <div>
+          <span data-en="Net result">最终结果</span>
+          <strong data-en="One traceable path">一条可追踪链路</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="signal-path" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="The signal path">信号链路</p>
+        <h2 data-en="From button press to spinning motor">从按下按键到电机转动</h2>
+        <p data-en="Press the A button and a signal travels through eight boxes before the motor spins. Every box on this path can fail. Knowing the path means you know where to look when nothing happens.">
+          按下 A 键，信号要穿过八个框，电机才会转。这条链上每个框都可能挂掉。记住整条链路 = 知道该去哪儿查。
+        </p>
+      </div>
+      <pre class="code-window"><code>   Driver presses A
+   按下 A 键
+        │
+        ▼
+   Driver Station laptop
+   reads USB HID input
+   笔记本读 USB HID 输入
+        │
+        ▼ (Wi-Fi / USB)
+   roboRIO receives
+   the joystick state
+   roboRIO 收到摇杆状态
+        │
+        ▼  (your code, every 20 ms)
+   Robot.teleopPeriodic():
+     if (controller.getAButton())
+        motor.set(0.5);
+        │
+        ▼  (Phoenix6 / REVLib library)
+   CAN frame sent on the bus
+   往 CAN 总线发一帧
+        │
+        ▼
+   Motor controller (e.g. SparkMax id=5)
+   receives "50% duty cycle"
+   电机控制器收到 "50% 输出"
+        │
+        ▼  (3-phase output to the motor)
+   Motor spins. 🎉
+   电机转起来。🎉</code></pre>
+    </section>
+
+    <section id="minimum-code" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="The minimum code">最小代码</p>
+        <h2 data-en="The minimum code — TimedRobot, not yet Command-Based">最小代码 — 暂用 TimedRobot，先不上 Command-Based</h2>
+        <p data-en="We deliberately skip Command-Based here. With just one motor it's overkill, and the structure hides what's actually happening. Once you've felt the bare loop, the structure makes much more sense.">
+          我们故意先不用 Command-Based。一颗电机用框架是过度设计，框架会把“实际发生的事”藏起来。先体会一遍裸循环，框架的价值后面才看得明白。
+        </p>
+      </div>
+      <pre class="code-window"><code>// src/main/java/frc/robot/Robot.java
+package frc.robot;
+
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+
+public class Robot extends TimedRobot {
+
+    // boot-time: created once, lives forever.
+    // 启动期：只创建一次，活到关机。
+    private final SparkMax motor = new SparkMax(5, MotorType.kBrushless);
+    private final XboxController driver = new XboxController(0);
+
+    @Override
+    public void teleopPeriodic() {
+        // 20 ms tick: read input, write output, return.
+        // 20ms 节拍：读输入、写输出、返回。
+        if (driver.getAButton()) {
+            motor.set(0.5);
+        } else {
+            motor.set(0.0);
+        }
+    }
+}</code></pre>
+      <div class="section-heading" style="margin-top: 8px;">
+        <h3 data-en="Notice three things about this code">注意这段代码里的三件事</h3>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="The motor object is a field, not a local variable">motor 是字段，不是局部变量</h3>
+            <p data-en="It exists once. motor.set(...) is just adjusting a setpoint on an object that already exists.">它只创建一次，motor.set(...) 只是修改一个已经存在的对象的设定值。</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="teleopPeriodic does almost nothing">teleopPeriodic 几乎啥也没干</h3>
+            <p data-en="Read, write, return. The hard work happens inside motor.set() — Phoenix6 / REVLib builds the CAN frame.">读、写、返回。重活在 motor.set() 里（Phoenix6 / REVLib 负责构造 CAN 帧）。</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="There is no while (true) loop">没有 while (true)</h3>
+            <p data-en="WPILib runs this method for you every 20 ms. Writing your own loop here would block the loop and the robot would die.">WPILib 每 20 毫秒帮你跑一次这个方法。你自己写循环会把整个调度堵死，机器人直接挂。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="lifecycle">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="The lifecycle">生命周期细节</p>
+        <h2 data-en="The lifecycle in detail — boot to tick">生命周期细节 — 从启动到节拍</h2>
+        <p data-en="Now is the right time to look at the full boot-and-tick sequence. This is the official WPILib TimedRobot model: power-on, then the fields are created, then robotInit runs once, then the 20 ms dispatch loop begins.">
+          现在是时候看清完整的“启动 + 节拍”流程了。这是 WPILib 官方 TimedRobot 模型：上电、创建字段、robotInit 跑一次，然后进入每 20 毫秒的分发循环。
+        </p>
+        <p data-en="The first sentence of every 'why isn't my code running?' investigation is: which periodic am I actually in? Get that right and 80% of bugs disappear.">
+          每次排查“代码怎么不跑了”，第一句话永远是：我现在到底在哪个 periodic 里？这条搞对，80% 的 bug 都自己消失了。
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="Power-on">上电</h3>
+            <p data-en="The roboRIO boots and the WPILib runtime starts. Nothing of yours runs yet.">roboRIO 启动，WPILib 运行时开始工作。你的代码还没跑。</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="new Robot() — fields created">new Robot() — 字段创建</h3>
+            <p data-en="WPILib constructs your Robot object. Every field — the SparkMax, the XboxController — is created exactly once here, at boot.">WPILib 构造你的 Robot 对象。每个字段 —— SparkMax、XboxController —— 都在启动时，恰好创建一次。</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="robotInit() — runs once (rarely used now)">robotInit() — 只跑一次（现在很少用）</h3>
+            <p data-en="Called once after construction. Modern code does most one-time setup in the constructor instead, so this hook is often left empty.">构造之后调用一次。现代代码大多把一次性初始化放在构造函数里，所以这个钩子常常留空。</p>
+          </div>
+        </li>
+        <li>
+          <span>04</span>
+          <div>
+            <h3 data-en="robotPeriodic() — always called, every 20 ms">robotPeriodic() — 每 20 毫秒，无论什么模式都跑</h3>
+            <p data-en="From here on, every 20 ms tick begins with robotPeriodic(). It runs in disabled, autonomous, teleop, and test alike — use it for telemetry and anything mode-independent.">从此每个 20 毫秒节拍都从 robotPeriodic() 开始。disabled、autonomous、teleop、test 它都跑 —— 用来推 telemetry 和任何与模式无关的逻辑。</p>
+          </div>
+        </li>
+        <li>
+          <span>05</span>
+          <div>
+            <h3 data-en="Mode dispatch — which periodic?">模式分发 — 跑哪个 periodic？</h3>
+            <p data-en="After robotPeriodic(), the dispatcher checks the Driver Station's current mode and calls exactly one of disabledPeriodic(), autonomousPeriodic(), teleopPeriodic(), or testPeriodic(). Then the next 20 ms tick repeats from step 04.">robotPeriodic() 之后，分发器检查 Driver Station 当前模式，只调用 disabledPeriodic()、autonomousPeriodic()、teleopPeriodic()、testPeriodic() 中的一个。然后下一个 20 毫秒节拍从第 04 步重复。</p>
+          </div>
+        </li>
+        <li>
+          <span>06</span>
+          <div>
+            <h3 data-en="Mode transition — *Init runs once">模式切换 — *Init 跑一次</h3>
+            <p data-en="When you flip from disabled to teleop in Driver Station, WPILib calls teleopInit() once, then starts calling teleopPeriodic() every 20 ms. Disable again and disabledInit() runs once. Use the *Init hooks to schedule the auto command or cancel leftover work on a mode change.">在 Driver Station 从 disabled 切到 teleop 时，WPILib 先调用一次 teleopInit()，然后每 20 毫秒调用 teleopPeriodic()。再次 disable 则跑一次 disabledInit()。用 *Init 钩子在切换模式时调度 auto 命令、取消遗留任务。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="what-is-timedrobot" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="What TimedRobot is">TimedRobot 究竟是什么</p>
+        <h2 data-en="What TimedRobot actually is">TimedRobot 究竟是什么</h2>
+        <p data-en="You wrote public class Robot extends TimedRobot. That extends keyword does a lot of quiet work, and it pays to be explicit about what.">
+          你写下了 public class Robot extends TimedRobot。那个 extends 在背后干了一大堆活，值得专门讲清楚。
+        </p>
+        <p data-en="TimedRobot is a Java class shipped by WPILib at edu.wpi.first.wpilibj.TimedRobot. It is the base class for almost every FRC robot program written today. When you write extends TimedRobot, you literally inherit from it. So what does the class already provide before you write a single line?">
+          TimedRobot 是 WPILib 提供的 Java 基类，路径 edu.wpi.first.wpilibj.TimedRobot。它是当今几乎所有 FRC 机器人程序的基类。你写 extends TimedRobot 就是从它继承。在你一行代码都还没写之前，这个类已经替你准备好了什么？
+        </p>
+      </div>
+      <pre class="code-window"><code>   ┌──── what WPILib's TimedRobot already does for you ────────┐
+   │                                                            │
+   │  1. Boot:  Main.main() → RobotBase.startRobot(Robot::new)  │
+   │     启动流程已经接好，你不用碰。                                │
+   │                                                            │
+   │  2. A 50 Hz hardware timer (20 ms ticks).                  │
+   │     一个 50 赫兹的硬件定时器 (20 毫秒一拍)。                    │
+   │                                                            │
+   │  3. A mode dispatcher: every tick, checks the              │
+   │     Driver Station's enabled/disabled state and current    │
+   │     mode (disabled / autonomous / teleop / test) and       │
+   │     calls the matching *Init (once on transition) and      │
+   │     *Periodic (every tick).                                │
+   │     一个模式分发器:每拍都查 Driver Station 当前模式,            │
+   │     在模式切换时调一次 *Init, 每拍调一次 *Periodic.            │
+   │                                                            │
+   │  4. Empty default implementations of every hook:           │
+   │     robotInit, robotPeriodic, disabledInit, disabledPeriodic, │
+   │     autonomousInit, autonomousPeriodic,                    │
+   │     teleopInit, teleopPeriodic,                            │
+   │     testInit, testPeriodic,                                │
+   │     simulationInit, simulationPeriodic                     │
+   │     每个生命周期钩子的空实现都已经在那里。                       │
+   └────────────────────────────────────────────────────────────┘</code></pre>
+      <p data-en="The model: hooks-as-slots. Each *Periodic method is a slot you may choose to override. WPILib will call it every 20 ms whether you implement it or not — if you don't override it, it runs the empty default and does nothing. There are no abstract methods to force you, no start() you have to call. The framework runs; your overrides plug in.">
+        思维模型：钩子即插槽。每个 *Periodic 都是一个可选的插槽。无论你写没写，WPILib 每 20 毫秒都会调用它 —— 没重写就跑空实现，啥都不干。没有要求必须实现的抽象方法，也没有什么 start() 要你来调。框架在跑，你的重写插上去就行。
+      </p>
+      <pre class="code-window"><code>// Roughly what TimedRobot looks like (real source is more elaborate):
+// TimedRobot 大概长这样（真源码更复杂）:
+public abstract class TimedRobot extends IterativeRobotBase {
+    public TimedRobot() {
+        // start a 20 ms hardware timer that calls loopFunc()
+        // 启动一个 20 毫秒定时器，每次触发调用 loopFunc()
+    }
+
+    private void loopFunc() {
+        robotPeriodic();              // always runs
+        switch (driverStation.getMode()) {
+            case DISABLED   -> disabledPeriodic();
+            case AUTONOMOUS -> autonomousPeriodic();
+            case TELEOP     -> teleopPeriodic();
+            case TEST       -> testPeriodic();
+        }
+    }
+
+    // Empty defaults — you override any subset.
+    // 空的默认实现 —— 你重写其中任意几个即可。
+    public void robotInit() {}
+    public void robotPeriodic() {}
+    public void teleopInit() {}
+    public void teleopPeriodic() {}
+    // ... and so on
+}</code></pre>
+      <p data-en="That's the whole base class, conceptually. There is no 'scheduler' hidden inside it; no 'framework' magic. Whenever something in your code feels automatic ('how does teleopPeriodic know when to run?'), the answer is always: TimedRobot's hardware timer plus mode dispatcher. Nothing more.">
+        基类的概念到此为止。里面没有藏着 scheduler，没有任何“框架魔法”。代码里凡是“自动发生”的事（“teleopPeriodic 怎么知道该跑了？”），答案永远是：TimedRobot 的硬件定时器 + 模式分发器。仅此而已。
+      </p>
+      <div class="section-heading" style="margin-top: 8px;">
+        <h3 data-en="Why this matters for the rookie">为什么新手要懂这层</h3>
+      </div>
+      <ul style="margin-left: 20px; line-height: 1.85; color: #374151;">
+        <li><span data-en="It tells you where to put what kind of code. Boot-once → constructor or robotInit. Every-tick-regardless-of-mode → robotPeriodic. Every-tick-during-teleop → teleopPeriodic. Every-tick-during-auto → autonomousPeriodic. That is the entire decision tree.">它告诉你哪段代码该放哪里。只执行一次 → 构造函数 或 robotInit。每拍跑（不管什么模式）→ robotPeriodic。teleop 期间每拍跑 → teleopPeriodic。auto 期间每拍跑 → autonomousPeriodic。决策树就这么大。</span></li>
+        <li><span data-en="It tells you why you must never write while (true) inside any *Periodic: doing so steals control from the timer, which can no longer fire any further ticks. The robot freezes.">它告诉你为什么任何 *Periodic 里都不许写 while (true) —— 那等于偷走了定时器的控制权，后续节拍再也无法触发，机器人冻住。</span></li>
+        <li><span data-en="It tells you Command-Based is not a different base class. The Command-Based template also extends TimedRobot. The difference is what you put inside the periodic methods.">它告诉你 Command-Based 不是另一个基类。Command-Based 模板同样继承 TimedRobot，区别是往 periodic 里放什么。</span></li>
+      </ul>
+      <div class="callout">
+        <p data-en="Historical note: WPILib has shipped several robot bases over the years — SampleRobot (you wrote your own loop; long deprecated), IterativeRobot (older periodic-style base, replaced), and TimedRobot (current). For any new project, the answer is TimedRobot. The Command-Based template just extends it and adds a RobotContainer companion file.">
+          历史小注：WPILib 历年提供过几种机器人基类 —— SampleRobot（自己写循环，早已弃用）、IterativeRobot（更早的 periodic 风格，已替换）、TimedRobot（当前）。新项目只用 TimedRobot。Command-Based 模板就是继承它，再多加一个 RobotContainer 文件作伴。
+        </p>
+      </div>
+    </section>
+
+    <section id="command-based-route" class="advanced-panel">
+      <div>
+        <p class="eyebrow" data-en="Another route">另一条路</p>
+        <h2 data-en="The Command-Based route — same goal, four pieces">另一条路：Command-Based 实战</h2>
+        <p data-en="The bare TimedRobot loop above is the clearest way to feel the signal path. But the very same goal — hold a button, spin a motor, release, stop — is also the perfect first lab for Command-Based, the framework almost every team eventually adopts. There it's built from four pieces: a Subsystem that owns the motor, a Command that describes the action, a Trigger bound to the A button, and the Scheduler that runs the loop.">
+          上面的裸 TimedRobot 循环是体会信号链路最清晰的方式。但同一个目标 —— 按住按键、电机转，松开、停 —— 也正好是 Command-Based 的第一个实验，而几乎每支队伍最终都会转向这套框架。在那里，它由四个核心部分搭成：持有电机的 Subsystem、描述动作的 Command、绑在 A 键上的 Trigger，以及驱动循环的 Scheduler。
+        </p>
+        <p data-en="The hands-on lab takes the exact same 'one motor, one button' goal and builds it the Command-Based way, step by step from an empty project to a spinning Kraken. Do the TimedRobot version first to understand the loop, then do this one to understand the structure.">
+          这份动手实战拿同样的“一颗电机、一个按键”目标，用 Command-Based 的方式从空项目一步步搭到 Kraken 转动。先做 TimedRobot 版理解循环，再做这一份理解结构。
+        </p>
+        <p style="margin-top: 18px;"><a href="code-command-based-demo.html" class="primary-action" data-en="Open the Command-Based hands-on lab →">打开 Command-Based 动手实战 →</a></p>
+      </div>
+      <div class="topic-tags">
+        <span>Subsystem</span>
+        <span>Command</span>
+        <span>Trigger</span>
+        <span>Scheduler</span>
+      </div>
+    </section>
+
+    <section id="common-mistakes">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Pitfalls">常见的坑</p>
+        <h2 data-en="Common mistakes">常见的坑</h2>
+        <p data-en="Almost every first-motion failure is one of these. Walk the signal path top to bottom and check them in order — the broken link is usually obvious once you know what to look for.">
+          第一次让电机动失败，几乎都是下面这几种。顺着信号链路从上往下逐一检查 —— 知道该看什么之后，断掉的那一环通常一眼就能看出来。
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="Writing while (true) inside a *Periodic">在 *Periodic 里写 while (true)</h3>
+            <p data-en="WPILib already calls the method every 20 ms. Your own infinite loop steals control from the timer, which can no longer fire further ticks — the robot freezes and the Driver Station loses connection. Read input, write output, return.">WPILib 已经每 20 毫秒调用一次这个方法。你自己写死循环会偷走定时器的控制权，后续节拍再也无法触发 —— 机器人冻住，Driver Station 掉线。读输入、写输出、返回就好。</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="Creating the motor as a local variable inside periodic">把电机当作 periodic 内的局部变量来创建</h3>
+            <p data-en="The motor must be a field, created once at boot. If you write new SparkMax(...) inside teleopPeriodic, you construct a new object 50 times a second — a flood of CAN traffic and no stable setpoint. Declare it as a private final field.">电机必须是字段，启动时创建一次。如果在 teleopPeriodic 里写 new SparkMax(...)，你每秒会构造 50 个新对象 —— CAN 流量爆炸、设定值也不稳定。声明成 private final 字段。</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="Putting the code in the wrong periodic">代码放错了 periodic</h3>
+            <p data-en="If your button check sits in autonomousPeriodic but you enable in teleop, nothing happens. The first question on any dead-button bug is always: which periodic am I actually in? Match the mode you enable to the periodic you wrote.">如果按键判断写在 autonomousPeriodic 里，你却用 teleop enable，那就什么都不会发生。任何“按键没反应”的第一句话永远是：我现在到底在哪个 periodic 里？让你 enable 的模式和你写的 periodic 对上。</p>
+          </div>
+        </li>
+        <li>
+          <span>04</span>
+          <div>
+            <h3 data-en="Wrong CAN ID or wrong vendor library">CAN ID 写错，或用错厂商库</h3>
+            <p data-en="new SparkMax(5, ...) must match the controller's actual CAN ID. A SparkMax in code talking to a TalonFX on the bus, or the wrong id, means the frame goes nowhere. Verify the id and motor type in REV Hardware Client or Phoenix Tuner X first.">new SparkMax(5, ...) 里的 ID 必须和控制器实际的 CAN ID 一致。代码里写 SparkMax 但总线上是 TalonFX，或者 ID 写错，CAN 帧就发到了空气里。先用 REV Hardware Client 或 Phoenix Tuner X 确认 ID 和电机类型。</p>
+          </div>
+        </li>
+        <li>
+          <span>05</span>
+          <div>
+            <h3 data-en="Connected but not enabled">连上了但没 enable</h3>
+            <p data-en="The Driver Station showing 'Communications' green only means the laptop reached the rio. The motor will not move until you also click Enable. Connected ≠ enabled — check the Enable state before assuming the code is broken.">Driver Station 上 “Communications” 变绿只代表笔记本连上了 rio。还得点 Enable，电机才会动。连上 ≠ enable —— 怀疑代码之前先看 Enable 状态。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="read-more">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Go deeper">去哪读更多</p>
+        <h2 data-en="Where to read more">去哪读更多</h2>
+        <p data-en="Once your motor spins, these official docs explain each link in the signal path in depth — the robot program structure, the timed loop, and the two vendor libraries that build the CAN frames.">
+          电机转起来之后，下面这些官方文档会把信号链路的每一环讲深 —— 机器人程序结构、定时循环，以及构造 CAN 帧的两个厂商库。
+        </p>
+      </div>
+      <ul style="margin-left: 20px; line-height: 1.85; color: #374151;">
+        <li><strong>WPILib Docs — Creating Your First Robot Program</strong> — <span data-en="docs.wpilib.org · the TimedRobot template, the *Init / *Periodic hooks, and deploy.">docs.wpilib.org · TimedRobot 模板、*Init / *Periodic 钩子，以及部署流程。</span></li>
+        <li><strong>WPILib Docs — The Robot Program Structure</strong> — <span data-en="docs.wpilib.org · how Main, Robot, and the timed loop fit together.">docs.wpilib.org · Main、Robot 与定时循环如何拼在一起。</span></li>
+        <li><strong>REVLib Documentation (SparkMax)</strong> — <span data-en="docs.revrobotics.com · the SparkMax / SparkFlex API used in this page's example.">docs.revrobotics.com · 本页示例用到的 SparkMax / SparkFlex API。</span></li>
+        <li><strong>CTRE Phoenix 6 Documentation (TalonFX)</strong> — <span data-en="v6.docs.ctr-electronics.com · the TalonFX API for Kraken and Falcon motors.">v6.docs.ctr-electronics.com · 用于 Kraken 和 Falcon 电机的 TalonFX API。</span></li>
+        <li><strong><a href="software-wpilib.html" data-en="WPILib install guide">WPILib 安装指南</a></strong> — <span data-en="set up the toolchain on this wiki before you deploy.">部署前先在本站把工具链装好。</span></li>
+      </ul>
+    </section>
+
+    <section class="advanced-panel">
+      <div>
+        <p class="eyebrow" data-en="Continue">继续</p>
+        <h2 data-en="Keep going">继续往下走</h2>
+        <p data-en="You verified the whole chain with one motor and one button. Next, scale the same idea up to a real chassis: read two sticks and drive a differential drivetrain.">
+          你用一颗电机、一个按键验证了整条链路。下一步把同样的思路放大到真实底盘：读两个摇杆，驱动差速底盘开起来。
+        </p>
+        <p style="margin-top: 18px;">
+          <a href="code-setup.html" class="secondary-action" data-en="← Setup">← 环境配置 / Setup</a>
+          <a href="code-driving.html" class="primary-action" data-en="Driving →">让底盘开起来 / Driving →</a>
+        </p>
+      </div>
+    </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html" data-en="Back to Code">返回代码</a></p>
+  </footer>
+
+  <script src="language-toggle.js"></script>
+
+  <script>
+    (function () {
+      const links = document.querySelectorAll(".docs-toc a");
+      if (!links.length || !("IntersectionObserver" in window)) return;
+      const byId = new Map();
+      const targets = [];
+      links.forEach((link) => {
+        const id = link.getAttribute("href").slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          byId.set(id, link);
+          targets.push(el);
+        }
+      });
+      const setActive = (id) => {
+        links.forEach((l) => l.classList.remove("active"));
+        const a = byId.get(id);
+        if (a) a.classList.add("active");
+      };
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) =>
+              a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top
+            )[0];
+          if (visible) setActive(visible.target.id);
+        },
+        { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
+      );
+      targets.forEach((t) => observer.observe(t));
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          setActive(link.getAttribute("href").slice(1));
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

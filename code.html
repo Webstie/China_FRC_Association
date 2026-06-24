@@ -89,6 +89,65 @@ public class RobotContainer {
       </div>
     </section>
 
+    <section id="understand">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Part 0 · Understand the system">Part 0 · 先看清整个系统</p>
+        <h2 data-en="Where Robot Code Actually Runs">机器人代码到底跑在哪</h2>
+        <p data-en="Your code is a Java program, but it does not run on your laptop. It runs on a roboRIO bolted to the robot. Your laptop only writes and uploads the code, and during a match runs the Driver Station, which forwards joystick input and the enable signal to the roboRIO over Wi-Fi.">
+          你写的代码是一段 Java 程序，但它不是跑在你的电脑上，而是跑在机器人上一台叫 roboRIO 的实时控制器上。电脑只用来写代码和上传代码；比赛时电脑跑 Driver Station，把手柄输入和 enable 信号通过 Wi-Fi 转给 roboRIO。
+        </p>
+      </div>
+      <pre class="code-window"><code>        你的电脑 / Your laptop
+   ┌─────────────────────────────────┐
+   │  VS Code        — 写 &amp; 部署代码    │
+   │  Driver Station — 驾驶机器人         │
+   └────────────────┬────────────────┘
+                    │  Wi-Fi / USB（比赛时仅 Wi-Fi）
+                    ▼
+            ┌───────────────┐
+            │  Robot Radio  │
+            └───────┬───────┘
+                    │  Ethernet
+                    ▼
+        ╔═══════════════════════════╗
+        ║  roboRIO                  ║
+        ║   · 跑你的 Java 代码         ║
+        ║   · 50 Hz 控制循环           ║
+        ║   · 与所有硬件通信            ║
+        ╚════╤═════════════════╤══════╝
+       CAN   │                 │  DIO / PWM / Ethernet
+             ▼                 ▼
+   ┌──────────────────┐  ┌───────────────────────┐
+   │ 电机控制器         │  │ 传感器 / 气动 / 协处理器  │
+   │ TalonFX · Kraken │  │ 限位 · 光电 · Limelight │
+   │ SparkMax · Flex  │  │ PhotonVision           │
+   └────────┬─────────┘  └───────────────────────┘
+            │ 3-phase
+            ▼
+       ┌─────────┐
+       │  电机    │
+       └─────────┘</code></pre>
+      <p data-en="Read it as a chain of responsibility: your code → roboRIO → CAN / wires → motor controllers → motors. The driver's stick input flows the other way: stick → Driver Station → radio → roboRIO → your code. Your code is the only layer connecting human input to motor output. That is the whole job.">
+        按"职责链"来读：你的代码 → roboRIO → CAN / 线 → 电机控制器 → 电机；手柄输入反向流动：摇杆 → Driver Station → 电台 → roboRIO → 你的代码。你的代码是把"人的输入"和"电机输出"连起来的唯一一层 —— 这就是全部工作。
+      </p>
+      <div class="tool-list">
+        <div class="tool-item">
+          <span data-en="Runs once">只跑一次</span>
+          <strong data-en="Boot">启动 (boot)</strong>
+          <p data-en="Create objects, configure motors, set CAN IDs. Everything that 'sets up the world' goes here.">创建对象、配置电机、写 CAN ID。凡是"建立世界"的代码都放这里。</p>
+        </div>
+        <div class="tool-item">
+          <span data-en="Runs forever, 50 Hz">永远在跑，50 Hz</span>
+          <strong data-en="The 20 ms tick">20 毫秒节拍</strong>
+          <p data-en="Read sensors → run logic → write motor outputs → wait for the next tick. Must stay well under 20 ms or the robot stutters.">读传感器 → 跑逻辑 → 写电机输出 → 等下一拍。必须远低于 20 毫秒，否则机器人会卡。</p>
+        </div>
+      </div>
+      <div class="callout">
+        <strong data-en="The first question for any new function">写任何新函数的第一个问题</strong>
+        <span data-en="Is this boot-time setup, or per-tick work? Every line of robot code lives in one of those two clocks.">这是 boot 阶段的一次性配置，还是每一拍都要跑的工作？每一行机器人代码都属于这两个时钟之一。</span>
+      </div>
+    </section>
+
     <section>
       <div class="section-heading">
         <p class="eyebrow" data-en="Pick a language">选择语言</p>
@@ -178,43 +237,88 @@ public class RobotContainer {
 
     <section id="learning-path">
       <div class="section-heading">
-        <p class="eyebrow" data-en="Learning path">学习路径</p>
-        <h2 data-en="Recommended Learning Path">推荐学习路径</h2>
+        <p class="eyebrow" data-en="The journey">学习路线</p>
+        <h2 data-en="Zero to a Usable Robot">从零到一台可用的机器人</h2>
+        <p data-en="One continuous path: each part builds on the one before it. By the end you can drive your chassis, run a mechanism on a button, and roll forward at auto start. Follow it in order.">
+          一条连续的路线：每一步都建立在上一步的成果上。走完之后，你的代码能开底盘、能用按键控制一个机构、能在 auto 开始时前进 —— 这就叫"可用"。请按顺序来。
+        </p>
       </div>
       <ol class="timeline-list">
         <li>
+          <span>00</span>
+          <div>
+            <h3><a href="#understand" data-en="Understand the system">先看清整个系统</a></h3>
+            <p data-en="Where your code runs, the chain from Driver Station to motor, and the two clocks: boot once, tick every 20 ms.">代码跑在哪、从 Driver Station 到电机的链路，以及两个时钟：启动一次、每 20 毫秒一拍。</p>
+          </div>
+        </li>
+        <li>
           <span>01</span>
           <div>
-            <h3 data-en="Install and deploy">安装并完成部署</h3>
-            <p data-en="Install WPILib VS Code, create a template project, connect to the roboRIO, and deploy successfully.">安装 WPILib VS Code，创建模板项目，连接 roboRIO，并完成一次成功部署。</p>
+            <h3><a href="code-setup.html" data-en="Set up your computer">配置你的电脑</a></h3>
+            <p data-en="Install the toolchain in the right order, then build and deploy a stock project until Robot Code goes green.">按正确顺序装好工具链，再把模板项目编译、部署，直到 Robot Code 变绿。</p>
           </div>
         </li>
         <li>
           <span>02</span>
           <div>
-            <h3 data-en="Read Zero to Robot">阅读 Zero to Robot</h3>
-            <p data-en="Follow the official WPILib guide and understand robot modes, build files, and vendor libraries.">跟随 WPILib 官方指南，理解机器人模式、构建文件和 vendor libraries。</p>
+            <h3><a href="code-first-motion.html" data-en="Your first motion">第一次让机器人动</a></h3>
+            <p data-en="One motor, one button. The smallest traceable signal path, on plain TimedRobot.">一颗电机、一个按键。最小可追踪的信号链路，先用裸 TimedRobot。</p>
           </div>
         </li>
         <li>
           <span>03</span>
           <div>
-            <h3 data-en="Use Command-Based">使用 Command-Based</h3>
-            <p data-en="Create subsystems for drivetrain, intake, shooter, and elevator, then bind controller buttons to commands.">为底盘、intake、shooter、elevator 等机构创建 subsystem，再把手柄按钮绑定到 command。</p>
+            <h3><a href="code-driving.html" data-en="Drive the robot">让底盘开起来</a></h3>
+            <p data-en="Arcade drive on a KOP differential chassis — and watch the hidden assumptions pile up.">在 KOP 差速底盘上实现 arcade drive —— 顺便看隐性假设怎么悄悄堆积。</p>
           </div>
         </li>
         <li>
           <span>04</span>
           <div>
-            <h3 data-en="Add control loops">加入控制闭环</h3>
-            <p data-en="Learn PID, feedforward, sensors, and basic telemetry so mechanisms move predictably.">学习 PID、feedforward、传感器和基础 telemetry，让机构运动更稳定可预测。</p>
+            <h3><a href="code-why-framework.html" data-en="Why we need structure">为什么需要框架</a></h3>
+            <p data-en="The moment you add a second mechanism, the single-file approach rots. Enter Command-Based.">加第二个机构的那一刻，单文件写法就开始腐烂。于是有了 Command-Based。</p>
           </div>
         </li>
         <li>
           <span>05</span>
           <div>
-            <h3 data-en="Build autonomous">构建自动阶段</h3>
-            <p data-en="Move into odometry, PathPlanner or Choreo, AprilTags, and autonomous routine design.">继续学习 odometry、PathPlanner 或 Choreo、AprilTags，以及自动路径设计。</p>
+            <h3><a href="code-command-based.html" data-en="Rewrite with Command-Based">用 Command-Based 重写</a></h3>
+            <p data-en="The four pieces — Subsystem, Command, Trigger, Scheduler — layered on top of TimedRobot.">四个核心部件 —— Subsystem、Command、Trigger、Scheduler —— 叠在 TimedRobot 之上。</p>
+          </div>
+        </li>
+        <li>
+          <span>06</span>
+          <div>
+            <h3><a href="code-add-mechanism.html" data-en="Add a mechanism">加一个机构</a></h3>
+            <p data-en="Intake on the A button, using the repeatable pattern you will follow for every subsystem.">A 键控 intake，用你以后每个 subsystem 都会重复的那套模式。</p>
+          </div>
+        </li>
+        <li>
+          <span>07</span>
+          <div>
+            <h3><a href="code-first-auto.html" data-en="Your first autonomous">第一段自动</a></h3>
+            <p data-en="A timed drive, an auto chooser, then drawing real paths with PathPlanner / Choreo.">先定时前进、加 auto chooser，再用 PathPlanner / Choreo 画真正的路径。</p>
+          </div>
+        </li>
+        <li>
+          <span>08</span>
+          <div>
+            <h3><a href="code-iterate.html" data-en="Iterate reliably">稳定迭代</a></h3>
+            <p data-en="The edit-build-deploy-test loop, reading the Driver Station lights, and Git from day one.">edit-build-deploy-test 循环、读懂 Driver Station 的灯，从第一天就用 Git。</p>
+          </div>
+        </li>
+        <li>
+          <span>09</span>
+          <div>
+            <h3><a href="code-tools.html" data-en="Companion tools">伙伴工具</a></h3>
+            <p data-en="Driver Station, Phoenix Tuner X, REV Hardware Client, dashboards — the apps you live in all season.">Driver Station、Phoenix Tuner X、REV Hardware Client、各种仪表盘 —— 整个赛季都开着的应用。</p>
+          </div>
+        </li>
+        <li>
+          <span>10</span>
+          <div>
+            <h3><a href="code-next.html" data-en="Beyond rookie code">新手之后</a></h3>
+            <p data-en="The skill tree from here: closed-loop control, swerve, vision, advanced pathing, top teams' code.">从这里开始的进阶技能树：闭环控制、swerve、视觉、进阶路径、顶尖队代码。</p>
           </div>
         </li>
       </ol>
@@ -259,6 +363,7 @@ public class RobotContainer {
         <p data-en="After the drivetrain is reliable, move into vision, motion planning, and higher-level automation.">
           当底盘稳定可靠后，再进入视觉、路径规划和更高层的自动控制。
         </p>
+        <p style="margin-top: 18px;"><a href="code-next.html" class="primary-action" data-en="See the full advanced path →">查看完整进阶路线 →</a></p>
       </div>
       <div class="topic-tags">
         <span>PhotonVision</span>
@@ -267,6 +372,9 @@ public class RobotContainer {
         <span>Swerve</span>
         <span>PathPlanner</span>
         <span>Choreo</span>
+        <span>SysId</span>
+        <span>AdvantageKit</span>
+        <span>Pose Estimator</span>
       </div>
     </section>
   </main>

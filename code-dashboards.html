@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboards 仪表盘 English Title - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Page-specific TOC layout (only used here) */
+    .docs-layout {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+    }
+    .docs-layout > main.code-main {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+    .docs-toc {
+      position: sticky;
+      top: 88px;
+      align-self: start;
+      font-size: 0.92rem;
+    }
+    .docs-toc .toc-title {
+      margin: 0 0 12px;
+      padding: 0 14px;
+      color: var(--frc-gray);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+    .docs-toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-left: 2px solid var(--frc-border);
+      counter-reset: toc;
+    }
+    .docs-toc li {
+      margin: 0;
+      counter-increment: toc;
+    }
+    .docs-toc a {
+      display: block;
+      padding: 8px 14px;
+      margin-left: -2px;
+      border-left: 2px solid transparent;
+      color: var(--frc-gray);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .docs-toc a::before {
+      content: counter(toc, decimal-leading-zero) "\00a0\00a0";
+      color: rgba(107, 114, 128, 0.55);
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+    .docs-toc a:hover {
+      color: var(--frc-blue);
+      background: rgba(0, 102, 179, 0.05);
+    }
+    .docs-toc a.active {
+      color: var(--frc-blue);
+      border-left-color: var(--frc-blue);
+      font-weight: 700;
+      background: rgba(0, 102, 179, 0.06);
+    }
+    .docs-toc a.active::before { color: var(--frc-blue); }
+
+    /* Section anchors land below the sticky navbar */
+    section[id] { scroll-margin-top: 88px; }
+
+    @media (max-width: 960px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px 20px;
+      }
+      .docs-toc {
+        position: static;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--frc-border);
+      }
+      .docs-toc ol {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px 12px;
+        border-left: 0;
+      }
+      .docs-toc a {
+        margin-left: 0;
+        padding: 6px 4px;
+        border-left: 0;
+      }
+      .docs-toc a.active { border-left: 0; }
+    }
+  </style>
+</head>
+<body class="code-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html" data-en="Back to Code">返回代码</a>
+      <p class="eyebrow" data-en="Dashboards">Dashboards · 仪表盘</p>
+      <h1>Dashboards — See What the Robot Sees</h1>
+      <p data-en="Windows on your laptop showing what the robot publishes — all built on NetworkTables 4. Pick one for match day; tune with AdvantageScope.">
+        笔记本上显示机器人发布内容的窗口，全都建立在 NetworkTables 4 之上。比赛日选一个，调参用 AdvantageScope。
+      </p>
+    </div>
+    <aside class="software-summary">
+      <span data-en="Underlying transport">底层传输</span>
+      <strong>NetworkTables 4 (NT4)</strong>
+      <span data-en="Best for tuning">调参首选</span>
+      <strong>AdvantageScope</strong>
+    </aside>
+  </header>
+
+    <div class="docs-layout">
+    <aside class="docs-toc" aria-label="Table of contents">
+      <p class="toc-title" data-en="On this page">本页目录</p>
+      <ol>
+        <li><a href="#what-is-dashboard" data-en="What a dashboard is">Dashboard 是什么</a></li>
+        <li><a href="#pick-one" data-en="Pick one for match day">比赛日选哪个</a></li>
+        <li><a href="#rookie-recipe" data-en="Rookie recipe">新手搭配</a></li>
+        <li><a href="#publishing" data-en="Publishing values">让一个值上 dashboard</a></li>
+        <li><a href="#nt-basics" data-en="NT4 basics">NetworkTables 基础</a></li>
+        <li><a href="#common-mistakes" data-en="Common mistakes">常见的坑</a></li>
+        <li><a href="#read-more" data-en="Where to read more">去哪读更多</a></li>
+      </ol>
+    </aside>
+    <main class="code-main">
+
+    <section id="what-is-dashboard" class="intro-panel">
+      <div>
+        <p class="eyebrow" data-en="What and why">是什么 & 为什么</p>
+        <h2 data-en="What a Dashboard Is">Dashboard 是什么</h2>
+        <p data-en="A dashboard is a window on your laptop that shows what your robot code is publishing. They all share one underlying transport: NetworkTables 4 (NT4). Your code publishes values; any dashboard subscribed to that table can show them.">
+          Dashboard 是笔记本上的一个窗口，显示机器人代码发布出来的内容。所有 dashboard 都共享同一个底层传输：NetworkTables 4 (NT4)。代码发布 → 任何订阅的 dashboard 都能显示。
+        </p>
+        <p data-en="The diagram on the right is the whole mental model: robot code publishes to the NT4 server running on the rio, and SmartDashboard, Shuffleboard, Elastic, and AdvantageScope all subscribe to that same server. They are different windows on the same data, not different publishing mechanisms.">
+          右边这张图就是全部的心智模型：机器人代码发布到 rio 上运行的 NT4 服务器，SmartDashboard、Shuffleboard、Elastic 和 AdvantageScope 都订阅同一个服务器。它们是同一份数据的不同窗口，不是不同的发布机制。
+        </p>
+      </div>
+      <div class="quick-facts">
+        <div>
+          <span data-en="Underlying transport">底层传输</span>
+          <strong>NetworkTables 4</strong>
+        </div>
+        <div>
+          <span data-en="Server lives on">服务器在</span>
+          <strong data-en="the rio">rio 上</strong>
+        </div>
+        <div>
+          <span data-en="Code does">代码负责</span>
+          <strong data-en="publishes">发布 publish</strong>
+        </div>
+        <div>
+          <span data-en="Dashboard does">Dashboard 负责</span>
+          <strong data-en="subscribes">订阅 subscribe</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="what-is-dashboard-diagram" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="NT4 ecosystem">NT4 生态</p>
+        <h2 data-en="One Source, Many Windows">一个数据源，许多窗口</h2>
+        <p data-en="Robot code on the rio publishes once. The NT4 server fans the data out to every subscribed dashboard. SmartDashboard, Shuffleboard, and Elastic are driver-facing dashboards; AdvantageScope is the programmer's view and can also subscribe to the same live data at the same time.">
+          rio 上的机器人代码只发布一次。NT4 服务器把数据分发给每一个订阅的 dashboard。SmartDashboard、Shuffleboard、Elastic 是面向驾驶员的 dashboard；AdvantageScope 是程序员的窗口，可以同时订阅同一份实时数据。
+        </p>
+      </div>
+      <pre class="code-window"><code>                           Robot code (rio)
+                          机器人代码 (在 rio 上)
+                                  │
+                                  │ publishes / 发布
+                                  ▼
+                ┌─────────────────────────────────────┐
+                │   NetworkTables 4 server on rio     │
+                │   rio 上的 NT4 服务器                 │
+                └─────────────────────────────────────┘
+                                  │
+                                  │ subscribes / 订阅
+              ┌───────────────────┼───────────────────┐
+              ▼                   ▼                   ▼
+       ┌────────────┐      ┌────────────┐      ┌──────────────┐
+       │ Smart-     │      │ Shuffle-   │      │ Elastic      │
+       │ Dashboard  │      │ board      │      │ (modern)     │
+       │ (legacy,   │      │ (tabs,     │      │ (tablet UI,  │
+       │  simple)   │      │  widgets)  │      │  JSON layout)│
+       └────────────┘      └────────────┘      └──────────────┘
+              │
+              │ AND / 同时
+              ▼
+       ┌────────────────────────────────┐
+       │ AdvantageScope                 │
+       │ live view + log replay         │
+       │ 3D field, mech2d, plots        │
+       │ 实时 + 日志回放; 3D 场地 / 图表  │
+       └────────────────────────────────┘</code></pre>
+    </section>
+
+    <section id="pick-one">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Match day">比赛日</p>
+        <h2 data-en="Pick One for Match Day">比赛日选哪个</h2>
+        <p data-en="There are four common dashboards and they are not interchangeable. Three are driver-facing; one (AdvantageScope) is the programmer's tool. Use this table to pick the right one for the job — and remember that the same published values show up in all of them at once.">
+          常用的 dashboard 有四个，它们不能互相替代。三个面向驾驶员，一个（AdvantageScope）是程序员的工具。用下面这张表挑对场合 — 记住同一份发布出来的值会同时出现在它们里面。
+        </p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th data-en="Dashboard">Dashboard</th>
+            <th data-en="When to pick">什么时候选</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SmartDashboard</strong></td>
+            <td data-en="Quick ad-hoc debug. Don't build a match-day driver UI on it.">临时 debug 写写就行，别用它做正式比赛 UI。</td>
+          </tr>
+          <tr>
+            <td><strong>Shuffleboard</strong></td>
+            <td data-en="Mature, tabbed, official. Good first match-day UI.">成熟、分页、官方。比赛 UI 第一选择。</td>
+          </tr>
+          <tr>
+            <td><strong>Elastic</strong></td>
+            <td data-en="Tablet/phone-friendly, JSON-defined layout, more teams switching to it 2024+. Recommended for new teams.">平板/手机友好，JSON 配置布局，2024+ 越来越多队伍换它。新队伍推荐。</td>
+          </tr>
+          <tr>
+            <td><strong>AdvantageScope</strong></td>
+            <td data-en="Not a driver UI — it's the programmer's view. Live data + log replay + 3D field + line plots + joystick view. Get it for tuning and post-match review.">不是给驾驶员看的，是程序员的窗口。实时 + 日志回放 + 3D 场地 + 曲线 + 手柄状态。调参和赛后分析必备。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="rookie-recipe">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Simplest setup">最省事的搭配</p>
+        <h2 data-en="The Rookie Recipe">新手最省事的搭配</h2>
+        <p data-en="You don't have to choose just one — the trick is who looks at which window. Drivers and operators watch one driver-facing dashboard; the programmer watches AdvantageScope. Same published data, two very different views.">
+          其实不用二选一 — 关键是谁看哪个窗口。驾驶手和操作手看一个面向驾驶员的 dashboard；程序员看 AdvantageScope。同样发布出来的数据，两种完全不同的视角。
+        </p>
+      </div>
+      <div class="tool-list">
+        <div class="tool-item">
+          <span data-en="Driver / operator view">驾驶 / 操作手视角</span>
+          <strong>Elastic</strong>
+          <p data-en="Drivers and operators look at Elastic (or Shuffleboard). It shows: battery voltage, match time, the selected auto, vision status, a 'have piece' indicator, and a 2D field map.">驾驶 / 操作手看 Elastic（或 Shuffleboard）：电压、比赛时间、选中的 auto、视觉状态、"有球"指示灯、2D 场地。</p>
+          <em data-en="or Shuffleboard">或 Shuffleboard</em>
+        </div>
+        <div class="tool-item">
+          <span data-en="Programmer view">程序员视角</span>
+          <strong>AdvantageScope</strong>
+          <p data-en="The programmer looks at AdvantageScope for any tuning session. Same data, a much more powerful view: 3D field, line plots, mechanism2d, joystick state, plus log replay after the match.">程序员调参时用 AdvantageScope。同样的数据，更强的可视化：3D 场地、曲线图、mechanism2d、手柄状态，赛后还能回放日志。</p>
+          <em data-en="live + log replay">实时 + 日志回放</em>
+        </div>
+        <div class="tool-item">
+          <span data-en="Driver UI checklist">驾驶 UI 清单</span>
+          <strong data-en="What to show">该显示什么</strong>
+          <p data-en="A useful match-day driver UI shows, at minimum: battery voltage, match time, the selected auto routine, vision status, and a few critical sensor lights (such as a 'have game piece' indicator).">一个好用的比赛 UI 至少要有：电池电压、比赛时间、选中的 auto、视觉状态，以及几个关键传感器指示灯（比如"有游戏件"）。</p>
+          <em data-en="battery · time · auto · vision">电压 · 时间 · auto · 视觉</em>
+        </div>
+      </div>
+    </section>
+
+    <section id="publishing" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="Publishing values">发布数值</p>
+        <h2 data-en="Getting a Value onto a Dashboard">让一个值上 dashboard</h2>
+        <p data-en="All it takes to make a value appear on any dashboard is one line. SmartDashboard.putNumber / putBoolean / putString publish a single value under a string key. Use a path-style key like 'Drive/leftMeters' to group related values into a folder.">
+          让一个值出现在任意 dashboard 上就这么一行。SmartDashboard.putNumber / putBoolean / putString 用一个字符串 key 发布单个值。用 "Drive/leftMeters" 这样的路径式 key，可以把相关的值归到一个文件夹里。
+        </p>
+        <p data-en="For an auto picker, publish a SendableChooser with putData. The chooser shows up as a dropdown widget on the dashboard, and the value the driver selects is read back in code via chooser.getSelected().">
+          做 auto 选择器时，用 putData 发布一个 SendableChooser。chooser 会在 dashboard 上显示成一个下拉框，驾驶员选中的内容在代码里用 chooser.getSelected() 读回来。
+        </p>
+        <p data-en="That is genuinely it. The same code populates SmartDashboard, Shuffleboard, Elastic, and AdvantageScope simultaneously — they are different windows on the same data, not different publishing mechanisms.">
+          就这些。同一行代码同时点亮 SmartDashboard、Shuffleboard、Elastic 和 AdvantageScope。它们是同一份数据的不同窗口，不是不同的发布机制。
+        </p>
+      </div>
+      <pre class="code-window"><code>// All it takes to make a value appear on any dashboard:
+// 让一个值出现在任意 dashboard 上就这么一行：
+SmartDashboard.putNumber("Drive/leftMeters", drive.getLeftDistanceMeters());
+SmartDashboard.putBoolean("Intake/hasPiece", intake.hasPiece());
+
+// Or as a Sendable Chooser (auto picker):
+// 或者一个可发送的选择器（auto 选择）：
+SmartDashboard.putData("Auto Chooser", autoChooser);</code></pre>
+    </section>
+
+    <section id="nt-basics">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="NetworkTables 4">NetworkTables 4</p>
+        <h2 data-en="NetworkTables Basics">NetworkTables 基础</h2>
+        <p data-en="Under every dashboard is NT4, the protocol that moves data between the robot and your laptop. You rarely touch it directly, but understanding three facts about it makes every dashboard quirk easy to explain.">
+          每个 dashboard 底下都是 NT4 —— 在机器人和你的笔记本之间搬运数据的协议。你很少直接碰它，但理解关于它的三件事，就能解释 dashboard 上几乎所有的怪现象。
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="The NT4 protocol">NT4 协议</h3>
+            <p data-en="NT4 is the underlying transport shared by every dashboard. Your code publishes values into named tables, and any connected dashboard that subscribes to those tables receives updates over the network. Same protocol, many clients.">NT4 是所有 dashboard 共享的底层传输。代码把值发布到命名的表里，任何订阅了这些表的已连接 dashboard 都会通过网络收到更新。同一个协议，多个客户端。</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="Topics, publishers, subscribers">Topic、publisher、subscriber</h3>
+            <p data-en="Each value lives under a topic (the string key, like 'Drive/leftMeters'). Your robot code is a publisher writing to that topic; each dashboard is a subscriber reading from it. A path-style key with slashes nests topics into folders for tidy organization.">每个值挂在一个 topic 下（就是那个字符串 key，比如 "Drive/leftMeters"）。机器人代码是写入这个 topic 的 publisher；每个 dashboard 是从中读取的 subscriber。带斜杠的路径式 key 会把 topic 嵌套成文件夹，便于整理。</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="The server lives on the rio">服务器在 rio 上</h3>
+            <p data-en="The NT4 server runs on the roboRIO. Dashboards on your laptop connect to it as clients. This is why a dashboard shows nothing until the robot code is deployed and running, and why everything reconnects on its own once the rio is back.">NT4 服务器跑在 roboRIO 上。你笔记本上的 dashboard 作为客户端连上去。这就是为什么机器人代码没部署运行时 dashboard 一片空白，也是为什么 rio 一回来一切就自动重连。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="common-mistakes">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Pitfalls">常见的坑</p>
+        <h2 data-en="Common Mistakes">常见的坑</h2>
+        <p data-en="Telemetry looks free until it isn't. These three recurring mistakes cause most dashboard-related confusion — blank widgets, jittery loops, and values that mysteriously flicker.">
+          telemetry 看起来不花钱，直到它开始花钱。下面三个反复出现的坑制造了 dashboard 相关的大部分困惑 —— 空白控件、卡顿的循环、莫名其妙跳变的值。
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="Putting telemetry inside a tight inner loop">把 telemetry 塞进一个紧凑的内层循环</h3>
+            <p data-en="Calling SmartDashboard.put... hundreds of times per tick — or from inside a per-sample loop — slows everything down. Publish each value once per periodic() at 50 Hz; that is more than fast enough for a dashboard.">每个 tick 里调几百次 SmartDashboard.put...，或者把它放进逐采样的循环，会拖慢一切。每个 periodic() 以 50 赫兹发布一次就够了，对 dashboard 来说绰绰有余。</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="The same key written from multiple places">同一个 key 从多个地方写</h3>
+            <p data-en="If two parts of the code publish to the same topic name, they fight over it and the displayed value flickers between them. Give every value one owner and one unique key — use path-style keys to keep them distinct.">如果代码里两处都往同一个 topic 名发布，它们会互相打架，显示出来的值在两者之间闪烁。每个值给一个所有者、一个唯一的 key —— 用路径式 key 把它们区分开。</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="Forgetting to publish a topic before reading it">读一个 topic 之前忘了先发布它</h3>
+            <p data-en="A dashboard widget bound to a topic that has never been published shows nothing — or a stale default. If a value is missing on the dashboard, check that the publishing line actually runs (it won't if it sits in a branch that never executes).">绑定到从未发布过的 topic 的 dashboard 控件什么都不显示，或显示一个过期的默认值。如果某个值在 dashboard 上缺失，先确认那行发布代码真的跑到了（如果它在一个从不执行的分支里就不会跑）。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="read-more">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="References">参考资料</p>
+        <h2 data-en="Where to Read More">去哪读更多</h2>
+        <p data-en="The official WPILib docs cover NetworkTables and every dashboard in depth, and each tool ships its own documentation. Start with these:">
+          WPILib 官方文档深入讲解了 NetworkTables 和每一个 dashboard，每个工具也有自己的文档。从这些开始：
+        </p>
+      </div>
+      <ul style="margin-left: 20px; line-height: 1.85; color: #374151;">
+        <li><a href="https://docs.wpilib.org/en/stable/docs/software/networktables/index.html" target="_blank" rel="noopener"><strong>WPILib — NetworkTables</strong></a> — <span data-en="The NT4 protocol, topics, publishers and subscribers.">NT4 协议、topic、publisher 与 subscriber。</span></li>
+        <li><a href="https://docs.wpilib.org/en/stable/docs/software/dashboards/index.html" target="_blank" rel="noopener"><strong>WPILib — Dashboards</strong></a> — <span data-en="SmartDashboard, Shuffleboard, Glass, and Elastic, side by side.">SmartDashboard、Shuffleboard、Glass、Elastic 横向对比。</span></li>
+        <li><a href="https://frc-elastic.gitbook.io/elastic" target="_blank" rel="noopener"><strong>Elastic</strong></a> — <span data-en="Tablet-friendly dashboard with a JSON-defined layout.">平板友好、JSON 配置布局的现代 dashboard。</span></li>
+        <li><a href="https://docs.advantagescope.org/" target="_blank" rel="noopener"><strong>AdvantageScope</strong></a> — <span data-en="The programmer's view: 3D field, line plots, mechanism2d, log replay.">程序员的窗口：3D 场地、曲线图、mechanism2d、日志回放。</span></li>
+        <li><strong>SendableChooser</strong> — <span data-en="WPILib's auto-picker widget — search the WPILib docs for the auto chooser example.">WPILib 的 auto 选择控件 —— 在 WPILib 文档里搜 auto chooser 示例。</span></li>
+      </ul>
+    </section>
+
+    <section id="continue" class="advanced-panel">
+      <div>
+        <p class="eyebrow" data-en="Continue">继续</p>
+        <h2 data-en="Where to Go From Here">学完之后看什么</h2>
+        <p data-en="You now have a window on what the robot is publishing — pick a driver dashboard for match day and keep AdvantageScope open while tuning. From here, the path forks: back to the Driver Station tour, or forward into everything that comes after rookie code.">
+          现在你有了一个看见机器人发布内容的窗口 —— 比赛日选一个驾驶 dashboard，调参时一直开着 AdvantageScope。从这里路分两叉：回到 Driver Station，或者继续走向新手代码之后的一切。
+        </p>
+      </div>
+      <div class="topic-tags">
+        <span>NetworkTables 4</span>
+        <span>SmartDashboard</span>
+        <span>Shuffleboard</span>
+        <span>Elastic</span>
+        <span>AdvantageScope</span>
+        <span>SendableChooser</span>
+      </div>
+      <p style="margin-top: 22px;">
+        <a href="software-driver-station.html" class="secondary-action" data-en="Driver Station">Driver Station</a>
+        <a href="code-next.html" class="primary-action" data-en="Beyond rookie →">新手之后 →</a>
+      </p>
+    </section>
+
+  </main>
+  </div>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html" data-en="Back to Code">返回代码</a></p>
+  </footer>
+
+  <script src="language-toggle.js"></script>
+
+  <script>
+    (function () {
+      const links = document.querySelectorAll(".docs-toc a");
+      if (!links.length || !("IntersectionObserver" in window)) return;
+      const byId = new Map();
+      const targets = [];
+      links.forEach((link) => {
+        const id = link.getAttribute("href").slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          byId.set(id, link);
+          targets.push(el);
+        }
+      });
+      const setActive = (id) => {
+        links.forEach((l) => l.classList.remove("active"));
+        const a = byId.get(id);
+        if (a) a.classList.add("active");
+      };
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) =>
+              a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top
+            )[0];
+          if (visible) setActive(visible.target.id);
+        },
+        { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
+      );
+      targets.forEach((t) => observer.observe(t));
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          setActive(link.getAttribute("href").slice(1));
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

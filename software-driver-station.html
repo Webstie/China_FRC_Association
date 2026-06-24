@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Station 驾驶舱 Driver Station — The Cockpit - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Page-specific TOC layout (only used here) */
+    .docs-layout {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+    }
+    .docs-layout > main.code-main {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+    .docs-toc {
+      position: sticky;
+      top: 88px;
+      align-self: start;
+      font-size: 0.92rem;
+    }
+    .docs-toc .toc-title {
+      margin: 0 0 12px;
+      padding: 0 14px;
+      color: var(--frc-gray);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+    .docs-toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-left: 2px solid var(--frc-border);
+      counter-reset: toc;
+    }
+    .docs-toc li {
+      margin: 0;
+      counter-increment: toc;
+    }
+    .docs-toc a {
+      display: block;
+      padding: 8px 14px;
+      margin-left: -2px;
+      border-left: 2px solid transparent;
+      color: var(--frc-gray);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .docs-toc a::before {
+      content: counter(toc, decimal-leading-zero) "\00a0\00a0";
+      color: rgba(107, 114, 128, 0.55);
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+    .docs-toc a:hover {
+      color: var(--frc-blue);
+      background: rgba(0, 102, 179, 0.05);
+    }
+    .docs-toc a.active {
+      color: var(--frc-blue);
+      border-left-color: var(--frc-blue);
+      font-weight: 700;
+      background: rgba(0, 102, 179, 0.06);
+    }
+    .docs-toc a.active::before { color: var(--frc-blue); }
+
+    /* Section anchors land below the sticky navbar */
+    section[id] { scroll-margin-top: 88px; }
+
+    @media (max-width: 960px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px 20px;
+      }
+      .docs-toc {
+        position: static;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--frc-border);
+      }
+      .docs-toc ol {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px 12px;
+        border-left: 0;
+      }
+      .docs-toc a {
+        margin-left: 0;
+        padding: 6px 4px;
+        border-left: 0;
+      }
+      .docs-toc a.active { border-left: 0; }
+    }
+  </style>
+</head>
+<body class="code-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html" data-en="Back to Code">返回代码</a>
+      <p class="eyebrow" data-en="Driver Station · Cockpit">Driver Station · 驾驶舱</p>
+      <h1>Driver Station — The Cockpit</h1>
+      <p data-en="The only program your driver and operator look at during a match: enable/disable, mode, controller ports, console.">
+        比赛时驾驶和操作手唯一会看的程序：Enable/Disable、模式、手柄端口、控制台。
+      </p>
+    </div>
+    <aside class="software-summary">
+      <span data-en="Runs on">运行环境</span>
+      <strong data-en="Windows laptop only">仅 Windows 笔记本</strong>
+      <span data-en="Audience">面向读者</span>
+      <strong data-en="Drivers & operators">驾驶员与操作手</strong>
+    </aside>
+  </header>
+
+    <div class="docs-layout">
+    <aside class="docs-toc" aria-label="Table of contents">
+      <p class="toc-title" data-en="On this page">本页目录</p>
+      <ol>
+        <li><a href="#the-cockpit" data-en="The cockpit">Driver Station 是驾驶舱</a></li>
+        <li><a href="#window-layout" data-en="Window layout">窗口布局</a></li>
+        <li><a href="#five-tabs" data-en="The five tabs">五个标签页</a></li>
+        <li><a href="#field-day-habits" data-en="Two field-day habits">两个保命习惯</a></li>
+        <li><a href="#first-launch" data-en="First launch">首次连接</a></li>
+        <li><a href="#common-mistakes" data-en="Common mistakes">常见的坑</a></li>
+        <li><a href="#read-more" data-en="Where to read more">去哪读更多</a></li>
+        <li><a href="#continue" data-en="Continue">继续</a></li>
+      </ol>
+    </aside>
+    <main class="code-main">
+
+    <section id="the-cockpit" class="intro-panel">
+      <div>
+        <p class="eyebrow" data-en="What it is">是什么</p>
+        <h2 data-en="The Driver Station is the cockpit">Driver Station 是驾驶舱</h2>
+        <p data-en="Driver Station (DS) is the only program your driver and operator look at during a match. It runs on a Windows laptop, talks to the radio over an Ethernet cable, and forwards joystick state plus the enable signal to the rio. Everything else on the laptop — VS Code, the dashboards, Phoenix Tuner X — is for the programmers; DS is for the drivers.">
+          Driver Station（DS）是比赛时驾驶和操作手唯一会看的程序。它跑在 Windows 笔记本上，通过有线网卡和电台（radio）通信，把手柄状态 + Enable 信号转发到 rio。笔记本上其他东西 —— VS Code、各种 dashboard、Phoenix Tuner X —— 都是给程序员看的；DS 是给驾驶员看的。
+        </p>
+        <p data-en="That single sentence decides how you should think about it: during a match the driver should not be hunting through menus. DS is set up once, in the pits, by a programmer; on the field it shows three status lights, a mode, a battery voltage, and a console. That is the entire cockpit.">
+          这一句话决定了你该怎么看待它：比赛中驾驶员不该在菜单里翻来翻去。DS 在 pit 里由程序员一次性配好；上场后它只显示三个状态灯、一个模式、一个电压、一个 console。这就是整个驾驶舱。
+        </p>
+        <p data-en="DS is part of the NI FRC Game Tools bundle and is Windows-only. If you have not installed it yet, do that first — the install, the roboRIO image, and the team-number entry are covered on the Game Tools page.">
+          DS 是 NI FRC Game Tools 套件的一部分，只在 Windows 上跑。如果还没装，先去装 —— 安装、roboRIO image、填队号都写在 <a href="software-frc-game-tools.html" data-en="FRC Game Tools page">FRC Game Tools 页面</a>。
+        </p>
+      </div>
+      <div class="quick-facts">
+        <div>
+          <span data-en="What drivers watch">驾驶员盯着看</span>
+          <strong data-en="Enable / Disable">Enable / Disable</strong>
+        </div>
+        <div>
+          <span data-en="Talks to rio over">与 rio 通信</span>
+          <strong data-en="Radio + Ethernet">电台 + 有线网</strong>
+        </div>
+        <div>
+          <span data-en="Forwards to robot">转发给机器人</span>
+          <strong data-en="Joysticks + enable">手柄 + Enable</strong>
+        </div>
+        <div>
+          <span data-en="Part of">属于</span>
+          <strong>NI FRC Game Tools</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="window-layout" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="Window layout">窗口布局</p>
+        <h2 data-en="What the main window shows">主窗口长什么样</h2>
+        <p data-en="Open DS and you get one main window. Across the top is a row of tabs; the body shows the mode selector, the Enable / Disable buttons (F1 enables, Space disables — Space is the panic stop you slam when anything looks wrong), three status lights, battery voltage, match time, and a scrolling messages console at the bottom.">
+          打开 DS，你看到一个主窗口。顶上是一排标签页；窗口主体是模式选择、Enable / Disable 按钮（F1 是 Enable，Space 是 Disable —— Space 是任何东西看起来不对时一巴掌拍下去的急停键）、三个状态灯、电压、比赛时间，以及最下面滚动的 messages console。
+        </p>
+        <p data-en="The three status lights are the heartbeat of the whole system. Communications green means the rio is reachable. Robot Code green means your deployed code is actually running. Joysticks green means at least one controller is bound. If any of these is not green, nothing downstream will work — read them left to right before you blame anything else.">
+          三个状态灯是整个系统的心跳。Communications 绿 = rio 能连上；Robot Code 绿 = 你部署的代码确实在跑；Joysticks 绿 = 至少绑了一个手柄。只要有一个不绿，后面什么都别想动 —— 怪别的东西之前，先从左到右把这三个灯看一遍。
+        </p>
+      </div>
+      <pre class="code-window"><code>   ┌──── Driver Station main window ───────────────────────────┐
+   │                                                            │
+   │   ┌─Operation─┬─Diagnostics─┬─Setup─┬─USB─┬─Power/CAN─┐   │
+   │   │           ↑ the tabs you'll click most                │
+   │   │                                                       │
+   │   │   ┌──────────────┐                                    │
+   │   │   │ Teleop ●     │  ← Disabled / Teleop / Auto / Test │
+   │   │   │ Auto         │    mode selector / 模式选择          │
+   │   │   │ Practice     │                                    │
+   │   │   │ Test         │                                    │
+   │   │   └──────────────┘                                    │
+   │   │                                                       │
+   │   │   ┌─ Enable ─┐  ┌─ Disable ─┐                         │
+   │   │   │   F1     │  │  Space    │                         │
+   │   │   └──────────┘  └───────────┘                         │
+   │   │                                                       │
+   │   │   ●  Communications  green = rio reachable            │
+   │   │   ●  Robot Code      green = your code is running     │
+   │   │   ●  Joysticks       green = ≥1 controller bound      │
+   │   │                                                       │
+   │   │   Battery: 12.6 V        Match time: 12:34            │
+   │   │                                                       │
+   │   │   ┌─── messages / console ─────────────────────────┐  │
+   │   │   │ 14:02:33 Robot code starting                   │  │
+   │   │   │ 14:02:35 *** ERROR *** CAN id 5 not responding │  │
+   │   │   │  ↑ your stack traces and println() output      │  │
+   │   │   └────────────────────────────────────────────────┘  │
+   │   └───────────────────────────────────────────────────────┘
+   └────────────────────────────────────────────────────────────┘</code></pre>
+    </section>
+
+    <section id="five-tabs">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="The tabs">标签页</p>
+        <h2 data-en="The five tabs and what each is for">五个标签页各自的用途</h2>
+        <p data-en="The tabs across the top split DS into five jobs. During a match you live on Operation; the other four you touch in the pits when setting up or diagnosing. Know which tab answers which question and you stop scrolling around looking for the right button.">
+          顶上那排标签把 DS 分成五件事。比赛中你只待在 Operation；另外四个在 pit 里配置或排查时才碰。记住哪个标签回答哪个问题，就不会再到处翻找按钮。
+        </p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th data-en="Tab">标签</th>
+            <th data-en="Use it for">用来</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Operation</strong></td>
+            <td data-en="Driving the robot during a match. Enable / Disable, mode selector, battery, match time, messages.">比赛时驾驶。Enable / Disable、模式选择、电压、比赛时间、消息。</td>
+          </tr>
+          <tr>
+            <td><strong>Diagnostics</strong></td>
+            <td data-en="&quot;Why isn't this working?&quot; — pings the rio, the radio, and the FMS; restarts robot code; reboots the rio.">排查问题：ping rio / 电台 / FMS、重启机器人代码、重启 rio。</td>
+          </tr>
+          <tr>
+            <td><strong>Setup</strong></td>
+            <td data-en="Team number, Dashboard type (Elastic / Shuffleboard / SmartDashboard / LabVIEW), game data. Set this once.">队号、Dashboard 选择（Elastic / Shuffleboard / SmartDashboard / LabVIEW）、game data。只设置一次。</td>
+          </tr>
+          <tr>
+            <td><strong>USB Devices</strong></td>
+            <td data-en="Which physical controller is on which port (0, 1, 2, 3). The order matters — your code reads port 0. Pin them.">物理手柄绑在哪个端口（0 / 1 / 2 / 3）。顺序很重要，你代码里读的是 port 0。把端口锁住。</td>
+          </tr>
+          <tr>
+            <td><strong>Power / CAN</strong></td>
+            <td data-en="CAN utilization %, brownout history. Glance at it after every test run.">CAN 利用率、brownout 历史。每次测完瞄一眼。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="field-day-habits">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Field-day habits">保命习惯</p>
+        <h2 data-en="The two rookie habits that prevent most field-day pain">两个保命习惯，避免大半赛场痛苦</h2>
+        <p data-en="Most lost matches on a rookie team come down to two avoidable things. Neither is hard; both have to become reflexes before competition, not lessons learned at the worst possible moment on the field.">
+          新手队丢掉的比赛，大半归结于两件本可避免的事。两件都不难，但都得在赛前练成条件反射，而不是上了场在最糟糕的时刻才学会。
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="Pin USB devices to ports in DS's USB tab">在 USB tab 里把手柄绑死端口</h3>
+            <p data-en="Otherwise, unplugging a controller mid-match rotates everyone's port assignments — and suddenly the operator's buttons fire driver commands. Your code reads port 0, port 1, port 2 by number; if those numbers shuffle, every binding lands on the wrong stick. Right-click each device in the USB Devices tab and pin it to a fixed port.">
+              否则，比赛中拔过一次线，所有人的端口编号都会轮换 —— 操作手按的键突然变成驾驶员命令。你的代码是按编号读 port 0、port 1、port 2 的；这些编号一乱，每个 binding 都落到错的摇杆上。在 USB Devices 标签里右键每个设备，把它锁到固定端口。
+            </p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="Read the messages pane before you do anything">任何排查动作之前，先看消息窗口</h3>
+            <p data-en="The console at the bottom already contains the answer to most &quot;why isn't this working&quot; questions — especially Robot Code failures. Your stack traces and println() output land there with timestamps. Before you reboot, redeploy, or re-seat a cable, read the last few lines. The answer is usually already on screen.">
+              底部的 console 里，多数“为什么不工作”的答案早就有了 —— 尤其是 Robot Code 挂掉的时候。你的 stack trace 和 println() 输出都带时间戳打在这里。重启、重新部署、重插线之前，先读最后几行。答案通常已经在屏幕上了。
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="first-launch" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="First launch">首次连接</p>
+        <h2 data-en="First launch — team number and roboRIO imaging">首次连接 —— 队号与 roboRIO 镜像</h2>
+        <p data-en="The very first time, DS will not connect to anything until you tell it your team number. Open the Setup tab and enter it — this is what teaches DS the FRC networking rules (the rio lives at the static address 10.TE.AM.2). Set it once; it is remembered.">
+          第一次用时，在你告诉 DS 队号之前，它连不上任何东西。打开 Setup 标签把队号填进去 —— 这一步教会 DS FRC 的网络规则（rio 固定在静态地址 10.TE.AM.2）。设一次就记住了。
+        </p>
+        <p data-en="Before the rio will run your code at all, it needs this season's image. Bundled with Game Tools is the roboRIO Imaging Tool: connect the laptop to the rio with a USB cable, open the tool, and write the current-year image plus your team number to the rio. The image and your installed WPILib must be the same season — a year mismatch is the classic reason a freshly wired robot refuses to talk.">
+          rio 要能跑你的代码，先得有本赛季的 image。Game Tools 自带 roboRIO Imaging Tool：用 USB 线把笔记本接到 rio，打开工具，把当年的 image 和你的队号一起写进 rio。image 和你装的 WPILib 必须是同一个赛季 —— 年份对不上，是刚接好线的机器人死活不通信的经典原因。
+        </p>
+        <p data-en="After imaging, come back to DS. Connect over USB or to the robot radio, watch the Communications light go green, then Robot Code, then Joysticks. Three greens means the cockpit is live and you can enable.">
+          刷完 image，回到 DS。通过 USB 或机器人电台连上，看 Communications 灯转绿，再到 Robot Code，再到 Joysticks。三个绿，就说明驾驶舱上线，可以 Enable 了。
+        </p>
+      </div>
+      <pre class="code-window"><code>First-connection checklist / 首次连接清单
+
+  1. Setup tab → enter team number      填队号
+       rio static IP = 10.TE.AM.2
+       e.g. team 1234 → 10.12.34.2
+
+  2. roboRIO Imaging Tool (USB cable)    刷 rio 镜像
+       write THIS season's image
+       image year == WPILib year  ← must match / 必须一致
+       also writes the team number
+
+  3. Back in DS, connect (USB / radio)   回 DS 连接
+       ● Communications   green
+       ● Robot Code       green
+       ● Joysticks        green
+       → three greens = ready to Enable / 三绿即可 Enable</code></pre>
+    </section>
+
+    <section id="common-mistakes">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Pitfalls">常见的坑</p>
+        <h2 data-en="Common mistakes">常见的坑</h2>
+        <p data-en="None of these are subtle once you have hit them, but every one of them has cost a rookie team a match. Check them in the pits, not on the field.">
+          这些坑踩过一次就不再上当，但每一个都让新手队在场上丢过分。在 pit 里查清楚，别上了场再发现。
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="Trying to run DS on a Mac">想在 Mac 上跑 DS</h3>
+            <p data-en="Driver Station and the rest of FRC Game Tools are Windows-only. VS Code and Gradle work fine on macOS, but DS, Game Tools, and roboRIO imaging do not. Keep a Windows laptop for the field.">Driver Station 和 FRC Game Tools 的其余部分只在 Windows 上跑。VS Code 和 Gradle 在 macOS 上没问题，但 DS、Game Tools、roboRIO imaging 都不行。给赛场留一台 Windows 笔记本。</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="Wrong or unset team number">队号填错或没填</h3>
+            <p data-en="With no team number, DS cannot apply FRC networking rules and will not find the rio at 10.TE.AM.2 — Communications stays red. Set it once in the Setup tab and confirm the roboRIO image carries the same number.">没填队号，DS 就没法套用 FRC 网络规则，也找不到 10.TE.AM.2 上的 rio —— Communications 一直红。在 Setup 标签里设一次，并确认 roboRIO image 里写的是同一个队号。</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="Image year does not match WPILib year">image 年份和 WPILib 年份不一致</h3>
+            <p data-en="The roboRIO image and your installed WPILib must be the same season. A year mismatch is the classic reason a freshly wired robot refuses to talk. Re-image with the current-year tool.">roboRIO image 和你装的 WPILib 必须是同一个赛季。年份对不上，是刚接好线的机器人死活不通信的经典原因。用当年的工具重刷一遍。</p>
+          </div>
+        </li>
+        <li>
+          <span>04</span>
+          <div>
+            <h3 data-en="Leaving USB controllers unpinned">手柄端口没锁死</h3>
+            <p data-en="Unplug one controller mid-match and the port numbers rotate, so operator buttons fire driver commands. Always pin each device to a fixed port in the USB Devices tab before a match.">比赛中拔一个手柄，端口编号就轮换，操作手的键变成驾驶员命令。每场比赛前都在 USB Devices 标签里把每个设备锁到固定端口。</p>
+          </div>
+        </li>
+        <li>
+          <span>05</span>
+          <div>
+            <h3 data-en="Rebooting before reading the console">不读 console 就先重启</h3>
+            <p data-en="When something is wrong, drivers reflexively reboot the rio or redeploy. The messages pane usually already names the failure — a missing CAN id, a stack trace, a brownout. Read it first; you will often skip the reboot entirely.">一出问题，驾驶员条件反射地重启 rio 或重新部署。其实 messages 窗口通常已经写明了故障 —— 缺失的 CAN id、stack trace、brownout。先读它，往往根本不用重启。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="read-more">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Go deeper">深入阅读</p>
+        <h2 data-en="Where to read more">去哪读更多</h2>
+        <p data-en="DS is documented in depth by WPILib and NI. When the cockpit behaves unexpectedly, these are the authoritative sources — and the dashboards page picks up where this one leaves off.">
+          DS 的细节在 WPILib 和 NI 的官方文档里写得很全。当驾驶舱出现意外行为时，这些是权威来源 —— 而 dashboard 页面接着本页往下讲。
+        </p>
+      </div>
+      <ul style="margin-left: 20px; line-height: 1.95; color: #374151;">
+        <li><a href="https://docs.wpilib.org/en/stable/docs/software/driverstation/driver-station.html" target="_blank" rel="noopener"><strong>WPILib Docs — FRC Driver Station</strong></a> — <span data-en="Every tab, light, and shortcut, explained field by field.">逐个标签、状态灯、快捷键讲清楚。</span></li>
+        <li><a href="https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/frc-game-tools.html" target="_blank" rel="noopener"><strong>WPILib Docs — FRC Game Tools install</strong></a> — <span data-en="Installing the bundle that contains DS and the imaging tool.">安装包含 DS 和 imaging 工具的套件。</span></li>
+        <li><a href="https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html" target="_blank" rel="noopener"><strong>WPILib Docs — Imaging your roboRIO</strong></a> — <span data-en="The roboRIO Imaging Tool, step by step.">roboRIO Imaging Tool 的分步操作。</span></li>
+        <li><a href="software-frc-game-tools.html" data-en="FRC Game Tools — install guide (this wiki)"><strong>本站：FRC Game Tools 安装指南</strong></a> — <span data-en="The local install walkthrough for DS, imaging, and team-number setup.">DS、imaging、填队号的本地安装步骤。</span></li>
+        <li><a href="code-dashboards.html" data-en="Dashboards (this wiki)"><strong>本站：Dashboards</strong></a> — <span data-en="What the Setup tab's Dashboard selector points to, and how to read robot data.">Setup 标签里 Dashboard 选项指向什么，以及怎么读机器人数据。</span></li>
+      </ul>
+    </section>
+
+    <section id="continue" class="advanced-panel">
+      <div>
+        <p class="eyebrow" data-en="Continue">继续</p>
+        <h2 data-en="Keep going">继续前进</h2>
+        <p data-en="The cockpit is set up and the three lights are green. Next comes the other half of the laptop — the dashboards, where the robot's data actually shows up while you drive.">
+          驾驶舱配好了，三个灯都绿了。接下来是笔记本的另一半 —— dashboard，驾驶时机器人的数据真正显示的地方。
+        </p>
+      </div>
+      <p style="margin-top: 4px; display: flex; gap: 14px; flex-wrap: wrap;">
+        <a href="code-tools.html" class="secondary-action" data-en="← Companion tools">← 伙伴工具 / Companion tools</a>
+        <a href="code-dashboards.html" class="primary-action" data-en="Dashboards →">Dashboards / 仪表盘 →</a>
+      </p>
+    </section>
+
+  </main>
+  </div>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html" data-en="Back to Code">返回代码</a></p>
+  </footer>
+
+  <script src="language-toggle.js"></script>
+
+  <script>
+    (function () {
+      const links = document.querySelectorAll(".docs-toc a");
+      if (!links.length || !("IntersectionObserver" in window)) return;
+      const byId = new Map();
+      const targets = [];
+      links.forEach((link) => {
+        const id = link.getAttribute("href").slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          byId.set(id, link);
+          targets.push(el);
+        }
+      });
+      const setActive = (id) => {
+        links.forEach((l) => l.classList.remove("active"));
+        const a = byId.get(id);
+        if (a) a.classList.add("active");
+      };
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) =>
+              a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top
+            )[0];
+          if (visible) setActive(visible.target.id);
+        },
+        { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
+      );
+      targets.forEach((t) => observer.observe(t));
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          setActive(link.getAttribute("href").slice(1));
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

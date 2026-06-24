@@ -150,7 +150,7 @@
         <li><a href="#four-pieces" data-en="Four pieces">四个核心部分</a></li>
         <li><a href="#writing-subsystem" data-en="Writing a Subsystem">写一个 Subsystem</a></li>
         <li><a href="#writing-command-class" data-en="Command class form">Command 类写法</a></li>
-        <li><a href="#writing-command-factory" data-en="Command factory form">Command 工厂写法</a></li>
+        <li><a href="#writing-command-factory" data-en="Command factory form">Command factory 写法</a></li>
         <li><a href="#default-commands" data-en="Default commands">默认命令</a></li>
         <li><a href="#triggers" data-en="Triggers & bindings">触发器与绑定</a></li>
         <li><a href="#worked-example" data-en="Worked example">完整示例</a></li>
@@ -210,7 +210,7 @@
           <li><strong>RobotContainer.java</strong> — <span data-en="The wiring file. Subsystems are created, default commands are set, triggers are bound to commands, and the auto chooser is configured here. 90% of beginner edits happen here.">接线文件。subsystem 在这里创建、默认命令在这里设置、按键在这里绑定到命令、auto chooser 也在这里配置。新手 90% 的修改都落在这。</span></li>
           <li><strong>Constants.java</strong> — <span data-en="All tunable numbers in one place: motor IDs, PID gains, field dimensions, speed limits.">所有可调数值集中在这里：电机 ID、PID 参数、场地尺寸、速度上限等。</span></li>
           <li><strong>subsystems/</strong> — <span data-en="One file per mechanism. Each extends SubsystemBase and owns hardware.">每个机构一个文件，都继承 SubsystemBase 并持有硬件。</span></li>
-          <li><strong>commands/</strong> — <span data-en="Multi-step or complex commands that don't fit cleanly as factory methods inside a single subsystem.">多步或较复杂的命令，不适合直接写成 subsystem 里的工厂方法。</span></li>
+          <li><strong>commands/</strong> — <span data-en="Multi-step or complex commands that don't fit cleanly as factory methods inside a single subsystem.">多步或较复杂的命令，不适合直接写成 subsystem 里的 factory method。</span></li>
         </ul>
       </div>
       <pre class="code-window"><code>src/main/java/frc/robot/
@@ -319,7 +319,7 @@
           subsystem 封装一个机构。文件放在 subsystems/，继承 SubsystemBase，把硬件声明为 private 字段，构造函数里做配置。periodic() 由 scheduler 每 20 毫秒自动调用，常用来推 telemetry、读传感器，或跑那些“应该一直滴答的”状态机。
         </p>
         <p data-en="Public methods do one hardware action each (run motor, stop, set position). Command factory methods return ready-to-schedule Commands and — because they're inherited from Subsystem — automatically require this. You almost never need to call addRequirements yourself when using these factories.">
-          public 方法每个只做一件硬件动作（开电机、停、设目标位置）。Command 工厂方法返回可直接调度的 Command，且因为继承自 Subsystem，会自动 require this，几乎不用自己调 addRequirements。
+          public 方法每个只做一件硬件动作（开电机、停、设目标位置）。Command factory method 返回可直接调度的 Command，且因为继承自 Subsystem，会自动 require this，几乎不用自己调 addRequirements。
         </p>
         <p data-en="The factory at the bottom — intakeCommand() — uses startEnd: the first lambda runs once when the command starts, the second runs once when it ends or is interrupted. While the command is active, the scheduler keeps the subsystem reserved. As soon as it ends, the default command (if any) takes over again.">
           底部的 intakeCommand() 用了 startEnd：命令开始时执行一次第一个 lambda，结束或被中断时执行一次第二个。命令活跃期间，scheduler 一直把这个 subsystem 占着；命令结束时，默认命令（如果有）会自动接管。
@@ -423,10 +423,10 @@ public class DriveDistance extends Command {
 
     <section id="writing-command-factory" class="code-sample-section">
       <div>
-        <p class="eyebrow" data-en="Command factories">Command 工厂方法</p>
-        <h2 data-en="Writing a Command — Factory Form">写一个 Command — 工厂写法</h2>
+        <p class="eyebrow" data-en="Command factories">Command factory method</p>
+        <h2 data-en="Writing a Command — Factory Form">写一个 Command — factory 写法</h2>
         <p data-en="For short, stateless actions a full class is overkill. WPILib provides factory methods on Subsystem that build a Command from one or two lambdas. Because they're called from inside the subsystem, they automatically require it — no addRequirements needed.">
-          短小、无状态的动作没必要写整个类。WPILib 在 Subsystem 上提供了工厂方法，用一两个 lambda 就能构造一个 Command。因为是在 subsystem 内部调用，会自动 require 本 subsystem，省去 addRequirements。
+          短小、无状态的动作没必要写整个类。WPILib 在 Subsystem 上提供了 factory method，用一两个 lambda 就能构造一个 Command。因为是在 subsystem 内部调用，会自动 require 本 subsystem，省去 addRequirements。
         </p>
         <ul style="margin-left: 20px; line-height: 1.85; color: #374151;">
           <li><strong>runOnce(Runnable)</strong> — <span data-en="runs the lambda once, then ends.">执行一次 lambda 就结束。</span></li>
@@ -471,7 +471,7 @@ Command pick  = Commands.either(
           subsystem 的默认命令在没有别的命令占用它时自动运行。最经典的用法是手柄驾驶：除非有自动瞄准、自动平衡或路径跟随接管，否则底盘应始终响应摇杆。在 RobotContainer 构造函数里通过 setDefaultCommand 配置。
         </p>
         <p data-en="The default command MUST require the subsystem it's attached to — using the subsystem's own run() factory takes care of that automatically. When a higher-priority command schedules and uses the same subsystem, the default is automatically interrupted; when that command finishes, the default resumes.">
-          默认命令必须以所附 subsystem 作为 required — 用该 subsystem 自己的 run() 工厂构造时这一点会自动满足。当一条优先级更高的命令调度并占用同一 subsystem 时，默认命令会被自动打断；那条命令结束后，默认命令自动恢复。
+          默认命令必须以所附 subsystem 作为 required — 用该 subsystem 自己的 run() factory 构造时这一点会自动满足。当一条优先级更高的命令调度并占用同一 subsystem 时，默认命令会被自动打断；那条命令结束后，默认命令自动恢复。
         </p>
         <p data-en="If a subsystem has no default command, it just sits idle when nothing else requires it. That is often what you want for an intake or shooter — only run them when explicitly asked.">
           如果不设默认命令，subsystem 在没有命令占用时就保持空闲。intake、shooter 一般就是这种 — 没有人主动要求就不动。
@@ -616,7 +616,7 @@ public class RobotContainer {
         <p class="eyebrow" data-en="Command lifecycle">Command 生命周期</p>
         <h2 data-en="How a Command Runs">一个 Command 是怎么跑的</h2>
         <p data-en="Every Command — whether written as a class or built with a factory — follows the same four-step lifecycle. The scheduler drives it on the same 20 ms tick as the rest of the robot loop. Once you internalize these four steps, reading and debugging any command becomes routine.">
-          无论用类还是工厂构造，每个 Command 都遵循同样的四步生命周期，由 scheduler 在和主循环相同的 20 毫秒节拍上推动。把这四步刻进脑子里，读和调试任何命令都会变成日常操作。
+          无论用类还是 factory 构造，每个 Command 都遵循同样的四步生命周期，由 scheduler 在和主循环相同的 20 毫秒节拍上推动。把这四步刻进脑子里，读和调试任何命令都会变成日常操作。
         </p>
       </div>
       <ol class="timeline-list">
@@ -638,7 +638,7 @@ public class RobotContainer {
           <span>03</span>
           <div>
             <h3>isFinished()</h3>
-            <p data-en="Checked after each execute(). Return true to end the command — target reached, timeout elapsed, sensor tripped. Return false to keep going. A factory-built command often ends via .until(...) or .withTimeout(...) instead of writing isFinished by hand.">每次 execute() 之后被检查。返回 true 结束命令（到位、超时、传感器触发）；返回 false 继续运行。用工厂构造的命令通常用 .until(...) 或 .withTimeout(...) 替代手写 isFinished。</p>
+            <p data-en="Checked after each execute(). Return true to end the command — target reached, timeout elapsed, sensor tripped. Return false to keep going. A factory-built command often ends via .until(...) or .withTimeout(...) instead of writing isFinished by hand.">每次 execute() 之后被检查。返回 true 结束命令（到位、超时、传感器触发）；返回 false 继续运行。用 factory 构造的命令通常用 .until(...) 或 .withTimeout(...) 替代手写 isFinished。</p>
           </div>
         </li>
         <li>
@@ -750,7 +750,7 @@ public class RobotContainer {
           <span>06</span>
           <div>
             <h3 data-en="Reusing the same Command instance across two bindings">把同一个 Command 实例绑到两个不同的地方</h3>
-            <p data-en="A Command can only be scheduled once at a time. If you bind cmd to two buttons and press both, the second press is silently ignored while the first run is still active. Always build commands via a factory method (so each binding gets a fresh instance) or use Commands.defer to construct on demand.">同一个 Command 同一时刻只能被调度一次。把 cmd 绑到两个按键并同时按下，第二次按下会被静默忽略，直到第一次结束。一律通过工厂方法生成新的实例，或用 Commands.defer 在调度时再构造。</p>
+            <p data-en="A Command can only be scheduled once at a time. If you bind cmd to two buttons and press both, the second press is silently ignored while the first run is still active. Always build commands via a factory method (so each binding gets a fresh instance) or use Commands.defer to construct on demand.">同一个 Command 同一时刻只能被调度一次。把 cmd 绑到两个按键并同时按下，第二次按下会被静默忽略，直到第一次结束。一律通过 factory method 生成新的实例，或用 Commands.defer 在调度时再构造。</p>
           </div>
         </li>
         <li>

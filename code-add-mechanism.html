@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>加一个机构 · Intake on a Button - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Page-specific TOC layout (only used here) */
+    .docs-layout {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+    }
+    .docs-layout > main.code-main {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+    .docs-toc {
+      position: sticky;
+      top: 88px;
+      align-self: start;
+      font-size: 0.92rem;
+    }
+    .docs-toc .toc-title {
+      margin: 0 0 12px;
+      padding: 0 14px;
+      color: var(--frc-gray);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+    .docs-toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-left: 2px solid var(--frc-border);
+      counter-reset: toc;
+    }
+    .docs-toc li {
+      margin: 0;
+      counter-increment: toc;
+    }
+    .docs-toc a {
+      display: block;
+      padding: 8px 14px;
+      margin-left: -2px;
+      border-left: 2px solid transparent;
+      color: var(--frc-gray);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .docs-toc a::before {
+      content: counter(toc, decimal-leading-zero) "\00a0\00a0";
+      color: rgba(107, 114, 128, 0.55);
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+    .docs-toc a:hover {
+      color: var(--frc-blue);
+      background: rgba(0, 102, 179, 0.05);
+    }
+    .docs-toc a.active {
+      color: var(--frc-blue);
+      border-left-color: var(--frc-blue);
+      font-weight: 700;
+      background: rgba(0, 102, 179, 0.06);
+    }
+    .docs-toc a.active::before { color: var(--frc-blue); }
+
+    /* Section anchors land below the sticky navbar */
+    section[id] { scroll-margin-top: 88px; }
+
+    @media (max-width: 960px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px 20px;
+      }
+      .docs-toc {
+        position: static;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--frc-border);
+      }
+      .docs-toc ol {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px 12px;
+        border-left: 0;
+      }
+      .docs-toc a {
+        margin-left: 0;
+        padding: 6px 4px;
+        border-left: 0;
+      }
+      .docs-toc a.active { border-left: 0; }
+    }
+  </style>
+</head>
+<body class="code-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html" data-en="Back to Code">返回代码</a>
+      <p class="eyebrow" data-en="加一个机构 · Add a Mechanism">加一个机构 · Add a Mechanism</p>
+      <h1>Add a Mechanism — Intake on a Button</h1>
+      <p data-en="Wire your first mechanism (intake on A) using the repeatable pattern you will follow for every subsystem.">
+        把第一个机构（A 键控 intake）按可复制的模式接上：每个 Subsystem 你都会这样写。
+      </p>
+    </div>
+    <aside class="software-summary">
+      <span data-en="The mechanism">这个机构</span>
+      <strong data-en="Intake on the A button">A 键控 intake</strong>
+      <span data-en="The shape">套路</span>
+      <strong data-en="Subsystem → factory → Trigger">Subsystem → factory → Trigger</strong>
+    </aside>
+  </header>
+
+    <div class="docs-layout">
+    <aside class="docs-toc" aria-label="Table of contents">
+      <p class="toc-title" data-en="On this page">本页目录</p>
+      <ol>
+        <li><a href="#repeatable-pattern" data-en="The repeatable pattern">每个机构都遵循的模式</a></li>
+        <li><a href="#intake-subsystem" data-en="Intake subsystem">Intake subsystem</a></li>
+        <li><a href="#wire-it-up" data-en="Wire it up">在 RobotContainer 里接线</a></li>
+        <li><a href="#binding-methods" data-en="Binding methods">把按键画成命令</a></li>
+        <li><a href="#common-mistakes" data-en="Common mistakes">常见的坑</a></li>
+        <li><a href="#read-more" data-en="Where to read more">去哪读更多</a></li>
+      </ol>
+    </aside>
+    <main class="code-main">
+
+    <section id="repeatable-pattern" class="intro-panel">
+      <div>
+        <p class="eyebrow" data-en="The repeatable pattern">每个机构都遵循的模式</p>
+        <h2 data-en="The pattern you'll repeat for every mechanism">每个机构都遵循同样的模式</h2>
+        <p data-en="An intake is just a motor that spins when you ask it to. But the way you add it to the robot is the exact same six-step shape you'll use for the elevator, the shooter, the climber — every Subsystem you ever write. Learn it once here on the simplest possible mechanism, and the rest become copy-and-adapt.">
+          intake 不过是一颗“你叫它转它就转”的电机。但把它接进机器人的方式，和你后面写 elevator、shooter、climber 的方式是完全相同的六步套路 —— 你以后写的每个 Subsystem 都一样。在这个最简单的机构上学一遍，剩下的都变成照抄改参。
+        </p>
+        <p data-en="Follow the six steps in order. Steps 1–5 live in one file under subsystems/; step 6 is the single line in RobotContainer that connects the button to the command.">
+          按顺序走这六步。第 1–5 步都在 subsystems/ 下的一个文件里；第 6 步是 RobotContainer 里把按键连到命令的那一行。
+        </p>
+      </div>
+      <div class="quick-facts">
+        <div>
+          <span data-en="Steps 1–5 live here">第 1–5 步在这</span>
+          <strong>subsystems/Intake.java</strong>
+        </div>
+        <div>
+          <span data-en="Step 6 lives here">第 6 步在这</span>
+          <strong>RobotContainer</strong>
+        </div>
+        <div>
+          <span data-en="Base class">基类</span>
+          <strong>extends SubsystemBase</strong>
+        </div>
+        <div>
+          <span data-en="Connects button to action">把按键连到动作</span>
+          <strong>Trigger.whileTrue(...)</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="repeatable-pattern-steps">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Six steps">六步走</p>
+        <h2 data-en="The six steps, in order">六步，按顺序</h2>
+        <p data-en="This is the flow. Every mechanism you build follows it; the only thing that changes is the hardware and the numbers.">
+          就是这条流程。你做的每个机构都照它走，变的只有硬件和数字。
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="New file under subsystems/">新文件放 subsystems/</h3>
+            <p data-en="Create one file per mechanism. The intake gets its own Intake.java.">每个机构一个文件。intake 有它自己的 Intake.java。</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3>extends SubsystemBase</h3>
+            <p data-en="The class extends SubsystemBase. That one line gives you periodic(), the Command factory methods, and automatic requirement tracking.">这个类继承 SubsystemBase。就这一行，你就拿到了 periodic()、Command factory method，以及自动的 requirement 追踪。</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="Hardware as private fields, configured in the constructor">硬件做 private 字段，构造函数里配置</h3>
+            <p data-en="Declare the motor controllers and sensors as private final fields. Configure them once in the constructor: current limit, idle mode, inversion.">把电机控制器和传感器声明为 private final 字段。在构造函数里配置一次：current limit、idle mode、inversion。</p>
+          </div>
+        </li>
+        <li>
+          <span>04</span>
+          <div>
+            <h3 data-en="Public methods do ONE hardware action each">公开方法每个只做一件硬件动作</h3>
+            <p data-en="Each public method is one verb against the hardware: run(speed), stop(). Nothing in the rest of the codebase touches the motor directly.">每个 public 方法对硬件就是一个动作：run(speed)、stop()。代码库里别的地方都不直接碰电机。</p>
+          </div>
+        </li>
+        <li>
+          <span>05</span>
+          <div>
+            <h3 data-en="Command factory methods return ready-to-schedule Commands">factory method 返回可调度的 Command</h3>
+            <p data-en="A factory method like intakeCommand() returns a Command you can hand straight to a binding. Because the subsystem builds it, the Command automatically requires this subsystem.">像 intakeCommand() 这样的 factory method 返回一个能直接交给 binding 的 Command。因为是 subsystem 自己造的，这个 Command 会自动 require 本 subsystem。</p>
+          </div>
+        </li>
+        <li>
+          <span>06</span>
+          <div>
+            <h3 data-en="In RobotContainer: create + bind to a Trigger">RobotContainer 里：创建 + 绑 Trigger</h3>
+            <p data-en="Create the subsystem, then bind a button's Trigger to its command. One line: driver.a().whileTrue(intake.intakeCommand()).">在 RobotContainer 里创建这个 subsystem，再把某个按键的 Trigger 绑到它的命令上。一行：driver.a().whileTrue(intake.intakeCommand())。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="intake-subsystem" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="Intake subsystem">Intake subsystem</p>
+        <h2 data-en="The intake subsystem">写出 Intake subsystem</h2>
+        <p data-en="Here is the whole subsystem — steps 1 through 5 in one file. The motor is a private field, configured once in the constructor. run() and stop() each do one hardware action. intakeCommand() is the factory method that hands the binding a ready Command.">
+          这就是整个 subsystem —— 第 1 到 5 步全在一个文件里。电机是 private 字段，构造函数里配一次。run() 和 stop() 各做一件硬件动作。intakeCommand() 是把现成 Command 交给 binding 的 factory method。
+        </p>
+      </div>
+      <pre class="code-window"><code>// subsystems/Intake.java
+public class Intake extends SubsystemBase {
+
+    private final SparkMax motor = new SparkMax(
+        Constants.IntakeConfig.INTAKE_MOTOR_ID,    // ← lives in Constants
+        MotorType.kBrushless);
+
+    public Intake() {
+        // current limit, idle mode, inversion — set ONCE at boot.
+        // 电流限制、idle 模式、反转 —— 启动时配一次。
+    }
+
+    @Override
+    public void periodic() {
+        // optional: push telemetry here. Runs every 20 ms automatically.
+        // 可选：在这里推 telemetry。每 20ms 自动跑。
+    }
+
+    public void run(double speed) { motor.set(speed); }
+    public void stop()            { motor.set(0); }
+
+    // Command factory: "run while held."
+    // factory method："按住就跑。"
+    public Command intakeCommand() {
+        return startEnd(
+            () -> run(0.6),
+            () -> stop()
+        );
+    }
+}</code></pre>
+      <div class="section-heading" style="margin-top: 4px;">
+        <p data-en="Three things worth noticing — they will repeat for every subsystem you ever write:">
+          三件值得注意的事 —— 你以后写的每个 subsystem 都会重复：
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="The CAN ID comes from Constants, not inline">CAN ID 来自 Constants，不内联</h3>
+            <p data-en="The motor's CAN ID reads from Constants.IntakeConfig.INTAKE_MOTOR_ID rather than a magic number on the spot. This is the rule the team's own code already enforces — every ID, gain, and limit lives in Constants so there is exactly one place to change it.">电机的 CAN ID 从 Constants.IntakeConfig.INTAKE_MOTOR_ID 读取，而不是在这儿写个魔数。这是本队代码里就在执行的规矩 —— 每个 ID、gain、limit 都放 Constants，要改只有一个地方。</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="periodic() is the always-on callback">periodic() 是常驻回调</h3>
+            <p data-en="Anything that should tick whenever the robot is on goes in periodic() — sensor reads, telemetry, simple state checks. The Scheduler calls it every 20 ms automatically; you never call it yourself.">只要机器人开着就该 tick 的东西放进 periodic() —— 传感器读取、telemetry、简单状态机。Scheduler 每 20ms 自动调它，你永远不用自己调。</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="startEnd is a factory method on SubsystemBase">startEnd 是 SubsystemBase 上的 factory method</h3>
+            <p data-en="startEnd is a Command factory provided by SubsystemBase: the first lambda runs once on start, the second runs once when the command ends or is interrupted. Because the subsystem itself is calling it, the resulting Command automatically requires this subsystem — no addRequirements needed.">startEnd 是 SubsystemBase 提供的 Command factory：第一个 lambda 开始时跑一次，第二个 lambda 在命令结束或被中断时跑一次。因为是 subsystem 自己调的，返回的 Command 会自动 require 本 subsystem —— 不用自己写 addRequirements。</p>
+          </div>
+        </li>
+      </ol>
+      <div class="callout">
+        <p data-en="One config you should not skip on a brushless motor: a current limit. A 40 A supply limit is a good default — it caps how hard the motor pulls from the battery so a stalled intake doesn't burn the motor or trip the breaker. (Stator current and supply current are different limits; for a first intake the supply limit is the one that saves hardware.) Set it in the constructor, alongside idle mode and inversion.">
+          brushless 电机上有一项配置不要跳过：current limit。40 A 的 supply limit 是个不错的默认值 —— 它限制电机从电池抽多大的电流，这样卡死的 intake 不至于烧电机或跳 breaker。（stator current 和 supply current 是两套不同的限制；对第一个 intake 来说，supply limit 是保命的那个。）把它和 idle mode、inversion 一起写在构造函数里。
+        </p>
+      </div>
+    </section>
+
+    <section id="wire-it-up" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="Wire it up">在 RobotContainer 里接线</p>
+        <h2 data-en="Wire it up in RobotContainer">在 RobotContainer 里接线</h2>
+        <p data-en="Step 6. Create the subsystem as a field, then bind the A button. The drive default command from the previous page stays exactly where it was — you are only adding the intake.">
+          第 6 步。把这个 subsystem 创建为一个字段，再绑 A 键。上一页的 drive default command 原样留着 —— 你只是加上 intake。
+        </p>
+      </div>
+      <pre class="code-window"><code>private final Intake intake = new Intake();
+
+public RobotContainer() {
+    // (drive default command code from Part 5 stays here)
+
+    // Hold A → run intake. Release A → intake stops automatically
+    // (because startEnd's second lambda fires when the command ends).
+    // 按住 A → intake 跑。松开 A → intake 自动停
+    // （因为命令结束时 startEnd 的第二个 lambda 会触发）。
+    driver.a().whileTrue(intake.intakeCommand());
+}</code></pre>
+      <div class="section-heading" style="margin-top: 4px;">
+        <p data-en="driver.a() is a Trigger. .whileTrue(...) says &quot;while this Trigger is true, keep this Command scheduled; the moment it goes false, interrupt the Command.&quot; That single line replaces the entire if (driver.getAButton()) intake.run(0.6); else intake.stop(); block from the if-then teleop style.">
+          driver.a() 是一个 Trigger，.whileTrue(...) 的语义是“Trigger 为 true 时让 Command 一直被调度；一变 false 立即中断”。这一行就把 if-then 遥控写法里那一整个 if (driver.getAButton()) intake.run(0.6); else intake.stop(); 块替掉了。
+        </p>
+      </div>
+    </section>
+
+    <section id="binding-methods">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Binding methods">把按键画成命令</p>
+        <h2 data-en="The pattern of bindings, visualized">把“按键 → 命令”画出来</h2>
+        <p data-en="A Trigger is any boolean source; a binding method connects it to a Command. The table below is how the team's RobotContainer wires drivers — the same handful of methods cover almost everything you'll bind.">
+          一个 Trigger 是任意布尔信号源；binding method 把它连到一个 Command。下表对应本队 RobotContainer 给 driver / operator 的绑法 —— 你要绑的几乎所有东西都被这几个方法覆盖了。
+        </p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th data-en="Trigger">触发源</th>
+            <th data-en="Binding method">绑定方法</th>
+            <th data-en="Behavior">行为</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>driver.a()</code></td>
+            <td><code>.onTrue(cmd)</code></td>
+            <td data-en="Fire once on press.">按下时触发一次。</td>
+          </tr>
+          <tr>
+            <td><code>driver.a()</code></td>
+            <td><code>.whileTrue(cmd)</code></td>
+            <td data-en="Run while held; cancel on release.">按住时跑，松开取消。</td>
+          </tr>
+          <tr>
+            <td><code>driver.a()</code></td>
+            <td><code>.toggleOnTrue(cmd)</code></td>
+            <td data-en="First press starts, second press cancels.">按一下开，再按一下关。</td>
+          </tr>
+          <tr>
+            <td><code>new Trigger(intake::hasGamepiece)</code></td>
+            <td><code>.onTrue(cmd)</code></td>
+            <td data-en="Any boolean source can be a Trigger.">任何布尔值都能当 Trigger。</td>
+          </tr>
+          <tr>
+            <td><code>driver.a().and(driver.b())</code><br><code>driver.a().or(driver.x())</code></td>
+            <td><code>.negate()</code></td>
+            <td data-en="Compose triggers — and / or / negate combine boolean sources before binding.">组合触发源 —— and / or / negate 在绑定前把布尔信号拼起来。</td>
+          </tr>
+        </tbody>
+      </table>
+      <p data-en="Choosing the right method is the design. The team's code uses onTrue for stateful toggles and whileTrue for hold-to-fire actions. Once you've got your own intake bound, read their configureBindings() once and every choice will make sense." style="margin-top: 22px;">
+        挑对方法 = 设计。本队代码里 onTrue 用于状态切换，whileTrue 用于按住执行。自己绑完一个 intake 后再去看他们的 configureBindings()，每个选择都会一目了然。
+      </p>
+    </section>
+
+    <section id="common-mistakes">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Pitfalls">常见的坑</p>
+        <h2 data-en="Common mistakes">常见的坑</h2>
+        <p data-en="The intake is simple, but the same handful of mistakes trip up almost everyone wiring their first mechanism. Each one stops being a problem the moment you've hit it once.">
+          intake 很简单，但接第一个机构时几乎所有人都会撞上同样的几个坑。每一个，踩过一次以后就再也不会上当。
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="Using onTrue when you meant whileTrue">想要 whileTrue 却用了 onTrue</h3>
+            <p data-en="onTrue schedules once on press and walks away. With a never-ending command like intakeCommand(), the intake keeps spinning after you release the button. For hold-to-run, use whileTrue so releasing A interrupts the command and stop() fires.">onTrue 在按下时调度一次就不管了。配上 intakeCommand() 这种自己不会结束的命令，松开按键后 intake 还在转。要“按住才跑”就用 whileTrue，松开 A 时命令被中断、stop() 触发。</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="Hard-coding the CAN ID inline">把 CAN ID 写死在内联里</h3>
+            <p data-en="new SparkMax(5, ...) works until the wiring changes and you're hunting through subsystems for the number. Read it from Constants instead, the way the team's code does — one place to change, no surprises.">new SparkMax(5, ...) 能跑，直到接线一改，你就得在各个 subsystem 里翻那个数字。改成从 Constants 读，跟本队代码一样 —— 一处可改，不会有惊喜。</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="No current limit on a brushless motor">brushless 电机没设 current limit</h3>
+            <p data-en="With no current limit, a stalled intake (a game piece jams, a roller binds) pulls everything the battery can give and burns the motor or trips the breaker. Set a supply current limit in the constructor — 40 A is a sane default.">不设 current limit，卡死的 intake（卡了游戏件、滚轮咬死）会把电池能给的电流全抽走，烧电机或跳 breaker。在构造函数里设个 supply current limit —— 40 A 是个合理的默认值。</p>
+          </div>
+        </li>
+        <li>
+          <span>04</span>
+          <div>
+            <h3 data-en="Calling motor.set() from RobotContainer">在 RobotContainer 里直接调 motor.set()</h3>
+            <p data-en="The whole point of the subsystem is that hardware lives in one place. If motor.set() leaks into the wiring file, the Scheduler can't track the requirement and conflict resolution stops working. Keep hardware access inside Intake; let bindings call its methods.">subsystem 的全部意义就是让硬件只在一个地方出现。motor.set() 一旦漏进接线文件，Scheduler 就追踪不到 requirement，冲突检测失效。把硬件访问留在 Intake 里，让 binding 去调它的方法。</p>
+          </div>
+        </li>
+        <li>
+          <span>05</span>
+          <div>
+            <h3 data-en="Reusing one Command instance across two bindings">把同一个 Command 实例绑到两个地方</h3>
+            <p data-en="A Command can only be scheduled once at a time. Always build it via the factory method — intake.intakeCommand() — so each binding gets a fresh instance, instead of storing one Command in a field and binding it twice.">同一个 Command 同一时刻只能被调度一次。永远通过 factory method 构造 —— intake.intakeCommand() —— 让每个 binding 拿到一个新实例，而不是把一个 Command 存进字段再绑两次。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="read-more" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="Where to read more">去哪读更多</p>
+        <h2 data-en="Where to read more">去哪读更多</h2>
+        <p data-en="The intake is the smallest version of a pattern that scales to every mechanism on the robot. When you're ready for the full reference, these official docs go deeper.">
+          intake 是一个能扩展到机器人上每个机构的模式的最小版本。想要完整参考时，下面这些官方文档讲得更深。
+        </p>
+        <ul style="margin-left: 20px; line-height: 1.9; color: #374151;">
+          <li><strong>WPILib — Subsystems</strong> — <span data-en="The SubsystemBase contract, periodic(), and the Command factory methods (run, startEnd, runEnd).">SubsystemBase 的约定、periodic()，以及 Command factory method（run、startEnd、runEnd）。</span></li>
+          <li><strong>WPILib — Binding Commands to Triggers</strong> — <span data-en="The full list of binding methods (onTrue, whileTrue, toggleOnTrue, onFalse) and how to compose Triggers.">完整的 binding method 列表（onTrue、whileTrue、toggleOnTrue、onFalse）以及怎么组合 Trigger。</span></li>
+          <li><strong>WPILib — CommandXboxController</strong> — <span data-en="Every button and analog input as a ready-made Trigger.">每个按键和模拟输入都是一个现成的 Trigger。</span></li>
+          <li><strong>REVLib docs</strong> — <span data-en="SparkMax / SparkFlex configuration: smart current limit, idle mode, inversion, soft limits.">SparkMax / SparkFlex 配置：smart current limit、idle mode、inversion、soft limit。</span></li>
+          <li><strong>Phoenix 6 docs</strong> — <span data-en="If your intake runs on a TalonFX: stator vs. supply current limits, neutral mode, follower mode.">如果你的 intake 用 TalonFX：stator 与 supply current limit、neutral mode、follower mode。</span></li>
+        </ul>
+        <p data-en="Best of all: read a top team's RobotContainer on Open Alliance. Their configureBindings() is the same Trigger-to-Command wiring you just wrote, only with more mechanisms.">
+          最值得做的：去 Open Alliance 上读一支顶级队伍的 RobotContainer。他们的 configureBindings() 就是你刚写的那套 Trigger 到 Command 的接线，只是机构更多。
+        </p>
+      </div>
+      <pre class="code-window"><code>// The shape never changes — just more lines of the same thing:
+driver.a().whileTrue(intake.intakeCommand());
+driver.b().whileTrue(shooter.spinUpCommand());
+driver.x().toggleOnTrue(climber.climbCommand());
+operator.povUp().onTrue(elevator.raiseCommand());</code></pre>
+    </section>
+
+    <section class="advanced-panel">
+      <div>
+        <p class="eyebrow" data-en="Continue">继续</p>
+        <h2 data-en="Keep going">接着往下</h2>
+        <p data-en="You can now add any mechanism: a Subsystem that owns hardware, a factory method that returns a Command, and one binding line in RobotContainer. Next, schedule a Command during the 15-second autonomous period and earn your first mobility points.">
+          你现在能加任何机构了：一个持有硬件的 Subsystem、一个返回 Command 的 factory method，加上 RobotContainer 里的一行 binding。下一步，在自动赛那 15 秒里调度一条 Command，拿下你的第一份 mobility 分。
+        </p>
+      </div>
+      <div class="topic-tags">
+        <span>Subsystem</span>
+        <span>factory method</span>
+        <span>Trigger</span>
+        <span>whileTrue</span>
+        <span>Constants</span>
+        <span>current limit</span>
+      </div>
+      <p style="margin-top: 22px;">
+        <a href="code-command-based.html" class="secondary-action" data-en="← Command-Based · The framework">← Command-Based 框架</a>
+        <a href="code-first-auto.html" class="primary-action" data-en="First autonomous →">第一段自动 →</a>
+      </p>
+    </section>
+
+  </main>
+  </div>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html" data-en="Back to Code">返回代码</a></p>
+  </footer>
+
+  <script src="language-toggle.js"></script>
+
+  <script>
+    (function () {
+      const links = document.querySelectorAll(".docs-toc a");
+      if (!links.length || !("IntersectionObserver" in window)) return;
+      const byId = new Map();
+      const targets = [];
+      links.forEach((link) => {
+        const id = link.getAttribute("href").slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          byId.set(id, link);
+          targets.push(el);
+        }
+      });
+      const setActive = (id) => {
+        links.forEach((l) => l.classList.remove("active"));
+        const a = byId.get(id);
+        if (a) a.classList.add("active");
+      };
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) =>
+              a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top
+            )[0];
+          if (visible) setActive(visible.target.id);
+        },
+        { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
+      );
+      targets.forEach((t) => observer.observe(t));
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          setActive(link.getAttribute("href").slice(1));
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
