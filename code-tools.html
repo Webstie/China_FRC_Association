@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>伙伴工具 Companion Tools You Live In - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Page-specific TOC layout (only used here) */
+    .docs-layout {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+    }
+    .docs-layout > main.code-main {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+    .docs-toc {
+      position: sticky;
+      top: 88px;
+      align-self: start;
+      font-size: 0.92rem;
+    }
+    .docs-toc .toc-title {
+      margin: 0 0 12px;
+      padding: 0 14px;
+      color: var(--frc-gray);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+    .docs-toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-left: 2px solid var(--frc-border);
+      counter-reset: toc;
+    }
+    .docs-toc li {
+      margin: 0;
+      counter-increment: toc;
+    }
+    .docs-toc a {
+      display: block;
+      padding: 8px 14px;
+      margin-left: -2px;
+      border-left: 2px solid transparent;
+      color: var(--frc-gray);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .docs-toc a::before {
+      content: counter(toc, decimal-leading-zero) "\00a0\00a0";
+      color: rgba(107, 114, 128, 0.55);
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+    .docs-toc a:hover {
+      color: var(--frc-blue);
+      background: rgba(0, 102, 179, 0.05);
+    }
+    .docs-toc a.active {
+      color: var(--frc-blue);
+      border-left-color: var(--frc-blue);
+      font-weight: 700;
+      background: rgba(0, 102, 179, 0.06);
+    }
+    .docs-toc a.active::before { color: var(--frc-blue); }
+
+    /* Section anchors land below the sticky navbar */
+    section[id] { scroll-margin-top: 88px; }
+
+    @media (max-width: 960px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px 20px;
+      }
+      .docs-toc {
+        position: static;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--frc-border);
+      }
+      .docs-toc ol {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px 12px;
+        border-left: 0;
+      }
+      .docs-toc a {
+        margin-left: 0;
+        padding: 6px 4px;
+        border-left: 0;
+      }
+      .docs-toc a.active { border-left: 0; }
+    }
+  </style>
+</head>
+<body class="code-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html" data-en="Back to Code">返回代码</a>
+      <p class="eyebrow" data-en="Companion Tools">伙伴工具 · Companion Tools</p>
+      <h1>Companion Tools You Live In</h1>
+      <p data-en="The handful of apps you keep open all season: cockpit, device config, dashboards. None are robot code; each does one job.">
+        整个赛季都开着的几款应用：驾驶舱、设备配置、仪表盘。它们都不是机器人代码，但各自只做一件事。
+      </p>
+    </div>
+    <aside class="software-summary">
+      <span data-en="Touched from">什么时候开始用</span>
+      <strong data-en="Week 1, every day">Week 1，每天</strong>
+      <span data-en="Rule of thumb">一句话</span>
+      <strong data-en="Each tool does one job">每个工具只做一件事</strong>
+    </aside>
+  </header>
+
+    <div class="docs-layout">
+    <aside class="docs-toc" aria-label="Table of contents">
+      <p class="toc-title" data-en="On this page">本页目录</p>
+      <ol>
+        <li><a href="#tool-map" data-en="The tool map">工具地图</a></li>
+        <li><a href="#device-tools" data-en="Device tools">设备配置</a></li>
+        <li><a href="#deep-dives" data-en="Deep dives">子页面</a></li>
+        <li><a href="#which-tool" data-en="Which tool for which question">出问题先开哪个工具</a></li>
+        <li><a href="#common-mistakes" data-en="Common mistakes">常见的坑</a></li>
+        <li><a href="#read-more" data-en="Where to read more">去哪读更多</a></li>
+      </ol>
+    </aside>
+    <main class="code-main">
+
+    <section id="tool-map" class="intro-panel">
+      <div>
+        <p class="eyebrow" data-en="The tool map">工具地图</p>
+        <h2 data-en="Five categories, each does one job">五类工具，每类只做一件事</h2>
+        <p data-en="Up to here the main story has been the code you write. But across the season you also live inside a handful of companion applications. None of them are your robot code; they each do one job alongside it. The trap rookies fall into is treating every tool as 'just another install' and never learning what each one is actually for. Here is the map.">
+          到目前为止，主线一直是你写的代码。但整个赛季还有几款伙伴应用会一直开着，它们各自只做一件事，跟你的代码并行配合。新手最容易把"装个工具"和"会用工具"混为一谈 —— 这里给你一张工具地图。
+        </p>
+        <p data-en="Three of these categories (trajectory authoring, characterization) only matter after closed-loop and pathing matter — see Beyond rookie. The other three (cockpit, device config, dashboards) you touch from week 1.">
+          其中两类（trajectory authoring、characterization）要等到你开始上 closed-loop 和路径跟随后才用得到 —— 见"新手之后"。剩下三类（驾驶舱、设备配置、仪表盘）从 Week 1 就要用。
+        </p>
+      </div>
+      <div class="quick-facts">
+        <div>
+          <span data-en="Cockpit">驾驶舱</span>
+          <strong>Driver Station</strong>
+        </div>
+        <div>
+          <span data-en="Device config">设备配置</span>
+          <strong>Tuner X · REV HC</strong>
+        </div>
+        <div>
+          <span data-en="Dashboards">仪表盘</span>
+          <strong>Elastic · AdvantageScope</strong>
+        </div>
+        <div>
+          <span data-en="Shared transport">共用传输</span>
+          <strong>NetworkTables 4</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="tool-map-cards">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Five categories">五个类别</p>
+        <h2 data-en="The five categories at a glance">五类工具一览</h2>
+        <p data-en="Your robot code sits in the middle. Each category connects to it through one well-defined channel — enable signals, CAN config, NetworkTables, trajectory files, or log analysis. Knowing which channel a tool owns tells you exactly when to reach for it.">
+          你的机器人代码处在正中间。每一类工具都通过一条明确的通道和它相连 —— enable 信号、CAN 配置、NetworkTables、轨迹文件，或日志分析。知道某个工具占的是哪条通道，就知道什么时候该开它。
+        </p>
+      </div>
+      <div class="tool-list">
+        <div class="tool-item">
+          <span data-en="1 · Cockpit">1 · 驾驶舱</span>
+          <strong>Driver Station</strong>
+          <p data-en="The only program your driver and operator look at during a match: enable, disable, mode selector, controllers, and the console where your stack traces show up. Connects to the robot via enable / disable / FMS.">比赛时驾驶和操作手唯一会看的程序：enable、disable、模式选择、手柄，以及打印 stack trace 的控制台。通过 enable / disable / FMS 和机器人相连。</p>
+          <em data-en="enable / disable / FMS">enable / disable / FMS</em>
+        </div>
+        <div class="tool-item">
+          <span data-en="2 · Device configuration">2 · 设备配置</span>
+          <strong>Phoenix Tuner X · REV Hardware Client</strong>
+          <p data-en="Phoenix Tuner X for CTRE devices (TalonFX, Kraken, CANcoder, Pigeon 2); REV Hardware Client for REV devices (SPARK MAX, SPARK Flex, PDH, PH). Both do CAN config and firmware — things code alone cannot do.">Phoenix Tuner X 管 CTRE 设备（TalonFX、Kraken、CANcoder、Pigeon 2）；REV Hardware Client 管 REV 设备（SPARK MAX、SPARK Flex、PDH、PH）。两者都做 CAN config 和固件 —— 代码自己做不了的事。</p>
+          <em data-en="CAN config + firmware">CAN config + 固件</em>
+        </div>
+        <div class="tool-item">
+          <span data-en="3 · Dashboards">3 · 仪表盘</span>
+          <strong>SmartDashboard · Shuffleboard · Elastic · AdvantageScope</strong>
+          <p data-en="Windows on your laptop that show what your code publishes. They all share one transport — NetworkTables 4. Elastic/Shuffleboard are for the driver; AdvantageScope is the programmer's view for live data and log replay.">笔记本上的窗口，显示你的代码发布出来的内容。它们共用同一个传输 —— NetworkTables 4。Elastic / Shuffleboard 给驾驶员看；AdvantageScope 是程序员的窗口，看实时数据和日志回放。</p>
+          <em data-en="NetworkTables (NT4) + DataLog">NetworkTables (NT4) + DataLog</em>
+        </div>
+        <div class="tool-item">
+          <span data-en="4 · Trajectory authoring">4 · 轨迹作图</span>
+          <strong>PathPlanner GUI · Choreo</strong>
+          <p data-en="Draw or optimize autonomous paths on a field image, then export files your code follows. PathPlanner writes .path / .auto files; Choreo writes .traj files. Only matters once you do path following.">在场地图上画或优化自动路径，再导出代码要跟随的文件。PathPlanner 输出 .path / .auto 文件，Choreo 输出 .traj 文件。开始做路径跟随后才用得到。</p>
+          <em data-en=".path / .auto / .traj files">.path / .auto / .traj 文件</em>
+        </div>
+        <div class="tool-item">
+          <span data-en="5 · Characterization">5 · 系统辨识</span>
+          <strong>SysId</strong>
+          <p data-en="Drives a mechanism through a known routine, analyzes the log, and hands you feedforward gains (kS, kV, kA). Only matters once closed-loop control matters.">驱动机构跑一段已知流程，分析日志，给你 feedforward 增益（kS、kV、kA）。开始做 closed-loop 控制后才用得到。</p>
+          <em data-en="find kS, kV, kA">测出 kS, kV, kA</em>
+        </div>
+      </div>
+    </section>
+
+    <section id="device-tools" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="Device tools">设备配置</p>
+        <h2 data-en="Device tools — Tuner X and REV HC">设备工具 — Tuner X 与 REV HC</h2>
+        <p data-en="Two device tools cover almost every motor controller and sensor an FRC robot carries. Both run on your laptop, talk to the CAN bus, and do things your robot code cannot: assign CAN IDs, flash firmware, and test a motor before any code exists. When mechanical asks 'why doesn't this motor turn?', the answer is almost always a wrong CAN ID or stale firmware — so open the device tool first.">
+          两个设备工具几乎覆盖了 FRC 机器人上所有电机控制器和传感器。它们都在笔记本上跑、和 CAN 总线通信，做代码做不了的事：分配 CAN ID、刷固件、在还没有任何代码时先测电机。机械组问"为什么这个电机不转？"，答案几乎总是 CAN ID 写错了或固件没刷 —— 所以先开设备工具。
+        </p>
+      </div>
+      <div class="tool-list">
+        <div class="tool-item">
+          <span data-en="CTRE devices">CTRE 设备</span>
+          <strong>Phoenix Tuner X</strong>
+          <p data-en="CTRE's all-in-one app for TalonFX (Falcon / Kraken), Talon FXS, CANcoder, Pigeon 2, CANdi, CANrange, CANdle. Four jobs: (1) Discover &amp; ID — list every device on the bus and assign each a unique CAN ID matching your code; (2) Firmware — update to the current year's Phoenix 6 firmware, which must match your WPILib year; (3) Self-test + Plot — snapshot every status signal at once, then plot setpoint vs measured live, which is how PID tuning actually happens in FRC; (4) Swerve Project Generator — a wizard that writes your whole CommandSwerveDrivetrain and generated/TunerConstants.java for you. Never hand-edit that generated file; re-run the wizard instead.">CTRE 全套设备的统一配置工具：TalonFX（Falcon / Kraken）、Talon FXS、CANcoder、Pigeon 2、CANdi、CANrange、CANdle。四件事：(1) Discover &amp; ID —— 列出总线上每个设备，给每个分配和代码对得上的唯一 CAN ID；(2) Firmware —— 升级到当年 Phoenix 6 固件，必须和 WPILib 年份对应；(3) Self-test + Plot —— 一次性把所有 status signal 抓下来，再实时画 setpoint vs 实测，FRC 里 PID 调参就是这么干的；(4) Swerve Project Generator —— 一个向导，直接帮你写出整个 CommandSwerveDrivetrain 和 generated/TunerConstants.java。生成的文件一行都不要手改，参数变了就重跑向导。</p>
+          <em data-en="Full guide →">完整指南 →</em>
+        </div>
+        <div class="tool-item">
+          <span data-en="REV devices">REV 设备</span>
+          <strong>REV Hardware Client</strong>
+          <p data-en="REV's counterpart to Tuner X for SPARK MAX, SPARK Flex, Power Distribution Hub (PDH), Pneumatic Hub (PH), Servo Hub. Four jobs: (1) Discover &amp; ID via USB-C to each SPARK; (2) Firmware — update SPARKs, PDH, PH; (3) Manual test — spin a motor from one slider before any code runs, which bypasses every code-related variable; (4) One-time config such as follower role. Key difference from Tuner X: REV config lives in code, not the GUI — the canonical pattern is SparkMaxConfig + motor.configure(...) at boot. The GUI is for one-time setup (IDs, firmware) and manual testing.">REV 对位的 Tuner X，管 SPARK MAX、SPARK Flex、PDH、PH、Servo Hub。四件事：(1) Discover &amp; ID —— USB-C 直连每个 SPARK；(2) Firmware —— 刷 SPARK、PDH、PH 的固件；(3) Manual test —— 写任何代码之前用一个滑块转电机，把所有代码相关的变量排除掉；(4) One-time config，比如 follower 模式。与 Tuner X 的关键差异：REV 的配置写在代码里，不在 GUI 里 —— 标准做法是启动时调用 SparkMaxConfig + motor.configure(...)。GUI 只用于一次性操作（设 ID、刷固件）和手动测试。</p>
+          <em data-en="Full guide →">完整指南 →</em>
+        </div>
+      </div>
+      <p data-en="Each tool has its own full installer-and-usage guide. Open them when you are actually wiring devices:" style="margin-top: 22px;">
+        每个工具都有自己完整的安装与使用指南。真要接设备时再打开：
+      </p>
+      <p style="margin-top: 12px;">
+        <a href="software-phoenix-tuner-x.html" class="secondary-action" data-en="Phoenix Tuner X guide →">Phoenix Tuner X 指南 →</a>
+        <a href="software-rev-hardware-client.html" class="secondary-action" data-en="REV Hardware Client guide →">REV Hardware Client 指南 →</a>
+      </p>
+    </section>
+
+    <section id="deep-dives" class="intro-panel">
+      <div>
+        <p class="eyebrow" data-en="Deep dives">子页面</p>
+        <h2 data-en="Two tools that earn their own page">两个值得单开一页的工具</h2>
+        <p data-en="Two categories are big enough — and you touch them often enough — to get their own page. The Driver Station is the cockpit your driver lives in during every match; dashboards are how you see what the robot sees. Read those pages when you set up match day or start a tuning session.">
+          有两类工具足够大，而且你用得足够频繁，所以单独成页。Driver Station 是每场比赛驾驶员都坐在里面的驾驶舱；dashboard 是你"看见机器人看见的"的方式。准备比赛日或开始调参时，去读这两页。
+        </p>
+        <p style="margin-top: 18px;">
+          <a href="software-driver-station.html" class="primary-action" data-en="Driver Station — the cockpit →">Driver Station — 驾驶舱 →</a>
+        </p>
+        <p style="margin-top: 12px;">
+          <a href="code-dashboards.html" class="primary-action" data-en="Dashboards — see what the robot sees →">Dashboards — 看见机器人看见的 →</a>
+        </p>
+      </div>
+      <div class="quick-facts">
+        <div>
+          <span data-en="Driver Station">驾驶舱</span>
+          <strong data-en="For the driver">给驾驶员</strong>
+        </div>
+        <div>
+          <span data-en="Dashboards">仪表盘</span>
+          <strong data-en="For the programmer + driver">给程序员 + 驾驶员</strong>
+        </div>
+        <div>
+          <span data-en="Both ride on">都跑在</span>
+          <strong>NetworkTables 4</strong>
+        </div>
+        <div>
+          <span data-en="When to read">什么时候读</span>
+          <strong data-en="Match day · tuning">比赛日 · 调参</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="which-tool">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Which tool for which question">出问题先开哪个工具</p>
+        <h2 data-en="The rookie cheat-sheet">新手作弊条</h2>
+        <p data-en="When something breaks, the slowest move is opening every tool at random. This table maps a symptom straight to the one tool that holds the answer. Print it; tape it inside the laptop case.">
+          出问题时最慢的做法是把所有工具乱开一遍。这张表把症状直接映射到那个握着答案的工具。打印出来，贴在笔记本电脑包里。
+        </p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th data-en="Question / symptom">出什么问题</th>
+            <th data-en="Open this tool">开这个工具</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-en="Code won't deploy">代码部署不上</td>
+            <td data-en="Driver Station (Diagnostics tab — is the rio even reachable?)">Driver Station（Diagnostics 标签页 —— rio 到底连得上吗？）</td>
+          </tr>
+          <tr>
+            <td data-en="Code deployed but the Robot Code light is red">部署了但 Robot Code 灯红了</td>
+            <td data-en="Driver Station (Messages — the stack trace is right there)">Driver Station（Messages —— stack trace 就在里面）</td>
+          </tr>
+          <tr>
+            <td data-en="A TalonFX / CANcoder isn't responding">TalonFX 或 CANcoder 没反应</td>
+            <td data-en="Phoenix Tuner X (Devices — ID? firmware? on the bus?)">Phoenix Tuner X（Devices —— ID？固件？在总线上吗？）</td>
+          </tr>
+          <tr>
+            <td data-en="A SparkMax isn't responding">SparkMax 没反应</td>
+            <td data-en="REV Hardware Client (Devices — ID? firmware?)">REV Hardware Client（Devices —— ID？固件？）</td>
+          </tr>
+          <tr>
+            <td data-en="PID feels wrong (oscillates, overshoots)">PID 不对（振荡、超调）</td>
+            <td data-en="Phoenix Tuner X Plot (CTRE motors) or AdvantageScope (any sensor)">Phoenix Tuner X Plot（CTRE 电机）或 AdvantageScope（任意传感器）</td>
+          </tr>
+          <tr>
+            <td data-en="Auto runs but the robot ends up in the wrong spot">Auto 跑完位置不对</td>
+            <td data-en="AdvantageScope (replay the DataLog — see actual vs target pose)">AdvantageScope（回放 DataLog —— 看实际 pose vs 目标 pose）</td>
+          </tr>
+          <tr>
+            <td data-en="Driver complains controls feel weird">驾驶员说手感不对</td>
+            <td data-en="AdvantageScope (Joysticks tab — see exactly what raw axis values were)">AdvantageScope（Joysticks 标签页 —— 看清楚原始 axis 值到底是多少）</td>
+          </tr>
+          <tr>
+            <td data-en="CAN bus appears overloaded">CAN 总线像超载</td>
+            <td data-en="Driver Station (Power/CAN tab — % utilization, error counts)">Driver Station（Power/CAN 标签页 —— 利用率 %、错误计数）</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="common-mistakes">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Pitfalls">常见的坑</p>
+        <h2 data-en="Common Mistakes">常见的坑</h2>
+        <p data-en="These tools rarely fail loudly. The mistakes below are quiet ones — the kind that waste a whole field-day afternoon before someone notices.">
+          这些工具很少大声报错，下面这些坑都很安静 —— 能在赛场上白白浪费一下午，直到有人才注意到。
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="Treating a tool as 'just another install'">把工具当成"装一下就完了"</h3>
+            <p data-en="Every companion app does exactly one job. If you install all of them but never learn which channel each one owns — enable signal, CAN config, NetworkTables, trajectory files — you will open the wrong one when something breaks and lose an afternoon. Learn the tool map, not just the download links.">每个伙伴应用只做一件事。如果你全装了却没搞清每个占的是哪条通道 —— enable 信号、CAN config、NetworkTables、轨迹文件 —— 出问题时就会开错那个，白白浪费一下午。要记的是工具地图，不只是下载链接。</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="Not pinning USB devices to ports in Driver Station">没在 Driver Station 里把手柄绑死端口</h3>
+            <p data-en="In DS's USB Devices tab, pin each controller to a fixed port. Otherwise unplugging a controller mid-match rotates everyone's port assignments — your code still reads port 0, but a different physical controller is now there, so operator buttons fire driver commands.">在 DS 的 USB Devices 标签页里把每个手柄绑死端口。否则比赛中拔过一次线，所有人的端口编号都会轮换 —— 你代码里读的还是 port 0，但现在坐在那个端口上的是另一个物理手柄，操作手按的键就变成驾驶员命令。</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="Firmware not matching the WPILib year">固件和 WPILib 年份对不上</h3>
+            <p data-en="Phoenix 6 firmware must match your WPILib year, and the same discipline applies to REV devices. A motor that 'doesn't turn' is most often a wrong CAN ID or stale firmware — open the device tool (Tuner X or REV HC) and check both before you touch the code.">Phoenix 6 固件必须和 WPILib 年份对应，REV 设备同理。一颗"不转"的电机，最常见的原因就是 CAN ID 写错或固件没刷 —— 动代码之前先开设备工具（Tuner X 或 REV HC）把这两样都查一遍。</p>
+          </div>
+        </li>
+        <li>
+          <span>04</span>
+          <div>
+            <h3 data-en="Hand-editing the generated TunerConstants.java">手动改生成的 TunerConstants.java</h3>
+            <p data-en="The Swerve Project Generator writes generated/TunerConstants.java for you, including every module ID, gear ratio, gain, and CANcoder offset. Never edit it by hand — when a parameter changes, re-run the wizard. Hand edits get silently overwritten the next time someone regenerates.">Swerve Project Generator 帮你写出 generated/TunerConstants.java，里面装着每个模块 ID、传动比、增益、CANcoder offset。绝对不要手改 —— 参数变了就重跑向导。手改的内容下次有人重新生成时会被静默覆盖。</p>
+          </div>
+        </li>
+        <li>
+          <span>05</span>
+          <div>
+            <h3 data-en="Tuning PID by feel instead of opening the Plot">不开 Plot，靠手感调 PID</h3>
+            <p data-en="A PID gain you can't see is a PID gain you can't tune. Rookies who skip the plot end up feeling robot vibrations with their hand — that doesn't work. Open Tuner X Plot (or AdvantageScope), plot setpoint vs measured, and tune by looking at the trace.">看不见的 PID = 没法调的 PID。新手不开 plot，靠手摸车身振动猜 —— 永远调不出来。开 Tuner X Plot（或 AdvantageScope），画 setpoint vs 实测，看着曲线调。</p>
+          </div>
+        </li>
+        <li>
+          <span>06</span>
+          <div>
+            <h3 data-en="Expecting REV config to persist from the GUI">以为 REV 的配置能从 GUI 里记住</h3>
+            <p data-en="Unlike CTRE devices, which remember settings you push from Tuner X, the canonical REV pattern is SparkMaxConfig + motor.configure(...) at boot. The REV HC GUI is for one-time setup (IDs, firmware) and manual testing — put the real config in code, or it won't survive a power cycle the way you expect.">和 CTRE 设备不同（CTRE 能记住你从 Tuner X 推下去的设置），REV 的标准做法是启动时调用 SparkMaxConfig + motor.configure(...)。REV HC 的 GUI 只用于一次性操作（设 ID、刷固件）和手动测试 —— 真正的配置要放在代码里，否则一次断电就不会像你想的那样保留。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="read-more">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Where to read more">去哪读更多</p>
+        <h2 data-en="Where to Read More">去哪读更多</h2>
+        <p data-en="The companion tools each have official documentation, and the two big ones have their own pages on this wiki. Start with the in-wiki child pages, then go to the vendor docs when you need detail.">
+          这些伙伴工具各有官方文档，其中两个大头在本 wiki 上单独成页。先看 wiki 内的子页面，需要细节时再去看厂商文档。
+        </p>
+      </div>
+      <ul style="margin-left: 20px; line-height: 1.95; color: #374151;">
+        <li><a href="software-driver-station.html" data-en="Driver Station — the cockpit (this wiki)">Driver Station — 驾驶舱（本 wiki）</a></li>
+        <li><a href="code-dashboards.html" data-en="Dashboards — see what the robot sees (this wiki)">Dashboards — 看见机器人看见的（本 wiki）</a></li>
+        <li><a href="software-phoenix-tuner-x.html" data-en="Phoenix Tuner X install &amp; usage guide (this wiki)">Phoenix Tuner X 安装与使用指南（本 wiki）</a></li>
+        <li><a href="software-rev-hardware-client.html" data-en="REV Hardware Client install &amp; usage guide (this wiki)">REV Hardware Client 安装与使用指南（本 wiki）</a></li>
+        <li><a href="software-frc-game-tools.html" data-en="FRC Game Tools — Driver Station installer (this wiki)">FRC Game Tools — Driver Station 安装包（本 wiki）</a></li>
+        <li><a href="https://docs.wpilib.org/en/stable/docs/software/dashboards/index.html" data-en="WPILib docs — Dashboards (official)">WPILib 文档 — Dashboards（官方）</a></li>
+        <li><a href="https://v6.docs.ctr-electronics.com/en/stable/docs/tuner/index.html" data-en="CTRE Phoenix Tuner X docs (official)">CTRE Phoenix Tuner X 文档（官方）</a></li>
+        <li><a href="https://docs.revrobotics.com/rev-hardware-client/" data-en="REV Hardware Client docs (official)">REV Hardware Client 文档（官方）</a></li>
+      </ul>
+    </section>
+
+    <section class="advanced-panel">
+      <div>
+        <p class="eyebrow" data-en="Continue">继续</p>
+        <h2 data-en="Keep Going">接着往下</h2>
+        <p data-en="You now know the apps you'll keep open all season and which one to open when. The previous page is the iterate loop you'll run a hundred times; the next page maps everything beyond rookie code.">
+          你现在知道整个赛季都会开着的几款应用，以及什么时候该开哪个。上一页是你这赛季要跑一百次的稳定迭代循环；下一页画出新手代码之后的全部进阶路线。
+        </p>
+      </div>
+      <div class="topic-tags">
+        <a href="code-iterate.html" class="secondary-action" data-en="Iterate">稳定迭代 / Iterate</a>
+        <a href="code-next.html" class="primary-action" data-en="Beyond rookie">新手之后 / Beyond rookie</a>
+      </div>
+    </section>
+
+  </main>
+  </div>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html" data-en="Back to Code">返回代码</a></p>
+  </footer>
+
+  <script src="language-toggle.js"></script>
+
+  <script>
+    (function () {
+      const links = document.querySelectorAll(".docs-toc a");
+      if (!links.length || !("IntersectionObserver" in window)) return;
+      const byId = new Map();
+      const targets = [];
+      links.forEach((link) => {
+        const id = link.getAttribute("href").slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          byId.set(id, link);
+          targets.push(el);
+        }
+      });
+      const setActive = (id) => {
+        links.forEach((l) => l.classList.remove("active"));
+        const a = byId.get(id);
+        if (a) a.classList.add("active");
+      };
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) =>
+              a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top
+            )[0];
+          if (visible) setActive(visible.target.id);
+        },
+        { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
+      );
+      targets.forEach((t) => observer.observe(t));
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          setActive(link.getAttribute("href").slice(1));
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

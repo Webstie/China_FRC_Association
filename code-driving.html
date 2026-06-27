@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>让底盘开起来 Drive the Robot - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Page-specific TOC layout (only used here) */
+    .docs-layout {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+    }
+    .docs-layout > main.code-main {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+    .docs-toc {
+      position: sticky;
+      top: 88px;
+      align-self: start;
+      font-size: 0.92rem;
+    }
+    .docs-toc .toc-title {
+      margin: 0 0 12px;
+      padding: 0 14px;
+      color: var(--frc-gray);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+    .docs-toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-left: 2px solid var(--frc-border);
+      counter-reset: toc;
+    }
+    .docs-toc li {
+      margin: 0;
+      counter-increment: toc;
+    }
+    .docs-toc a {
+      display: block;
+      padding: 8px 14px;
+      margin-left: -2px;
+      border-left: 2px solid transparent;
+      color: var(--frc-gray);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .docs-toc a::before {
+      content: counter(toc, decimal-leading-zero) "\00a0\00a0";
+      color: rgba(107, 114, 128, 0.55);
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+    .docs-toc a:hover {
+      color: var(--frc-blue);
+      background: rgba(0, 102, 179, 0.05);
+    }
+    .docs-toc a.active {
+      color: var(--frc-blue);
+      border-left-color: var(--frc-blue);
+      font-weight: 700;
+      background: rgba(0, 102, 179, 0.06);
+    }
+    .docs-toc a.active::before { color: var(--frc-blue); }
+
+    /* Section anchors land below the sticky navbar */
+    section[id] { scroll-margin-top: 88px; }
+
+    @media (max-width: 960px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px 20px;
+      }
+      .docs-toc {
+        position: static;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--frc-border);
+      }
+      .docs-toc ol {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px 12px;
+        border-left: 0;
+      }
+      .docs-toc a {
+        margin-left: 0;
+        padding: 6px 4px;
+        border-left: 0;
+      }
+      .docs-toc a.active { border-left: 0; }
+    }
+  </style>
+</head>
+<body class="code-page">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" class="active" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle data-en="中文">EN</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="software-hero">
+    <div>
+      <a class="back-link" href="code.html" data-en="Back to Code">返回代码</a>
+      <p class="eyebrow" data-en="Driving">让底盘开起来 · Driving</p>
+      <h1>Drive the Robot</h1>
+      <p data-en="Arcade drive on a KOP differential chassis — and watch the hidden assumptions pile up until you need structure.">
+        在 KOP 差速底盘上实现 arcade drive，并看清隐性假设是怎么悄悄堆积、最终逼你需要框架的。
+      </p>
+    </div>
+    <aside class="software-summary">
+      <span data-en="Goal">本页目标</span>
+      <strong data-en="Arcade drive that works">能跑的 arcade drive</strong>
+      <span data-en="Style">代码风格</span>
+      <strong data-en="Last bare TimedRobot">最后一次裸 TimedRobot</strong>
+    </aside>
+  </header>
+
+    <div class="docs-layout">
+    <aside class="docs-toc" aria-label="Table of contents">
+      <p class="toc-title" data-en="On this page">本页目录</p>
+      <ol>
+        <li><a href="#goal" data-en="The goal">目标：arcade drive</a></li>
+        <li><a href="#math" data-en="The math">把数学画出来</a></li>
+        <li><a href="#code" data-en="The code">代码</a></li>
+        <li><a href="#cracks" data-en="The cracks appearing">悄悄堆积的隐性假设</a></li>
+        <li><a href="#families" data-en="Drivetrain families">底盘类型速览</a></li>
+        <li><a href="#common-mistakes" data-en="Common mistakes">常见的坑</a></li>
+        <li><a href="#read-more" data-en="Where to read more">去哪读更多</a></li>
+      </ol>
+    </aside>
+    <main class="code-main">
+
+    <section id="goal" class="intro-panel">
+      <div>
+        <p class="eyebrow" data-en="The goal">目标</p>
+        <h2 data-en="Arcade Drive on a KOP Chassis">在 KOP 底盘上跑 arcade drive</h2>
+        <p data-en="A KOP-style differential chassis has two sides, each with one or two motors. The driving model is simple: the left stick controls forward speed, the right stick controls turning. That is arcade drive.">
+          KOP 风格的差速底盘左右各一到两颗电机。驾驶模型很简单：左摇杆控前进、右摇杆控转向。这就是 arcade drive。
+        </p>
+        <p data-en="In the previous page you made a single motor spin. Now you'll wire up four motors, feed them an Xbox controller, and actually drive the robot across the floor. By the end the robot moves — but the way you got there quietly bakes in a pile of assumptions, and that's exactly what sets up the next page.">
+          上一页你让一颗电机转了起来。这一页你会接好四颗电机，喂给它一个 Xbox controller，真正把机器人在地上开起来。做完机器人能动了 —— 但你走到这一步的方式，悄悄塞进了一堆假设，而这正好引出下一页。
+        </p>
+      </div>
+      <div class="quick-facts">
+        <div>
+          <span data-en="Chassis">底盘</span>
+          <strong data-en="KOP differential">KOP 差速底盘</strong>
+        </div>
+        <div>
+          <span data-en="Left stick Y">左摇杆 Y</span>
+          <strong data-en="Forward speed">前进速度</strong>
+        </div>
+        <div>
+          <span data-en="Right stick X">右摇杆 X</span>
+          <strong data-en="Turn rate">转向速率</strong>
+        </div>
+        <div>
+          <span data-en="Helper">现成工具</span>
+          <strong>DifferentialDrive</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="math" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="The math">把数学画出来</p>
+        <h2 data-en="The Math, as a Diagram">arcade drive 背后的数学</h2>
+        <p data-en="The two sticks feed two numbers — forward speed and turn rate — and arcade drive mixes them into a left and a right motor command. Push forward and both sides go positive; add a turn and one side speeds up while the other slows down. Each result is clamped into the [-1, +1] range before it reaches a motor.">
+          两个摇杆给出两个数 —— 前进速度和转向速率 —— arcade drive 把它们混合成左、右两路电机指令。向前推，两边都变正；再加转向，一边加速、另一边减速。每个结果在送进电机之前都被夹到 [-1, +1] 区间。
+        </p>
+      </div>
+      <pre class="code-window"><code>        ┌──────────────────────────────────────────┐
+        │   left stick Y      = forward speed      │
+        │       (push up = +1, pull down = -1)     │
+        │                                          │
+        │   right stick X     = turn rate          │
+        │       (right = +1, left = -1)            │
+        └──────────────────────────────────────────┘
+                              │
+                              ▼
+              ┌──────────────────────────────┐
+              │   left motor  = Y + X        │
+              │   right motor = Y - X        │
+              └──────────────────────────────┘
+                              │
+                              ▼
+                   clamp each to  [-1, +1]
+                          │
+                          ▼
+                  leftMotor.set(left)
+                  rightMotor.set(right)</code></pre>
+      <ul style="margin-left: 20px; line-height: 1.85; color: #374151;">
+        <li><span data-en="Push forward → both sides positive → goes forward.">向前推 → 两边都正 → 前进。</span></li>
+        <li><span data-en="Push forward + right turn → left is faster than right → arcs right.">前进 + 右转 → 左边快、右边慢 → 向右画弧。</span></li>
+        <li><span data-en="Just turn right → left positive, right negative → spins in place.">单独右转 → 左正右负 → 原地右转。</span></li>
+      </ul>
+      <div class="callout">
+        <p data-en="You don't have to do this math yourself. WPILib ships DifferentialDrive, which does all of it for you — the mixing and the clamping. We show the math here so you trust the helper instead of treating it as magic.">
+          你不用自己算这套数学。WPILib 自带的 <code>DifferentialDrive</code> 全帮你做了 —— 混合和夹值都包含在内。把数学画出来，是为了让你信任这个工具，而不是把它当黑魔法。
+        </p>
+      </div>
+    </section>
+
+    <section id="code" class="code-sample-section">
+      <div>
+        <p class="eyebrow" data-en="The code">代码</p>
+        <h2 data-en="The Code — Still TimedRobot, Last Time">代码 —— 最后一次用 TimedRobot</h2>
+        <p data-en="Four SparkMax motor controllers: two on the left, two on the right. Each side has a leader and a follower; the followers just mirror their leader, configured once at boot. DifferentialDrive takes the two leaders and handles the arcade math. In teleopPeriodic you read the sticks and hand them off — that's the whole driving loop.">
+          四颗 SparkMax 电机控制器：左边两颗、右边两颗。每一侧一个 leader 一个 follower；follower 只是跟随它的 leader，启动期配一次即可。<code>DifferentialDrive</code> 接收两个 leader，负责 arcade 数学。在 <code>teleopPeriodic</code> 里读摇杆、交给它 —— 整个驾驶循环就这么多。
+        </p>
+        <p data-en="Note the minus signs on the sticks: on an Xbox controller pushing the stick up reports a negative Y, so you invert it to make forward positive. This is the last page that uses a bare TimedRobot — from the next mechanism on, we switch to structure.">
+          注意摇杆前的负号：Xbox controller 向上推时 Y 是负值，所以取反才让前进为正。这是最后一页使用裸 <code>TimedRobot</code> —— 从下一个机构开始，我们就切到框架。
+        </p>
+      </div>
+      <pre class="code-window"><code>// src/main/java/frc/robot/Robot.java
+package frc.robot;
+
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
+public class Robot extends TimedRobot {
+
+    private final SparkMax leftLeader  = new SparkMax(1, MotorType.kBrushless);
+    private final SparkMax leftFollow  = new SparkMax(2, MotorType.kBrushless);
+    private final SparkMax rightLeader = new SparkMax(3, MotorType.kBrushless);
+    private final SparkMax rightFollow = new SparkMax(4, MotorType.kBrushless);
+
+    private final DifferentialDrive drive =
+        new DifferentialDrive(leftLeader, rightLeader);
+
+    private final XboxController driver = new XboxController(0);
+
+    public Robot() {
+        // followers mirror their leader — set this once at boot.
+        // 跟随者跟随主电机，启动期配一次即可。
+        leftFollow .configure(/* follow leftLeader  */);
+        rightFollow.configure(/* follow rightLeader */);
+    }
+
+    @Override
+    public void teleopPeriodic() {
+        drive.arcadeDrive(
+            -driver.getLeftY(),   // Xbox up = negative; invert for forward
+                                   // Xbox 向上是负值，取反才前进
+            -driver.getRightX()
+        );
+    }
+}</code></pre>
+    </section>
+
+    <section id="cracks">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="The cracks appearing">悄悄堆积的隐性假设</p>
+        <h2 data-en="The Hidden Assumptions Creeping In">代码里悄悄长出的隐性假设</h2>
+        <p data-en="This works. You can drive your robot now. But look closer — a pile of unspoken assumptions has already crept into this one file. None of them hurt with a single mechanism. The crack opens the moment you try to add a second.">
+          这能跑。你现在能开车了。但仔细看 —— 一堆没说出口的假设已经悄悄爬进了这一个文件。在只有一个机构时它们都不痛不痒。<strong>加第二个机构的瞬间，裂缝就出来了。</strong>
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="CAN IDs are inline magic numbers">CAN ID 是内联的魔数</h3>
+            <p data-en="The IDs 1, 2, 3, 4 are typed directly where the motors are created — scattered through the file. Change a controller and you go hunting line by line. There's no single place that says 'these are the IDs.'">
+              ID 1、2、3、4 直接写在创建电机的地方 —— 散落在文件里。换一个控制器，你就得一行一行去找。没有一个地方统一写着"这些是 ID"。
+            </p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="Defaults baked into one method">默认值塞在一个方法里</h3>
+            <p data-en="Joystick port 0, deadband 0, no slew limiting — all the input behavior is buried in a single arcadeDrive call. There's nowhere to tune the feel of driving without editing the loop body itself.">
+              摇杆端口 0、没死区（deadband 0）、没斜率限制（slew limiting）—— 所有的输入行为都埋在一句 <code>arcadeDrive</code> 调用里。想调驾驶手感，只能去改循环体本身，没有别的地方。
+            </p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="Everything lives in one file">一切都挤在一个文件里</h3>
+            <p data-en="The drive logic, the input reading, and the motor wiring are all tangled in Robot.java. That's fine for one mechanism. But add an intake on the A button — hold to run, release to stop — and now teleopPeriodic mixes driving and intake in the same loop, fighting for the same place.">
+              驱动逻辑、输入读取、电机接线全缠在 <code>Robot.java</code> 里。一个机构这样写没问题。但在 A 键上加一个 intake —— 按住吸、松开停 —— <code>teleopPeriodic</code> 里就开始把驾驶和 intake 混在同一个循环里，抢同一块地方。
+            </p>
+          </div>
+        </li>
+      </ol>
+      <div class="callout">
+        <p data-en="This is the cliff edge. One mechanism in a bare TimedRobot is readable; two start to tangle; four become unmaintainable. The next page walks straight off this edge on purpose — adding an intake the naive way — so you feel exactly why a framework exists before you're handed one.">
+          这就是悬崖边。裸 <code>TimedRobot</code> 里放一个机构还能读；两个就开始缠在一起；四个就没法维护了。<a href="code-why-framework.html" data-en="The next page">下一页</a>会故意从这个边缘直接走下去 —— 用最朴素的方式硬加一个 intake —— 让你在拿到框架之前，先亲身感受到为什么需要它。
+        </p>
+      </div>
+    </section>
+
+    <section id="families">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Drivetrain families">底盘类型速览</p>
+        <h2 data-en="Drivetrain Families">底盘类型有哪几种</h2>
+        <p data-en="The chassis you just drove is one of three families you'll meet in FRC. Each is a different tool with a different cost and complexity tradeoff. You don't need to master all of them now — just know which one is on your robot and roughly what the others buy you.">
+          你刚开的这台底盘，是 FRC 里你会遇到的三大类之一。每一类都是一种工具，有不同的成本和复杂度权衡。你现在不必全部精通 —— 只要知道自己机器人上是哪一种，以及另外两种大致换来什么。
+        </p>
+      </div>
+      <div class="tool-list">
+        <div class="tool-item">
+          <span data-en="Two sides, geared">左右两侧 · 齿轮传动</span>
+          <strong data-en="Differential / Tank">Differential（差速 / Tank）</strong>
+          <p data-en="The KOP classic, also called 'west coast.' Two sides, each one or two geared motors; you steer by driving the sides at different speeds. DifferentialDrive gives you arcade, tank, and curvature drive out of the box. Cheap, simple, robust — the right pick for low budget, training, and a first robot.">
+            KOP 经典款，也叫 "west coast"。左右两侧、每侧一到两颗带齿轮的电机；靠两侧不同速度来转向。<code>DifferentialDrive</code> 开箱就给你 arcade、tank、curvature 三种驾驶模式。便宜、简单、皮实 —— 预算紧、训练、第一台机器人的正确选择。
+          </p>
+          <em data-en="DifferentialDrive">DifferentialDrive</em>
+        </div>
+        <div class="tool-item">
+          <span data-en="Strafes sideways">能横向平移</span>
+          <strong>Mecanum</strong>
+          <p data-en="Four mecanum wheels with angled rollers let the robot strafe sideways and rotate in place — full holonomic motion without swerve's complexity. MecanumDrive handles the mixing math. It has largely lost popularity because it's easy to push around: those rollers give up a lot of traction.">
+            四个带斜向滚子的 mecanum 轮，让机器人能横向平移、原地旋转 —— 不用 swerve 那套复杂度就能实现全向运动。<code>MecanumDrive</code> 负责混合数学。它如今基本失宠了，因为很容易被推动（pushability 差）：那些滚子牺牲了大量抓地力。
+          </p>
+          <em data-en="MecanumDrive">MecanumDrive</em>
+        </div>
+        <div class="tool-item">
+          <span data-en="Each wheel steers + drives">每个轮独立转向 + 驱动</span>
+          <strong>Swerve</strong>
+          <p data-en="Each wheel has its own drive motor and steer motor, so the robot can move any direction while facing any way. It dominates 2024+ competitions for exactly that agility. The tradeoff is cost and complexity: vendor stacks like the CTRE swerve API, YAGSL, and MAXSwerve exist precisely to tame it. Full treatment gets its own page later.">
+            每个轮都有自己的 drive motor 和 steer motor，所以机器人可以朝任意方向移动、同时朝向任意方向。正因为这种灵活性，它统治了 2024 年以后的比赛。代价是成本和复杂度：CTRE swerve API、YAGSL、MAXSwerve 这些 vendor stack 存在的意义就是驯服它。完整内容后面会单独成页。
+          </p>
+          <em data-en="CTRE / YAGSL / MAXSwerve">CTRE / YAGSL / MAXSwerve</em>
+        </div>
+      </div>
+    </section>
+
+    <section id="common-mistakes">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Pitfalls">常见的坑</p>
+        <h2 data-en="Common Mistakes">常见的坑</h2>
+        <p data-en="Almost every first differential drive goes wrong in one of these three ways. They look like 'the robot is broken' but they're all single-line fixes once you know what to check.">
+          几乎每一台第一次的差速底盘，都会以这三种方式之一出问题。它们看起来像"机器人坏了"，但只要知道该查什么，每一个都是一行就能改好的。
+        </p>
+      </div>
+      <ol class="timeline-list">
+        <li>
+          <span>01</span>
+          <div>
+            <h3 data-en="Inverting one side wrong">某一侧的反向设反了</h3>
+            <p data-en="The two sides of a differential drive face opposite directions, so one side must be inverted. Get it wrong and pushing forward makes the robot drive in an arc — or spin in place — instead of going straight. Symptom: 'forward' turns the robot.">
+              差速底盘的两侧朝向相反，所以必须把一侧反向（invert）。设反了，向前推机器人就会画弧 —— 甚至原地打转 —— 而不是直走。症状："前进"变成了转圈。
+            </p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3 data-en="Wrong gear ratio constant">齿轮比常数填错</h3>
+            <p data-en="The gear ratio converts motor rotations into wheel rotations. A wrong constant makes every distance and speed calculation off by that factor — the robot 'thinks' it drove a meter when it drove half of one. Encoders read fine; the math on top of them is wrong.">
+              齿轮比（gear ratio）把电机转数换算成轮子转数。常数填错，所有距离和速度计算都会差这个倍数 —— 机器人"以为"自己开了一米，实际只开了半米。编码器读数本身没问题，问题出在它之上的数学。
+            </p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3 data-en="Mixed wheel radius units">轮半径单位混用</h3>
+            <p data-en="Inches and meters silently mixed in the same calculation is a classic. WPILib's odometry and kinematics expect meters; a wheel radius left in inches throws off every pose and trajectory by 39.37x. Pick one unit (meters) and keep it everywhere.">
+              在同一个计算里悄悄混用英寸和米，是经典翻车点。WPILib 的 odometry 和 kinematics 都用米；轮半径留成英寸，会让每个 pose 和 trajectory 偏差 39.37 倍。统一一个单位（米），并贯彻到底。
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="read-more">
+      <div class="section-heading">
+        <p class="eyebrow" data-en="Where to read more">去哪读更多</p>
+        <h2 data-en="Where to Read More">去哪读更多</h2>
+        <p data-en="The official WPILib docs cover the drive helpers and every drivetrain family in depth. Start with the differential drive tutorial that matches the code on this page, then branch out as your robot grows.">
+          官方 WPILib 文档把这些 drive helper 和每一类底盘都讲得很深。先从和本页代码对应的 differential drive 教程开始，等机器人长大了再向外扩展。
+        </p>
+      </div>
+      <ul style="margin-left: 20px; line-height: 1.95; color: #374151;">
+        <li>
+          <a href="https://docs.wpilib.org/en/stable/docs/software/hardware-apis/motors/wpi-drive-classes.html" target="_blank" rel="noopener">WPILib · Using the WPILib Classes to Drive your Robot</a>
+          — <span data-en="DifferentialDrive, MecanumDrive, arcade / tank / curvature drive.">DifferentialDrive、MecanumDrive，以及 arcade / tank / curvature drive。</span>
+        </li>
+        <li>
+          <a href="https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/index.html" target="_blank" rel="noopener">WPILib · Kinematics and Odometry</a>
+          — <span data-en="The kinematics layer and the central ChassisSpeeds type behind every drivetrain.">每种底盘背后的 kinematics 层和核心的 ChassisSpeeds 类型。</span>
+        </li>
+        <li>
+          <a href="https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-4/index.html" target="_blank" rel="noopener">WPILib · Zero To Robot, Step 4</a>
+          — <span data-en="The full basic-programming path, including a complete differential-drive walkthrough.">完整的基础编程路径，含一份完整的 differential drive 教程。</span>
+        </li>
+        <li>
+          <a href="code-why-framework.html" data-en="FRC Wiki CN · Why a framework">FRC Wiki CN · 为什么需要框架</a>
+          — <span data-en="The next page: where these hidden assumptions finally break.">下一页：这些隐性假设最终在哪里崩掉。</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="advanced-panel">
+      <div>
+        <p class="eyebrow" data-en="Continue">继续</p>
+        <h2 data-en="Keep Going">接着往下走</h2>
+        <p data-en="You've driven the robot — and you've seen the assumptions stacking up. Next, watch them break: we add a second mechanism the naive way and hit the wall that makes a framework worth it.">
+          你已经把机器人开起来了 —— 也看见了假设是怎么堆起来的。下一步，看它们崩掉：我们用最朴素的方式加上第二个机构，撞上那堵让框架变得值得的墙。
+        </p>
+      </div>
+      <div class="topic-tags">
+        <a href="code-first-motion.html" class="secondary-action" data-en="← First motion">← 第一次让机器人动</a>
+        <a href="code-why-framework.html" class="primary-action" data-en="Why a framework →">为什么需要框架 →</a>
+      </div>
+    </section>
+
+  </main>
+  </div>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="code.html" data-en="Back to Code">返回代码</a></p>
+  </footer>
+
+  <script src="language-toggle.js"></script>
+
+  <script>
+    (function () {
+      const links = document.querySelectorAll(".docs-toc a");
+      if (!links.length || !("IntersectionObserver" in window)) return;
+      const byId = new Map();
+      const targets = [];
+      links.forEach((link) => {
+        const id = link.getAttribute("href").slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          byId.set(id, link);
+          targets.push(el);
+        }
+      });
+      const setActive = (id) => {
+        links.forEach((l) => l.classList.remove("active"));
+        const a = byId.get(id);
+        if (a) a.classList.add("active");
+      };
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) =>
+              a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top
+            )[0];
+          if (visible) setActive(visible.target.id);
+        },
+        { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
+      );
+      targets.forEach((t) => observer.observe(t));
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          setActive(link.getAttribute("href").slice(1));
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
