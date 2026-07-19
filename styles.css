@@ -131,11 +131,61 @@ body {
   background: var(--frc-blue);
 }
 
+/* ===== Shared page hero background ===== */
+.hero,
+.page-header,
+.code-hero,
+.software-hero {
+  position: relative;
+  overflow: hidden;
+  color: white;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(237, 28, 36, 0.34), transparent 28%),
+    radial-gradient(circle at 82% 12%, rgba(251, 191, 36, 0.26), transparent 26%),
+    radial-gradient(circle at 78% 86%, rgba(16, 185, 129, 0.18), transparent 30%),
+    linear-gradient(135deg, #0b1d33 0%, #0f3a63 48%, #082743 100%);
+}
+
+.hero::before,
+.page-header::before,
+.code-hero::before,
+.software-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(ellipse 82% 72% at 42% 28%, black 34%, transparent 82%);
+  -webkit-mask-image: radial-gradient(ellipse 82% 72% at 42% 28%, black 34%, transparent 82%);
+}
+
+.hero::after,
+.page-header::after,
+.code-hero::after,
+.software-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -12% -42% 38%;
+  height: 82%;
+  transform: rotate(-9deg);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0)),
+    linear-gradient(90deg, rgba(0, 102, 179, 0.32), rgba(237, 28, 36, 0.2));
+  filter: blur(1px);
+}
+
+.hero > *,
+.page-header > *,
+.code-hero > *,
+.software-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* ===== Hero ===== */
 .hero {
-  position: relative;
-  background: linear-gradient(135deg, var(--frc-blue) 0%, #003d6b 100%);
-  color: white;
   padding: 80px 24px;
   text-align: center;
 }
@@ -220,14 +270,14 @@ body {
 }
 
 .hero .subtitle {
+  color: rgba(255, 255, 255, 0.92);
   font-size: 1.25rem;
-  opacity: 0.95;
   margin-bottom: 8px;
 }
 
 .hero .chinese {
+  color: rgba(255, 255, 255, 0.82);
   font-size: 1.1rem;
-  opacity: 0.85;
 }
 
 .hero .cta {
@@ -247,10 +297,7 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== Page Header (non-home pages) ===== */
 .page-header {
-  background: linear-gradient(135deg, var(--frc-blue) 0%, #003d6b 100%);
-  color: white;
   padding: 48px 24px;
   text-align: center;
 }
@@ -1636,30 +1683,12 @@ footer a {
 }
 
 .code-hero {
-  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
   gap: 42px;
   align-items: center;
   min-height: 520px;
   padding: 76px max(24px, calc((100vw - 1200px) / 2 + 24px));
-  overflow: hidden;
-  color: white;
-  background:
-    radial-gradient(circle at 18% 28%, rgba(237, 28, 36, 0.34), transparent 30%),
-    radial-gradient(circle at 86% 12%, rgba(251, 191, 36, 0.24), transparent 28%),
-    linear-gradient(135deg, #101827 0%, #143f66 55%, #0f2741 100%);
-}
-
-.code-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.7), transparent 72%);
 }
 
 .code-hero-content,
@@ -2037,36 +2066,12 @@ footer a {
 }
 
 .software-hero {
-  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
   gap: 42px;
   align-items: center;
   min-height: 430px;
   padding: 72px max(24px, calc((100vw - 1200px) / 2 + 24px));
-  overflow: hidden;
-  color: white;
-  background:
-    radial-gradient(circle at 18% 28%, rgba(237, 28, 36, 0.34), transparent 30%),
-    radial-gradient(circle at 86% 12%, rgba(251, 191, 36, 0.24), transparent 28%),
-    linear-gradient(135deg, #101827 0%, #143f66 55%, #0f2741 100%);
-}
-
-.software-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.7), transparent 72%);
-  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.7), transparent 72%);
-}
-
-.software-hero > * {
-  position: relative;
-  z-index: 1;
 }
 
 .software-hero .eyebrow {

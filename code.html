@@ -33,7 +33,7 @@
         从 WPILib 环境搭建到 Command-Based 机器人代码，用一条清晰路线帮助中国 FRC 队伍完成第一次可靠部署。
       </p>
       <div class="hero-actions">
-        <a href="#learning-path" class="primary-action" data-en="Start learning">开始学习</a>
+        <a href="#understand" class="primary-action" data-en="Start learning">开始学习</a>
         <a href="#software" class="secondary-action" data-en="Required tools">必备工具</a>
       </div>
     </div>
@@ -148,6 +148,10 @@ public class RobotContainer {
         <strong data-en="The first question for any new function">写任何新函数的第一个问题</strong>
         <span data-en="Is this boot-time setup, or per-tick work? Every line of robot code lives in one of those two clocks.">这是 boot 阶段的一次性配置，还是每一拍都要跑的工作？每一行机器人代码都属于这两个时钟之一。</span>
       </div>
+      <p style="margin-top: 18px;">
+        <a href="code-setup.html" class="primary-action" data-en="Next: set up your computer →">下一步：配置你的电脑 →</a>
+        <a href="#learning-path" class="secondary-action" data-en="View the full path">查看完整路线</a>
+      </p>
     </section>
 
     <section>
@@ -229,8 +233,8 @@ public class RobotContainer {
         <li>
           <span>00</span>
           <div>
-            <h3><a href="#understand" data-en="Understand the system">先看清整个系统</a></h3>
-            <p data-en="Where your code runs, the chain from Driver Station to motor, and the two clocks: boot once, tick every 20 ms.">代码跑在哪、从 Driver Station 到电机的链路，以及两个时钟：启动一次、每 20 毫秒一拍。</p>
+            <h3 data-en="Understand the system">先看清整个系统</h3>
+            <p data-en="Start with the section above: where your code runs, the chain from Driver Station to motor, and the two clocks: boot once, tick every 20 ms.">先读上面的系统说明：代码跑在哪、从 Driver Station 到电机的链路，以及两个时钟：启动一次、每 20 毫秒一拍。</p>
           </div>
         </li>
         <li>
@@ -315,62 +319,6 @@ public class RobotContainer {
       </ol>
     </section>
 
-    <section id="command-based" class="intro-panel">
-      <div>
-        <p class="eyebrow" data-en="Part 5 · Reference">Part 5 · 参考页</p>
-        <h2 data-en="Command-Based Framework">Command-Based 框架</h2>
-        <p data-en="Part 5 of the journey is also the reference page you will come back to all season. It covers the whole framework end to end: project layout, robot boot-up, the four building blocks, writing your first subsystem and command, default commands, triggers, the command lifecycle, composition, and the beginner mistakes that cost the most time.">
-          学习路线的 Part 5，同时也是你整个赛季会反复回来翻的参考页。它把框架完整讲一遍：项目结构、机器人启动、四个核心部分、写第一个 subsystem 和 command、默认命令、trigger、命令生命周期、组合，以及最耗时间的那些新手坑。
-        </p>
-        <p data-en="If you got here without reading Parts 2–4 first, that's fine — but the framework makes far more sense after you have felt the bare loop and hit the wall it solves.">
-          如果你跳过 Part 2–4 直接来到这里也没问题 —— 但先亲手写过裸循环、撞过它解决的那堵墙之后，这套框架会好懂得多。
-        </p>
-        <p style="margin-top: 18px;">
-          <a href="code-command-based.html" class="primary-action" data-en="Read the full guide →">阅读完整指南 →</a>
-          <a href="code-command-based-demo.html" class="secondary-action" data-en="Hands-on lab →">动手实战 →</a>
-        </p>
-      </div>
-      <div class="quick-facts">
-        <div>
-          <span data-en="Entry / wiring file">入口与接线文件</span>
-          <strong>RobotContainer</strong>
-        </div>
-        <div>
-          <span data-en="One per mechanism">每个机构一个</span>
-          <strong>Subsystem</strong>
-        </div>
-        <div>
-          <span data-en="One per action">每个动作一个</span>
-          <strong>Command</strong>
-        </div>
-        <div>
-          <span data-en="Runs the loop">驱动整个循环</span>
-          <strong>CommandScheduler</strong>
-        </div>
-      </div>
-    </section>
-
-    <section class="advanced-panel">
-      <div>
-        <p class="eyebrow" data-en="Part 10 · After the journey">Part 10 · 走完之后</p>
-        <h2 data-en="Vision & Advanced Topics">视觉与进阶主题</h2>
-        <p data-en="Once the robot drives reliably and your auto scores, Part 10 lays out the skill tree from here: closed-loop control, swerve, vision, advanced pathing, and reading top teams' code.">
-          等底盘稳定、auto 也能得分之后，Part 10 会画出接下来的技能树：闭环控制、swerve、视觉、进阶路径规划，以及怎么读顶尖队伍的代码。
-        </p>
-        <p style="margin-top: 18px;"><a href="code-next.html" class="primary-action" data-en="See the full advanced path →">查看完整进阶路线 →</a></p>
-      </div>
-      <div class="topic-tags">
-        <span>PhotonVision</span>
-        <span>Limelight</span>
-        <span>AprilTags</span>
-        <span>Swerve</span>
-        <span>PathPlanner</span>
-        <span>Choreo</span>
-        <span>SysId</span>
-        <span>AdvantageKit</span>
-        <span>Pose Estimator</span>
-      </div>
-    </section>
   </main>
 
   <footer>
