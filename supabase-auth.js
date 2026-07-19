@@ -416,6 +416,25 @@ function allowSite(user) {
   authReadyResolve(user);
 }
 
+const HOME_PAGE = "index.html";
+
+function isHomePage() {
+  const page = window.location.pathname.split("/").pop();
+  return !page || page === HOME_PAGE;
+}
+
+// A fresh sign-in (or a just-saved new password) always starts on the home page,
+// so switching accounts never leaves you on whatever sub-page the gate happened
+// to appear on. A page load that already had a session stays put (via allowSite)
+// so in-site navigation keeps working.
+function enterSiteAfterLogin(user) {
+  if (isHomePage()) {
+    allowSite(user);
+  } else {
+    window.location.assign(HOME_PAGE);
+  }
+}
+
 function renderUserBar(user) {
   let bar = document.querySelector(".auth-user-bar");
   if (!bar) {
@@ -428,7 +447,7 @@ function renderUserBar(user) {
     document.body.appendChild(bar);
     bar.querySelector(".auth-logout").addEventListener("click", async () => {
       await supabase.auth.signOut();
-      window.location.reload();
+      window.location.assign(HOME_PAGE);
     });
   }
 
@@ -448,7 +467,7 @@ function renderNavLogout(user) {
   navLinks.appendChild(item);
   item.querySelector("[data-auth-nav-logout]").addEventListener("click", async () => {
     await supabase.auth.signOut();
-    window.location.reload();
+    window.location.assign(HOME_PAGE);
   });
 }
 
@@ -539,7 +558,7 @@ function bindForms() {
       }
 
       await upsertProfile(user);
-      allowSite(user);
+      enterSiteAfterLogin(user);
     } catch (error) {
       console.error(error);
       setStatus(error.message || "登录失败，请检查邮箱和密码。", "error");
@@ -648,7 +667,7 @@ function bindPasswordResetForm(user) {
       }
 
       await upsertProfile(updatedUser || user);
-      allowSite(updatedUser || user);
+      enterSiteAfterLogin(updatedUser || user);
     } catch (error) {
       console.error(error);
       setStatus(error.message || "保存密码失败，请重新打开设置密码邮件。", "error");
@@ -744,7 +763,7 @@ window.FRC_AUTH = {
   getClient: () => supabase,
   logout: async () => {
     await supabase.auth.signOut();
-    window.location.reload();
+    window.location.assign(HOME_PAGE);
   }
 };
 
