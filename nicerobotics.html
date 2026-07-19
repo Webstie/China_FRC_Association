@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NiceRobotics Purchase Process — FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth-boot.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html" class="active">购物 Shopping</a></li>
+        <li><a href="code.html">代码 Code</a></li>
+        <li><a href="design.html">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>NiceRobotics Purchase Process</h1>
+    <p class="chinese">NiceRobotics 采购流程 — 面向中国 FRC 队伍的国内零件品牌</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Overview 品牌概览</h2>
+      <p>
+        NiceRobotics 由 FRC 校友于 2025 年创办，基于比赛经验为 FRC 队伍提供可靠的零件与配套系统。
+        与国际供应商相比，它的主要优势是<strong>国内发货、无需国际运输与清关</strong>，
+        对紧张的 build season 节奏更友好。产品文档见
+        <a href="https://docs.nicerobotics.hk/" target="_blank">docs.nicerobotics.hk</a>，
+        CAD 在 Onshape 提供，下单通过淘宝店完成。
+      </p>
+
+      <div class="process-grid">
+        <div class="process-step">
+          <span class="step-number">1</span>
+          <h3>查文档选型</h3>
+          <p>在 docs.nicerobotics.hk 按类别（传动 / 五金 / 结构 / 轮子）确认规格与配套 CAD。</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">2</span>
+          <h3>淘宝下单</h3>
+          <p>在 NiceRobotics 淘宝店按型号下单，可国内支付、开发票流程按店铺说明。</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">3</span>
+          <h3>国内发货</h3>
+          <p>国内物流直达，通常几天到货，省去国际运费、关税和清关等待。</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">4</span>
+          <h3>对装配 CAD</h3>
+          <p>用官方 Onshape 模型核对孔位、轴径和安装尺寸，再放进整车装配。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Product Categories 产品分类</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Category 类别</th>
+            <th>Contents 内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Transmission 传动</td>
+            <td>齿轮、链轮、链条系统等传动件。</td>
+          </tr>
+          <tr>
+            <td>Hardware 五金</td>
+            <td>轴承、轴、管塞（tube plug）、nut strip、3D 打印嵌件等。</td>
+          </tr>
+          <tr>
+            <td>Structure 结构</td>
+            <td>管材、板材以及 bumper 相关材料。</td>
+          </tr>
+          <tr>
+            <td>Wheels 轮子</td>
+            <td>硅胶轮、飞轮、滚轮系统等。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Team Checklist 队伍检查表</h2>
+      <ul class="checklist">
+        <li>下单前先在 docs.nicerobotics.hk 确认型号、规格和配套 Onshape CAD。</li>
+        <li>传动件核对齿数 / 模数 / 轴径 / 键槽，避免和现有 gearbox 不匹配。</li>
+        <li>结构件确认管材壁厚和孔位标准，和你的 bumper、底盘设计对齐。</li>
+        <li>批量件（轴承、五金）建议一次备足常用规格，减少赛季中反复下单。</li>
+      </ul>
+    </section>
+
+    <div class="callout">
+      <strong>官方链接</strong>
+      产品与规格请以官方文档和淘宝店最新信息为准：
+      <a href="https://docs.nicerobotics.hk/" target="_blank">产品文档 docs.nicerobotics.hk</a> ·
+      联系邮箱 <code>contact@nicerobotics.hk</code>
+    </div>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="shopping.html">Back to shopping</a></p>
+  </footer>
+
+  <script src="supabase-config.js"></script>
+  <script type="module" src="supabase-auth.js"></script>
+  <script type="module" src="supabase-tracking.js"></script>
+
+</body>
+</html>
