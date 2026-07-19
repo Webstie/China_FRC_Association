@@ -104,6 +104,7 @@
       .docs-toc a.active { border-left: 0; }
     }
   </style>
+  <script src="auth-boot.js"></script>
 </head>
 <body class="code-page">
 
@@ -420,7 +421,6 @@
   </footer>
 
   <script src="language-toggle.js"></script>
-
   <script>
     (function () {
       const links = document.querySelectorAll(".docs-toc a");
@@ -459,6 +459,9 @@
       });
     })();
   </script>
+  <script src="supabase-config.js"></script>
+  <script type="module" src="supabase-auth.js"></script>
+  <script type="module" src="supabase-tracking.js"></script>
 
 </body>
 </html>
