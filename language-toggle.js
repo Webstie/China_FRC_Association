@@ -22,11 +22,19 @@
     document.documentElement.lang = language === "en" ? "en" : "zh-CN";
 
     document.querySelectorAll("[data-en]").forEach((element) => {
+      // Capture the Chinese side as markup, not plain text: a lot of copy carries
+      // inline <code>, <strong> and links. Storing textContent here used to flatten
+      // them away permanently on the first toggle.
       if (!element.dataset.zh) {
-        element.dataset.zh = element.textContent.trim();
+        element.dataset.zh = element.innerHTML.trim();
       }
 
-      element.textContent = language === "en" ? element.dataset.en : element.dataset.zh;
+      if (language === "en") {
+        // data-en is authored as plain text by convention.
+        element.textContent = element.dataset.en;
+      } else {
+        element.innerHTML = element.dataset.zh;
+      }
     });
 
     if (document.body.dataset.titleEn) {

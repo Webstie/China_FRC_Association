@@ -44,7 +44,8 @@
 
 public class RobotContainer {
   private final DriveSubsystem drive = new DriveSubsystem();
-  private final XboxController driver = new XboxController(0);
+  private final CommandXboxController driver =
+      new CommandXboxController(0);
 
   public RobotContainer() {
     drive.setDefaultCommand(
@@ -183,6 +184,10 @@ public class RobotContainer {
         <p data-en="Read the local setup guide first, then use the official download link inside the article.">
           先阅读本地安装说明，再通过文章里的官方链接前往下载页面。
         </p>
+        <p data-en="This is the download directory — one page per installer. For the order you should install them in, and how to prove the whole toolchain actually works, follow Part 1 of the journey below.">
+          这里是下载入口目录，每个安装包一页。至于按什么顺序装、以及怎么证明整条工具链真的通了，请跟着下面学习路线的 Part 1 走一遍。
+        </p>
+        <p><a href="code-setup.html" data-en="→ Part 1 · Set up your computer">→ Part 1 · 配置你的电脑</a></p>
       </div>
       <div class="tool-list">
         <a class="tool-item" href="software-wpilib.html">
@@ -210,30 +215,6 @@ public class RobotContainer {
           <em data-en="Read setup guide">阅读安装指南</em>
         </a>
       </div>
-    </section>
-
-    <section class="code-sample-section">
-      <div>
-        <p class="eyebrow" data-en="First deploy">第一次部署</p>
-        <h2 data-en="Hello, Robot">你的第一段机器人代码</h2>
-        <p data-en="Your first goal is not a perfect architecture. It is a working deploy, a controller input, and a drivetrain that responds predictably.">
-          第一阶段目标不是完美架构，而是能成功部署、能读取手柄输入，并让底盘稳定响应。
-        </p>
-      </div>
-      <pre class="code-window"><code>public class Robot extends TimedRobot {
-  @Override
-  public void robotInit() {
-    System.out.println("Robot ready");
-  }
-
-  @Override
-  public void teleopPeriodic() {
-    drivetrain.arcadeDrive(
-      controller.getLeftY(),
-      controller.getRightX()
-    );
-  }
-}</code></pre>
     </section>
 
     <section id="learning-path">
@@ -285,6 +266,7 @@ public class RobotContainer {
           <div>
             <h3><a href="code-command-based.html" data-en="Rewrite with Command-Based">用 Command-Based 重写</a></h3>
             <p data-en="The four pieces — Subsystem, Command, Trigger, Scheduler — layered on top of TimedRobot.">四个核心部件 —— Subsystem、Command、Trigger、Scheduler —— 叠在 TimedRobot 之上。</p>
+            <p class="timeline-sub"><a href="code-command-based-demo.html" data-en="Hands-on lab: one motor, one button →">动手实战：一颗电机、一个按键 →</a></p>
           </div>
         </li>
         <li>
@@ -299,6 +281,10 @@ public class RobotContainer {
           <div>
             <h3><a href="code-first-auto.html" data-en="Your first autonomous">第一段自动</a></h3>
             <p data-en="A timed drive, an auto chooser, then drawing real paths with PathPlanner / Choreo.">先定时前进、加 auto chooser，再用 PathPlanner / Choreo 画真正的路径。</p>
+            <p class="timeline-sub">
+              <a href="code-pathplanner.html" data-en="PathPlanner →">PathPlanner →</a>
+              <a href="code-choreo.html" data-en="Choreo →">Choreo →</a>
+            </p>
           </div>
         </li>
         <li>
@@ -313,6 +299,10 @@ public class RobotContainer {
           <div>
             <h3><a href="code-tools.html" data-en="Companion tools">伙伴工具</a></h3>
             <p data-en="Driver Station, Phoenix Tuner X, REV Hardware Client, dashboards — the apps you live in all season.">Driver Station、Phoenix Tuner X、REV Hardware Client、各种仪表盘 —— 整个赛季都开着的应用。</p>
+            <p class="timeline-sub">
+              <a href="code-dashboards.html" data-en="Dashboards →">Dashboards 仪表盘 →</a>
+              <a href="software-driver-station.html" data-en="Driver Station →">Driver Station →</a>
+            </p>
           </div>
         </li>
         <li>
@@ -327,15 +317,18 @@ public class RobotContainer {
 
     <section id="command-based" class="intro-panel">
       <div>
-        <p class="eyebrow" data-en="Core framework">核心框架</p>
+        <p class="eyebrow" data-en="Part 5 · Reference">Part 5 · 参考页</p>
         <h2 data-en="Command-Based Framework">Command-Based 框架</h2>
-        <p data-en="Command-Based is WPILib's recommended way to structure FRC robot code. Instead of one big loop you split the robot into Subsystems that own hardware and Commands that describe actions, and let a single Scheduler resolve conflicts so everything stays predictable.">
-          Command-Based 是 WPILib 推荐的 FRC 代码组织方式。不再把一切塞进一个大循环，而是把机器人拆成持有硬件的 Subsystem 和描述动作的 Command，交给一个统一的 Scheduler 处理冲突，让整体行为可预测。
+        <p data-en="Part 5 of the journey is also the reference page you will come back to all season. It covers the whole framework end to end: project layout, robot boot-up, the four building blocks, writing your first subsystem and command, default commands, triggers, the command lifecycle, composition, and the beginner mistakes that cost the most time.">
+          学习路线的 Part 5，同时也是你整个赛季会反复回来翻的参考页。它把框架完整讲一遍：项目结构、机器人启动、四个核心部分、写第一个 subsystem 和 command、默认命令、trigger、命令生命周期、组合，以及最耗时间的那些新手坑。
         </p>
-        <p data-en="If you're new to FRC programming, the dedicated guide walks through it from scratch — project layout, robot boot-up, the four building blocks, writing your first subsystem and command, default commands, triggers, lifecycle, composition, and the most common beginner mistakes.">
-          如果你刚接触 FRC 编程，下面的详解页会从零讲起：项目结构、机器人启动、四个核心部分、写第一个 subsystem 和 command、默认命令、trigger、生命周期、组合，以及新手最常踩的坑。
+        <p data-en="If you got here without reading Parts 2–4 first, that's fine — but the framework makes far more sense after you have felt the bare loop and hit the wall it solves.">
+          如果你跳过 Part 2–4 直接来到这里也没问题 —— 但先亲手写过裸循环、撞过它解决的那堵墙之后，这套框架会好懂得多。
         </p>
-        <p style="margin-top: 18px;"><a href="code-command-based.html" class="primary-action" data-en="Read the full guide →">阅读完整指南 →</a></p>
+        <p style="margin-top: 18px;">
+          <a href="code-command-based.html" class="primary-action" data-en="Read the full guide →">阅读完整指南 →</a>
+          <a href="code-command-based-demo.html" class="secondary-action" data-en="Hands-on lab →">动手实战 →</a>
+        </p>
       </div>
       <div class="quick-facts">
         <div>
@@ -359,10 +352,10 @@ public class RobotContainer {
 
     <section class="advanced-panel">
       <div>
-        <p class="eyebrow" data-en="Next topics">下一步主题</p>
+        <p class="eyebrow" data-en="Part 10 · After the journey">Part 10 · 走完之后</p>
         <h2 data-en="Vision & Advanced Topics">视觉与进阶主题</h2>
-        <p data-en="After the drivetrain is reliable, move into vision, motion planning, and higher-level automation.">
-          当底盘稳定可靠后，再进入视觉、路径规划和更高层的自动控制。
+        <p data-en="Once the robot drives reliably and your auto scores, Part 10 lays out the skill tree from here: closed-loop control, swerve, vision, advanced pathing, and reading top teams' code.">
+          等底盘稳定、auto 也能得分之后，Part 10 会画出接下来的技能树：闭环控制、swerve、视觉、进阶路径规划，以及怎么读顶尖队伍的代码。
         </p>
         <p style="margin-top: 18px;"><a href="code-next.html" class="primary-action" data-en="See the full advanced path →">查看完整进阶路线 →</a></p>
       </div>
