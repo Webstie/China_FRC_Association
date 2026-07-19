@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intro to Design — FRC Wiki CN</title>
+  <title>设计 Design - FRC Wiki CN</title>
   <link rel="stylesheet" href="styles.css">
   <script src="auth-boot.js"></script>
 </head>
@@ -25,128 +25,78 @@
   </nav>
 
   <header class="page-header">
-    <h1>Intro to Design</h1>
-    <p class="chinese">机械设计入门 — CAD、传动系统、子系统</p>
+    <h1>设计 Design</h1>
+    <p class="chinese">FRC 机器人结构、传动、设计理论与 Onshape 学习路线</p>
   </header>
 
   <main>
     <section>
-      <h2>CAD Software CAD 软件</h2>
-      <div class="card-grid">
-        <div class="card">
-          <div class="icon">🔧</div>
-          <h3>Onshape (推荐)</h3>
-          <p>云端 CAD — 浏览器即可使用，对教育用户免费，团队协作流畅。Most FRC teams now use Onshape.</p>
-        </div>
-        <div class="card">
-          <div class="icon">🏗️</div>
-          <h3>SolidWorks</h3>
-          <p>Traditional FRC CAD tool. Powerful but Windows-only and licensing can be tricky in China.</p>
-        </div>
-        <div class="card">
+      <h2>设计学习模块</h2>
+      <p class="section-intro">
+        这里把 FRC 机械设计拆成五个入口：先找到可靠资源，再学习术语和基础概念，用计算工具验证方案，随后学习设计理论，最后用 Onshape 建立团队 CAD 流程。
+      </p>
+
+      <div class="card-grid design-module-grid">
+        <a class="card module-card" href="design-resources.html">
+          <div class="icon">🔗</div>
+          <h3>FRC机器人结构设计常用网站资源</h3>
+          <div class="chinese">Design resources</div>
+          <p>官方文档、FRCDesign、MKCad、Spectrum 资源、公开 CAD 与零件资料入口。</p>
+        </a>
+
+        <a class="card module-card" href="design-terms.html">
+          <div class="icon">📚</div>
+          <h3>FRC机器人机械专有名词解析</h3>
+          <div class="chinese">Mechanical terminology</div>
+          <p>Backlash、Pitch、DP、中心距、张紧、包角、轴承、结构连接和控制相关机械概念。</p>
+        </a>
+
+        <a class="card module-card" href="design-calculators.html">
+          <div class="icon">🧮</div>
+          <h3>FRC机器人传动计算工具汇总</h3>
+          <div class="chinese">Drivetrain and mechanism calculators</div>
+          <p>齿比、链条/皮带中心距、飞轮、升降、电机曲线、气动与梁弯曲计算工具。</p>
+        </a>
+
+        <a class="card module-card" href="design-theory.html">
           <div class="icon">📐</div>
-          <h3>Fusion 360</h3>
-          <p>Autodesk 的轻量级 CAD，学生免费。An alternative for teams without Onshape access.</p>
-        </div>
+          <h3>FRC机器人设计理论课堂</h3>
+          <div class="chinese">Design theory classroom</div>
+          <p>从需求分析、原型验证、传动选择到重量、可制造性和比赛维护的课堂框架。</p>
+        </a>
+
+        <a class="card module-card" href="design-onshape.html">
+          <div class="icon">🧩</div>
+          <h3>FRC Onshape学习步骤</h3>
+          <div class="chinese">Onshape learning path</div>
+          <p>账号准备、基础建模、FRC 库配置、子系统 CAD、装配与团队协作步骤。</p>
+        </a>
       </div>
     </section>
 
     <section>
-      <h2>Drivetrain Options 传动系统</h2>
-      <p>选择合适的传动方案是赛季初最重要的设计决定之一。</p>
-
-      <ul class="resource-list">
-        <li>
-          <strong>Tank Drive 坦克底盘</strong>
-          <span class="desc">Simplest, cheapest, most reliable. Great for first-year teams. 最简单可靠，适合新队伍。</span>
-        </li>
-        <li>
-          <strong>West Coast Drive (WCD)</strong>
-          <span class="desc">Tank drive with dropped center wheel — improves turning. 经典进阶方案。</span>
-        </li>
-        <li>
-          <strong>Swerve Drive 全向轮</strong>
-          <span class="desc">Each wheel independently steers. Maximum maneuverability but complex and expensive. Lorem ipsum.</span>
-        </li>
-        <li>
-          <strong>Mecanum / H-Drive</strong>
-          <span class="desc">Less common in modern FRC. 现代 FRC 较少使用。</span>
-        </li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Common Subsystems 常见子系统</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Subsystem 子系统</th>
-            <th>Purpose 作用</th>
-            <th>Common Approach 常见方案</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Intake 进料</td>
-            <td>Pick game pieces off the floor</td>
-            <td>Over-the-bumper roller intake</td>
-          </tr>
-          <tr>
-            <td>Elevator 升降</td>
-            <td>Lift mechanisms / scoring</td>
-            <td>Cascade or continuous elevator</td>
-          </tr>
-          <tr>
-            <td>Arm 机械臂</td>
-            <td>Reach scoring zones</td>
-            <td>Single-jointed or double-jointed</td>
-          </tr>
-          <tr>
-            <td>Shooter 发射器</td>
-            <td>Launch game pieces</td>
-            <td>Flywheel + hood + indexer</td>
-          </tr>
-          <tr>
-            <td>Climber 攀爬</td>
-            <td>Endgame chain/bar climb</td>
-            <td>Winch + telescoping arm — to be detailed</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section>
-      <h2>Design Principles 设计原则</h2>
-      <ol style="margin-left: 20px; line-height: 2;">
-        <li><strong>KISS</strong> — Keep It Simple, Stupid. 简单方案往往更可靠。</li>
-        <li><strong>Iterate fast</strong> — Build a prototype before finalizing CAD. 先做原型再画图。</li>
-        <li><strong>Design for manufacture</strong> — Avoid features your team can't actually make.</li>
-        <li><strong>Bumper rules</strong> — Always design around the bumper-zone constraint.</li>
-        <li><strong>Weight budget</strong> — 125 lb limit. Track weight in your CAD assembly.</li>
-      </ol>
-    </section>
-
-    <section>
-      <h2>References &amp; Inspiration 参考资料</h2>
-      <ul class="resource-list">
-        <li>
-          <a href="#" target="_blank">Open Alliance Builds</a>
-          <span class="desc">Top teams publish their CAD, code, and build logs publicly each season.</span>
-        </li>
-        <li>
-          <a href="#" target="_blank">Ri3D (Robot in 3 Days)</a>
-          <span class="desc">Demonstrates rapid prototyping approaches each kickoff weekend.</span>
-        </li>
-        <li>
-          <a href="#" target="_blank">FRC Design (frcdesign.org)</a>
-          <span class="desc">Curated design lessons — to be linked properly.</span>
-        </li>
-      </ul>
-
-      <div class="callout todo">
-        <strong>TODO</strong>
-        Add diagrams for each drivetrain type, photos of common subsystems,
-        and a downloadable CAD template for new teams.
+      <h2>建议学习顺序</h2>
+      <div class="process-grid">
+        <div class="process-step">
+          <span class="step-number">1</span>
+          <h3>先看案例</h3>
+          <p>浏览优秀队伍的公开 CAD、设计复盘和零件库，建立“常见结构长什么样”的直觉。</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">2</span>
+          <h3>理解术语</h3>
+          <p>先把 backlash、pitch、DP、center distance、tension 等词对齐，避免讨论时误解。</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">3</span>
+          <h3>再算参数</h3>
+          <p>在画最终 CAD 前计算速度、扭矩、电机负载和传动比，避免凭感觉选方案。</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">4</span>
+          <h3>落到 Onshape</h3>
+          <p>用统一文档结构、MKCad、FeatureScript 和版本管理，把设计变成团队协作流程。</p>
+        </div>
       </div>
     </section>
   </main>
@@ -154,10 +104,9 @@
   <footer>
     <p>FRC Wiki CN · <a href="index.html">Back to home</a></p>
   </footer>
-
   <script src="supabase-config.js"></script>
   <script type="module" src="supabase-auth.js"></script>
   <script type="module" src="supabase-tracking.js"></script>
-
 </body>
 </html>
+

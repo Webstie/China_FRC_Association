@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>设计理论课堂 - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth-boot.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html">代码 Code</a></li>
+        <li><a href="design.html" class="active">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>FRC机器人设计理论课堂</h1>
+    <p class="chinese">用 Top-Down Design 从比赛战略推导到整机 CAD</p>
+  </header>
+
+  <nav class="page-subnav" aria-label="本页导航">
+    <a href="#framework">设计框架</a>
+    <a href="#topdown">Top-Down Design</a>
+    <a href="#case-study">案例</a>
+    <a href="#architecture">整机架构</a>
+    <a href="#templates">模板</a>
+    <a href="#review">设计评审</a>
+  </nav>
+
+  <main>
+    <p class="breadcrumb"><a href="design.html">设计 Design</a> / 设计理论课堂</p>
+
+    <section id="framework">
+      <h2>从 0 到整机的设计框架</h2>
+      <p class="section-intro">
+        FRC 机器人设计不是从“我想画一个机构”开始，而是从比赛策略开始，逐层转化为功能、接口、尺寸、子系统和 CAD。好的理论框架能让全队在同一张地图上工作。
+      </p>
+
+      <div class="theory-flow">
+        <article>
+          <span>1</span>
+          <h3>Game Strategy</h3>
+          <p>分析规则、得分周期、防守压力和队伍能力，决定机器人要赢靠什么。</p>
+          <strong>产物：优先级列表、必须做/可以放弃清单。</strong>
+        </article>
+        <article>
+          <span>2</span>
+          <h3>Robot Requirements</h3>
+          <p>把战略翻译成可验证需求，例如“3 秒内完成拾取”“能达到 X 高度”。</p>
+          <strong>产物：速度、范围、尺寸、重量、可靠性要求。</strong>
+        </article>
+        <article>
+          <span>3</span>
+          <h3>System Architecture</h3>
+          <p>决定底盘、拾取、输送、得分、爬升、电控、线缆和维护空间如何共存。</p>
+          <strong>产物：子系统边界、接口、空间分配。</strong>
+        </article>
+        <article>
+          <span>4</span>
+          <h3>Top-Down CAD</h3>
+          <p>先建立整机 layout sketch 和关键基准，再让子系统从共同骨架派生。</p>
+          <strong>产物：master sketch、关键平面、接口尺寸。</strong>
+        </article>
+        <article>
+          <span>5</span>
+          <h3>Subsystem Design</h3>
+          <p>每个子系统根据接口做详细 CAD、传动计算、结构强度和可制造性检查。</p>
+          <strong>产物：子系统 CAD、BOM、加工图。</strong>
+        </article>
+        <article>
+          <span>6</span>
+          <h3>Prototype & Freeze</h3>
+          <p>先验证高风险物理问题，再冻结接口，进入制造、装配和迭代。</p>
+          <strong>产物：测试结论、冻结版本、改版记录。</strong>
+        </article>
+      </div>
+    </section>
+
+    <section id="topdown">
+      <h2>Top-Down Design 怎么推动整机</h2>
+      <div class="topdown-layout">
+        <div class="topdown-diagram" aria-label="Top Down Design structure diagram">
+          <div class="diagram-node primary">Robot Master Layout</div>
+          <div class="diagram-grid">
+            <div class="diagram-node">Frame Perimeter</div>
+            <div class="diagram-node">Game Piece Path</div>
+            <div class="diagram-node">Scoring Geometry</div>
+            <div class="diagram-node">Electronics Volume</div>
+          </div>
+          <div class="diagram-grid muted">
+            <div class="diagram-node">Drivetrain</div>
+            <div class="diagram-node">Intake</div>
+            <div class="diagram-node">Indexer</div>
+            <div class="diagram-node">Shooter / Arm</div>
+          </div>
+        </div>
+        <div>
+          <h3>核心思想</h3>
+          <p>
+            Top-Down Design 不是先让每个人各画一个机构再拼起来，而是先在整机层面定义共同基准：机器人外框、轮子位置、game piece 路径、得分位置、关键轴线、电控空间和维护通道。
+          </p>
+          <p>
+            子系统设计必须引用这些共同基准。这样 intake、indexer、shooter、arm、电控和底盘不会互相打架，改动也能从 master layout 向下传递。
+          </p>
+          <div class="formula-box">
+            <strong>Top-Down CAD 产物</strong>
+            <code>Master Layout Sketch：整机轮廓、关键轴线、game piece 路径</code>
+            <code>Interface Planes：子系统安装面、板件基准、孔位基准</code>
+            <code>Envelope Volumes：每个子系统允许占用的空间盒</code>
+            <code>Reference Geometry：高度、角度、中心距、机构行程</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="case-study">
+      <h2>落地案例：从任务到整机 Layout</h2>
+      <p class="section-intro">
+        下面用一个通用 FRC 场景演示设计如何从 0 推进。它不是某一年规则的固定答案，而是一套可以迁移到任何赛季的思考方法。
+      </p>
+
+      <div class="case-study">
+        <div class="case-header">
+          <h3>案例任务：地面拾取 → 内部输送 → 高位得分</h3>
+          <p>目标是在比赛中稳定完成一个常见得分循环：机器人从地面拾取 game piece，内部定位后送入得分机构，并在指定高度/距离完成得分。</p>
+        </div>
+
+        <div class="case-grid">
+          <article>
+            <span>Step 1</span>
+            <h4>把战略变成需求</h4>
+            <ul class="mini-list">
+              <li>循环时间目标：从接触 game piece 到得分完成不超过 6 秒。</li>
+              <li>拾取要求：允许驾驶员有 10-15 cm 对位误差。</li>
+              <li>得分要求：机构能覆盖目标高度，并允许小范围距离误差。</li>
+              <li>可靠性要求：连续 10 次拾取不得卡料超过 1 次。</li>
+            </ul>
+          </article>
+
+          <article>
+            <span>Step 2</span>
+            <h4>画 Game Piece Flow</h4>
+            <ul class="mini-list">
+              <li>入口：bumper 外侧或上方，确定 game piece 第一次接触的位置。</li>
+              <li>定位：进入机器人后必须有硬基准或滚轮基准，不能在内部随机漂移。</li>
+              <li>转交：intake 到 indexer、indexer 到 scorer 的交接点要提前定义。</li>
+              <li>退出：得分机构出口方向、角度和防卡料空间要在 layout 里画出来。</li>
+            </ul>
+          </article>
+
+          <article>
+            <span>Step 3</span>
+            <h4>建立 Master Layout</h4>
+            <ul class="mini-list">
+              <li>先画 frame perimeter、bumper zone、轮子和地面线。</li>
+              <li>再画 game piece 外形和运动路径，而不是先画机构零件。</li>
+              <li>标出关键轴线：拾取滚轮、输送滚轮、pivot、shooter wheel 或 elevator rail。</li>
+              <li>用空间盒限制每个子系统，防止它们互相占空间。</li>
+            </ul>
+          </article>
+
+          <article>
+            <span>Step 4</span>
+            <h4>冻结接口再细化</h4>
+            <ul class="mini-list">
+              <li>底盘给 intake 提供安装孔和前部空间。</li>
+              <li>indexer 必须接住 intake 输出的 game piece，而不是重新发明入口。</li>
+              <li>scorer 的入口位置由 indexer 出口决定，不能独立漂移。</li>
+              <li>电控、电池和线缆路径要在接口冻结前确认。</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="case-diagram" aria-label="Example top down robot layout">
+          <div class="field-line">Ground / Field</div>
+          <div class="robot-frame">
+            <div class="subsystem intake">Intake</div>
+            <div class="subsystem indexer">Indexer</div>
+            <div class="subsystem scorer">Scorer</div>
+            <div class="subsystem electronics">Electronics</div>
+            <div class="path-arrow">Game Piece Flow →</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <h2>整机架构要先回答的问题</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Game Piece Flow</h3>
+          <p>game piece 从哪里进入、如何定位、如何传到得分机构、卡住时怎么取出？这是整机最重要的路径。</p>
+        </article>
+        <article class="card">
+          <h3>Scoring Geometry</h3>
+          <p>得分点的高度、距离、角度和容差是多少？机器人需要靠机械精度、视觉还是驾驶员对位？</p>
+        </article>
+        <article class="card">
+          <h3>Packaging</h3>
+          <p>电池、主断路器、电控板、气动、线缆、维护工具和手的空间是否提前留出？</p>
+        </article>
+        <article class="card">
+          <h3>Interfaces</h3>
+          <p>子系统之间通过哪些孔、轴、板、平面和电气接口连接？接口必须比机构细节更早冻结。</p>
+        </article>
+        <article class="card">
+          <h3>Manufacturing Plan</h3>
+          <p>队伍实际能做什么：手钻、3D 打印、激光切割、CNC、外包？设计必须匹配加工能力。</p>
+        </article>
+        <article class="card">
+          <h3>Serviceability</h3>
+          <p>比赛现场能否 5 分钟换轮子、换皮带、换电机、检查线缆？维护性不是最后再补的。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="templates">
+      <h2>可直接使用的落地模板</h2>
+      <div class="template-grid">
+        <article class="template-card">
+          <h3>Robot Requirements 模板</h3>
+          <ul class="mini-list">
+            <li>这个功能服务哪个得分策略？</li>
+            <li>目标循环时间是多少？</li>
+            <li>需要覆盖哪些高度、距离、角度或位置？</li>
+            <li>允许多少驾驶误差？</li>
+            <li>失败时是否会让整机无法继续比赛？</li>
+          </ul>
+        </article>
+
+        <article class="template-card">
+          <h3>Subsystem Interface 模板</h3>
+          <ul class="mini-list">
+            <li>输入来自哪个子系统？输出给哪个子系统？</li>
+            <li>安装面、孔位、轴线和空间盒是否明确？</li>
+            <li>game piece 交接点的高度、角度和速度是多少？</li>
+            <li>线缆、气管、传感器和维修工具从哪里进入？</li>
+            <li>接口改动需要通知哪些小组？</li>
+          </ul>
+        </article>
+
+        <article class="template-card">
+          <h3>Prototype Test 模板</h3>
+          <ul class="mini-list">
+            <li>这次原型要验证什么风险？</li>
+            <li>成功标准是什么？例如 10 次成功 8 次。</li>
+            <li>需要记录哪些数据？速度、电流、命中率、卡料次数。</li>
+            <li>测试失败后是改参数、改结构，还是放弃方案？</li>
+            <li>测试结论是否已经写回 CAD 和设计表？</li>
+          </ul>
+        </article>
+
+        <article class="template-card">
+          <h3>Design Freeze 模板</h3>
+          <ul class="mini-list">
+            <li>冻结哪些接口：frame、孔位、轴线、外形空间、电控位置？</li>
+            <li>哪些内容允许继续改：板件减重、滚轮材料、护板、传感器支架？</li>
+            <li>每个改动是否有负责人、截止时间和回退方案？</li>
+            <li>加工文件是否和冻结 CAD 版本一致？</li>
+            <li>装配顺序和维修策略是否已经确认？</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>从理论到 CAD 的工作流</h2>
+      <div class="workflow-table">
+        <table>
+          <thead>
+            <tr>
+              <th>阶段</th>
+              <th>团队要做什么</th>
+              <th>必须留下的产物</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Kickoff 后 24 小时</td>
+              <td>读规则、列得分动作、估算循环时间、决定战略优先级。</td>
+              <td>Strategy Matrix / Must-Should-Could 清单</td>
+            </tr>
+            <tr>
+              <td>概念设计</td>
+              <td>画 game piece flow、整机空间盒、关键动作草图。</td>
+              <td>Robot Layout Sketch / 子系统接口草图</td>
+            </tr>
+            <tr>
+              <td>原型验证</td>
+              <td>验证抓取稳定性、发射轨迹、升降行程、卡料风险等高风险问题。</td>
+              <td>测试视频、数据、通过/失败结论</td>
+            </tr>
+            <tr>
+              <td>详细 CAD</td>
+              <td>根据 master layout 做子系统 CAD、传动计算、BOM 和加工图。</td>
+              <td>CAD 版本、BOM、加工文件、装配顺序</td>
+            </tr>
+            <tr>
+              <td>设计冻结</td>
+              <td>冻结接口和关键尺寸，只允许受控改动。</td>
+              <td>Design Freeze 版本、变更记录</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="review">
+      <h2>设计评审清单</h2>
+      <ul class="checklist">
+        <li>这个设计是否直接服务于队伍的比赛战略？有没有做了很酷但收益不高的功能？</li>
+        <li>每个需求是否可验证：速度、重量、高度、行程、循环时间、可靠性？</li>
+        <li>是否已经画出 game piece 从进入到得分的完整路径？</li>
+        <li>子系统接口是否明确：安装孔、轴线、板面、空间盒、电气和维护通道？</li>
+        <li>Master layout 是否驱动了子系统，而不是各子系统各画各的？</li>
+        <li>关键传动是否计算过速度、扭矩、电流、中心距和张紧方式？</li>
+        <li>电池、电控、主断路器、线缆和维修空间是否在整机早期就安排好？</li>
+        <li>最容易失败的物理问题是否已经用原型验证，而不是只在 CAD 里假设可行？</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>推荐外部课程</h2>
+      <ul class="resource-list">
+        <li>
+          <a href="https://frcdesign.org/learning-course/" target="_blank" rel="noopener">FRCDesign Learning Course</a>
+          <span class="desc">覆盖草图、零件、多零件建模、装配、传动、swerve 底盘与 top-down 设计流程。</span>
+        </li>
+        <li>
+          <a href="https://frcdesign.org/educators-guide/introduction/the-stages/" target="_blank" rel="noopener">FRCDesign Educator Stages</a>
+          <span class="desc">适合教练把 CAD 与设计理论拆成分阶段课堂，便于安排训练营。</span>
+        </li>
+        <li>
+          <a href="https://docs.broncbotz.org/cad-design-and-mechanical/cad-in-onshape/zero-to-hero-for-frc-cad-design-full-course" target="_blank" rel="noopener">Zero to Hero for FRC CAD/Design</a>
+          <span class="desc">FRC 3005 相关课程整理，适合自学和补充 Onshape/FRC 设计背景。</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="design.html">Back to Design</a></p>
+  </footer>
+  <script src="design-theory-tools.js"></script>
+  <script src="supabase-config.js"></script>
+  <script type="module" src="supabase-auth.js"></script>
+  <script type="module" src="supabase-tracking.js"></script>
+</body>
+</html>
