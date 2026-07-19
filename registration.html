@@ -13,13 +13,14 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
       <ul class="nav-links">
-        <li><a href="index.html">主页 Home</a></li>
-        <li><a href="info.html">信息 Info</a></li>
-        <li><a href="shopping.html">购物 Shopping</a></li>
-        <li><a href="code.html">代码 Code</a></li>
-        <li><a href="design.html">设计 Design</a></li>
-        <li><a href="calendar.html">日历 Calendar</a></li>
-        <li><a href="registration.html" class="active">注册 Registration</a></li>
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" class="active" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle aria-label="Switch to English"><span class="language-option is-active" data-lang-option="zh">中文</span><span class="language-option" data-lang-option="en">EN</span></button></li>
       </ul>
     </div>
   </nav>
@@ -31,31 +32,31 @@
 
   <main>
     <section>
-      <h2>Overview 概述</h2>
-      <p>
+      <h2 data-en="Overview">概述</h2>
+      <p data-en="Registering a new FRC team involves several steps: creating accounts on the FIRST Inspires Dashboard, paying registration fees, signing up for specific events, and submitting required documents. The process is the same worldwide, but Chinese teams should plan extra time for payment processing and visa logistics.">
+        中国队伍报名 FRC 需要在 FIRST Inspires 官网完成多个步骤。
+        因为涉及国际汇款和签证，建议尽早开始。
+      </p>
+      <p hidden>
         Registering a new FRC team involves several steps: creating accounts on
         the FIRST Inspires Dashboard, paying registration fees, signing up for
         specific events, and submitting required documents. The process is the
         same worldwide, but Chinese teams should plan extra time for payment
         processing and visa logistics.
       </p>
-      <p>
-        中国队伍报名 FRC 需要在 FIRST Inspires 官网完成多个步骤。
-        因为涉及国际汇款和签证，建议尽早开始。
-      </p>
     </section>
 
     <section>
-      <h2>Step-by-Step 详细步骤</h2>
+      <h2 data-en="Step-by-Step">详细步骤</h2>
 
-      <h3>Step 1 — Create a Lead Mentor account 创建主导师账户</h3>
+      <h3 data-en="Step 1 — Create a Lead Mentor account">第 1 步：创建主导师账户</h3>
       <p>
         Go to <a href="https://www.firstinspires.org/" target="_blank">firstinspires.org</a>
         and create a new account. The lead mentor (主导师) must be an adult and
         will manage the team's registration and roster.
       </p>
 
-      <h3>Step 2 — Start a new team 创建新队伍</h3>
+      <h3 data-en="Step 2 — Start a new team">第 2 步：创建新队伍</h3>
       <p>
         In the dashboard, select "Start a Team" and choose FRC. You'll be asked
         for school/organization information, team location, and contact details.
@@ -63,8 +64,14 @@
         your permanent identity in the FRC community.
       </p>
 
-      <h3>Step 3 — Pay registration fees 缴纳注册费用</h3>
-      <p>
+      <h3 data-en="Step 3 — Pay registration fees">第 3 步：缴纳注册费用</h3>
+      <p data-en="The base team registration fee is $6,300 USD. This covers the team's official season registration, the Kit of Parts, and one official event entry. If the team wants to attend an additional event in the same season, each extra event costs $3,000 USD. Payment is usually handled through the FIRST Dashboard after the Lead Mentor creates the team and confirms event registration details.">
+        基础注册费为 <strong>$6,300 美元</strong>，通常包含赛季注册、Kit of Parts
+        以及一个官方赛事名额。如果同一赛季想多参加一个区域赛或区赛，每增加一个额外赛事
+        需要再支付 <strong>$3,000 美元</strong>。付款前请确认队伍信息、发票信息和赛事选择，
+        以免国际汇款或信用卡付款后需要重新处理。
+      </p>
+      <p hidden>
         The base team registration fee is <strong>$6,300 USD</strong>. This
         covers the team's official season registration, the Kit of Parts, and
         one official event entry. If the team wants to attend an additional
@@ -72,92 +79,73 @@
         Payment is usually handled through the FIRST Dashboard after the Lead
         Mentor creates the team and confirms event registration details.
       </p>
-      <p>
-        基础注册费为 <strong>$6,300 美元</strong>，通常包含赛季注册、Kit of Parts
-        以及一个官方赛事名额。如果同一赛季想多参加一个区域赛或区赛，每增加一个额外赛事
-        需要再支付 <strong>$3,000 美元</strong>。付款前请确认队伍信息、发票信息和赛事选择，
-        以免国际汇款或信用卡付款后需要重新处理。
-      </p>
       <div class="callout">
         <strong>💰 中国队伍注意</strong>
         国际汇款可能需要 1–2 周到账，请预留充足时间。部分队伍通过香港或海外赞助方代付，
         以避免外汇额度限制。
       </div>
 
-      <h3>Step 4 — Choose events 选择赛事</h3>
-      <p>
-        Once registration is paid, select your competition events from the
-        event list. Popular events fill up quickly — register on the day event
-        signup opens (usually early October).
-      </p>
+      <h3 data-en="Step 4 — Choose events">第 4 步：选择赛事</h3>
+      <p data-en="Once registration is paid, select your competition events from the event list. Popular events fill up quickly — register on the day event signup opens, usually early October.">注册费支付后，在赛事列表中选择参赛赛事。热门赛事名额很快会满，建议在报名开放当天完成选择，通常是十月初。</p>
 
-      <h3>Step 5 — Complete Youth Protection 完成青年保护培训</h3>
-      <p>
-        All adult mentors must complete the YPP (Youth Protection Program)
-        screening before the team can be considered "rookie cleared." This
-        includes a background check and online training.
-      </p>
+      <h3 data-en="Step 5 — Complete Youth Protection">第 5 步：完成青年保护培训</h3>
+      <p data-en="All adult mentors must complete the YPP (Youth Protection Program) screening before the team can be considered rookie cleared. This includes a background check and online training.">所有成年导师必须完成 YPP（Youth Protection Program）筛查，队伍才会被视为完成新队伍审核；其中包括背景调查和线上培训。</p>
 
-      <h3>Step 6 — Build your roster 录入队员名单</h3>
-      <p>
-        Add all student team members and mentors to the dashboard roster. Every
-        student must have a signed consent form on file before competing.
-      </p>
+      <h3 data-en="Step 6 — Build your roster">第 6 步：录入队员名单</h3>
+      <p data-en="Add all student team members and mentors to the dashboard roster. Every student must have a signed consent form on file before competing.">把所有学生队员和导师加入 Dashboard roster。每位学生参赛前都必须提交已签署的同意书。</p>
     </section>
 
     <section>
-      <h2>Required Documents 必备文件</h2>
+      <h2 data-en="Required Documents">必备文件</h2>
       <ul class="resource-list">
         <li>
-          <strong>Consent &amp; Release forms 同意书</strong>
-          <span class="desc">One per student team member. Available in the dashboard.</span>
+          <strong data-en="Consent and Release forms">同意书</strong>
+          <span class="desc" data-en="One per student team member. Available in the dashboard.">每位学生队员一份，可在 Dashboard 获取。</span>
         </li>
         <li>
-          <strong>Lead Mentor agreement 主导师协议</strong>
-          <span class="desc">Signed by the lead mentor of record.</span>
+          <strong data-en="Lead Mentor agreement">主导师协议</strong>
+          <span class="desc" data-en="Signed by the lead mentor of record.">由登记在案的主导师签署。</span>
         </li>
         <li>
-          <strong>School/sponsor authorization 学校或赞助方授权</strong>
-          <span class="desc">如果队伍挂靠学校或机构，需要对方出具授权或支持证明。</span>
+          <strong data-en="School/sponsor authorization">学校或赞助方授权</strong>
+          <span class="desc" data-en="If the team is attached to a school or organization, prepare proof of authorization or support.">如果队伍挂靠学校或机构，需要对方出具授权或支持证明。</span>
         </li>
         <li>
-          <strong>Visa / travel documents 签证材料</strong>
-          <span class="desc">For events outside China — passports, invitation letters, etc.</span>
+          <strong data-en="Visa / travel documents">签证材料</strong>
+          <span class="desc" data-en="For events outside China — passports, invitation letters, etc.">如参加境外赛事，准备护照、邀请函等材料。</span>
         </li>
       </ul>
     </section>
 
     <section>
-      <h2>Funding 资金筹集</h2>
-      <p>
-        Registration + travel + parts often totals $20,000–$50,000+ USD per
-        season. Common funding sources:
-      </p>
+      <h2 data-en="Funding">资金筹集</h2>
+      <p data-en="Registration, travel, and parts often total $20,000–$50,000+ USD per season. Common funding sources:">注册、旅行和零件采购合计通常每赛季需要 20,000–50,000+ 美元。常见资金来源包括：</p>
       <ul style="margin-left: 24px; line-height: 2;">
-        <li>School / education foundation funding 学校资助</li>
-        <li>Corporate sponsorship 企业赞助 — 本地企业或跨国公司赞助</li>
-        <li>NASA / FIRST grants (rookie teams only) 新队伍补助</li>
-        <li>Parent contributions and crowdfunding 家长与众筹</li>
+        <li data-en="School / education foundation funding">学校或教育基金会资助</li>
+        <li data-en="Corporate sponsorship from local businesses or multinational companies">企业赞助，包括本地企业或跨国公司赞助</li>
+        <li data-en="NASA / FIRST grants for rookie teams only">NASA / FIRST 新队伍补助</li>
+        <li data-en="Parent contributions and crowdfunding">家长支持与众筹</li>
       </ul>
     </section>
 
     <section>
-      <h2>FAQ 常见问题</h2>
-      <h3>Q: 我们没有学校支持，可以参加吗？</h3>
-      <p>Yes — community teams (non-school-based) are welcome. You'll need a registered organization (非营利或企业实体) as the sponsoring entity.</p>
+      <h2 data-en="FAQ">常见问题</h2>
+      <h3 data-en="Q: Can we participate without school support?">Q: 我们没有学校支持，可以参加吗？</h3>
+      <p data-en="Yes — community teams (non-school-based) are welcome. You'll need a registered nonprofit or company entity as the sponsoring entity.">可以，社区队伍（非学校队伍）也可以参加。你们需要一个注册的非营利或企业实体作为赞助主体。</p>
 
-      <h3>Q: 报名截止日期？</h3>
-      <p>Registration technically stays open through the season, but events fill up. Aim to complete registration by mid-October；每年具体日期以官方公布为准。</p>
+      <h3 data-en="Q: What is the registration deadline?">Q: 报名截止日期？</h3>
+      <p data-en="Registration technically stays open through the season, but events fill up. Aim to complete registration by mid-October; always confirm exact dates with official announcements.">报名系统通常整个赛季都开放，但赛事名额会满。建议在十月中旬前完成注册；每年具体日期以官方公布为准。</p>
 
-      <h3>Q: 还有其他问题？</h3>
-      <p>Email <code>frcteams@firstinspires.org</code> or post in <a href="https://www.chiefdelphi.com/" target="_blank">Chief Delphi</a>. Many veteran Chinese teams are happy to help new teams — see the <a href="info.html">Info page</a> for community resources.</p>
+      <h3 data-en="Q: Where can we ask more questions?">Q: 还有其他问题？</h3>
+      <p data-en="Email frcteams@firstinspires.org or post on Chief Delphi. Many veteran Chinese teams are happy to help new teams — see the Info page for community resources.">可以邮件联系 <code>frcteams@firstinspires.org</code>，或在 <a href="https://www.chiefdelphi.com/" target="_blank">Chief Delphi</a> 发帖。很多中国老队伍也愿意帮助新队伍，可以查看 <a href="info.html">信息页</a> 的社区资源。</p>
     </section>
   </main>
 
   <footer>
-    <p>FRC Wiki CN · <a href="index.html">Back to home</a></p>
+    <p>FRC Wiki CN · <a href="index.html" data-en="Back to home">返回主页</a></p>
   </footer>
 
+  <script src="language-toggle.js"></script>
   <script src="supabase-config.js"></script>
   <script type="module" src="supabase-auth.js"></script>
   <script type="module" src="supabase-tracking.js"></script>

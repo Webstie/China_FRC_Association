@@ -13,13 +13,14 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
       <ul class="nav-links">
-        <li><a href="index.html">主页 Home</a></li>
-        <li><a href="info.html">信息 Info</a></li>
-        <li><a href="shopping.html">购物 Shopping</a></li>
-        <li><a href="code.html">代码 Code</a></li>
-        <li><a href="design.html" class="active">设计 Design</a></li>
-        <li><a href="calendar.html">日历 Calendar</a></li>
-        <li><a href="registration.html">注册 Registration</a></li>
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" data-en="Code">代码</a></li>
+        <li><a href="design.html" class="active" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle aria-label="Switch to English"><span class="language-option is-active" data-lang-option="zh">中文</span><span class="language-option" data-lang-option="en">EN</span></button></li>
       </ul>
     </div>
   </nav>
@@ -35,7 +36,7 @@
   </nav>
 
   <main>
-    <p class="breadcrumb"><a href="design.html">设计 Design</a> / 传动计算工具汇总</p>
+    <p class="breadcrumb"><a href="design.html" data-en="Design">设计</a> / 传动计算工具汇总</p>
 
     <section id="transmission-basics">
       <h2>传动基础学习</h2>
@@ -317,6 +318,7 @@
   <footer>
     <p>FRC Wiki CN · <a href="design.html">Back to Design</a></p>
   </footer>
+  <script src="language-toggle.js"></script>
   <script src="supabase-config.js"></script>
   <script type="module" src="supabase-auth.js"></script>
   <script type="module" src="supabase-tracking.js"></script>

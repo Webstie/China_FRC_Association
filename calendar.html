@@ -13,13 +13,14 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
       <ul class="nav-links">
-        <li><a href="index.html">主页 Home</a></li>
-        <li><a href="info.html">信息 Info</a></li>
-        <li><a href="shopping.html">购物 Shopping</a></li>
-        <li><a href="code.html">代码 Code</a></li>
-        <li><a href="design.html">设计 Design</a></li>
-        <li><a href="calendar.html" class="active">日历 Calendar</a></li>
-        <li><a href="registration.html">注册 Registration</a></li>
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" class="active" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle aria-label="Switch to English"><span class="language-option is-active" data-lang-option="zh">中文</span><span class="language-option" data-lang-option="en">EN</span></button></li>
       </ul>
     </div>
   </nav>
@@ -31,94 +32,93 @@
 
   <main>
     <section>
-      <h2>Season Timeline 赛季时间线</h2>
+      <h2 data-en="Season Timeline">赛季时间线</h2>
       <table>
         <thead>
           <tr>
-            <th>Date 日期</th>
-            <th>Milestone 节点</th>
-            <th>Notes 备注</th>
+            <th data-en="Date">日期</th>
+            <th data-en="Milestone">节点</th>
+            <th data-en="Notes">备注</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Early September 九月初</td>
-            <td>Team registration opens 队伍注册开放</td>
-            <td>Returning teams get priority pricing.</td>
+            <td data-en="Early September">九月初</td>
+            <td data-en="Team registration opens">队伍注册开放</td>
+            <td data-en="Returning teams get priority pricing.">老队伍通常有优先价格。</td>
           </tr>
           <tr>
-            <td>Early January 一月初</td>
-            <td><strong>Kickoff 开赛日</strong></td>
-            <td>Game reveal + 6-week build season begins.</td>
+            <td data-en="Early January">一月初</td>
+            <td><strong data-en="Kickoff">开赛日</strong></td>
+            <td data-en="Game reveal + 6-week build season begins.">新赛题公布，约 6 周建造季开始。</td>
           </tr>
           <tr>
-            <td>Mid-February 二月中</td>
-            <td>Stop Build Day → Bag &amp; Tag 停建日 (legacy)</td>
-            <td>Note: bag &amp; tag rules vary year-to-year.</td>
+            <td data-en="Mid-February">二月中</td>
+            <td data-en="Stop Build Day / Bag and Tag (legacy)">停建日 / Bag and Tag（旧规则）</td>
+            <td data-en="Note: bag and tag rules vary year-to-year.">注意：bag and tag 规则每年可能不同。</td>
           </tr>
           <tr>
-            <td>Late Feb – April</td>
-            <td>Regional &amp; District competitions 分赛区比赛</td>
-            <td>各分赛区与地区赛陆续举行，具体日期以官方为准。</td>
+            <td data-en="Late February to April">二月底至四月</td>
+            <td data-en="Regional and District competitions">分赛区与地区赛</td>
+            <td data-en="Regional and district events run during this window; confirm exact dates with official listings.">各分赛区与地区赛陆续举行，具体日期以官方为准。</td>
           </tr>
           <tr>
-            <td>Late April 四月底</td>
-            <td><strong>World Championship 世界锦标赛</strong></td>
-            <td>在美国休斯顿举行；每年具体日期以官方公布为准。</td>
+            <td data-en="Late April">四月底</td>
+            <td><strong data-en="World Championship">世界锦标赛</strong></td>
+            <td data-en="Held in Houston, USA; exact dates are announced officially each year.">在美国休斯顿举行；每年具体日期以官方公布为准。</td>
           </tr>
           <tr>
-            <td>Summer 暑期</td>
-            <td>Offseason events 季后赛</td>
-            <td>Optional fun events — great for rookies.</td>
+            <td data-en="Summer">暑期</td>
+            <td data-en="Offseason events">季后赛</td>
+            <td data-en="Optional events that are great for rookie training.">适合新队员训练的可选活动。</td>
           </tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>Events in &amp; Near China 中国及周边赛事</h2>
+      <h2 data-en="Events in and Near China">中国及周边赛事</h2>
       <ul class="resource-list">
         <li>
-          <strong>FRC Shanghai Regional 上海分赛区</strong>
-          <span class="desc">通常在 3 月举行；报名与日期以 <a href="https://frc.firstinspires-china.org/" target="_blank">FRC 上海赛区官网</a> 为准。</span>
+          <strong data-en="FRC Shanghai Regional">上海分赛区</strong>
+          <span class="desc" data-en="Usually held in March; registration and dates should be confirmed on the FRC Shanghai Regional website.">通常在 3 月举行；报名与日期以 FRC 上海赛区官网为准。</span>
         </li>
         <li>
           <strong>FIRST Festival China</strong>
-          <span class="desc">Offseason showcase event — 季后展示赛.</span>
+          <span class="desc" data-en="Offseason showcase event.">季后展示赛。</span>
         </li>
         <li>
           <strong>Asia-Pacific Robotics Championship</strong>
-          <span class="desc">面向亚太地区队伍的国际邀请赛。</span>
+          <span class="desc" data-en="International invitational event for Asia-Pacific teams.">面向亚太地区队伍的国际邀请赛。</span>
         </li>
         <li>
-          <strong>Local scrimmages 国内友谊赛</strong>
-          <span class="desc">Multiple smaller scrimmages organized by Chinese teams each year.</span>
+          <strong data-en="Local scrimmages">国内友谊赛</strong>
+          <span class="desc" data-en="Multiple smaller scrimmages organized by Chinese teams each year.">每年由国内队伍组织的多场小型练习赛。</span>
         </li>
       </ul>
       <div class="callout">
-        <strong>📌 提示</strong>
-        Exact dates change every season — always confirm against the official
-        <a href="https://www.firstinspires.org/robotics/frc/events" target="_blank">FIRST event listings</a>.
+        <strong data-en="Reminder">提示</strong>
+        具体日期每个赛季都会变化，请始终以官方 FIRST event listings 为准。
       </div>
     </section>
 
     <section>
-      <h2>Build Season Planning 建造期规划</h2>
-      <p>A typical 6-week build schedule for a competitive team:</p>
+      <h2 data-en="Build Season Planning">建造期规划</h2>
+      <p data-en="A typical 6-week build schedule for a competitive team:">一支有竞争力的队伍通常可以按下面的 6 周节奏推进：</p>
       <table>
         <thead>
           <tr>
-            <th>Week 周</th>
-            <th>Focus 重点</th>
+            <th data-en="Week">周次</th>
+            <th data-en="Focus">重点</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Week 1</td><td>Game analysis, strategy, prototyping 比赛分析与原型</td></tr>
-          <tr><td>Week 2</td><td>Final design decisions, CAD start 设计定型，开始 CAD</td></tr>
-          <tr><td>Week 3</td><td>Manufacturing begins, programming framework setup</td></tr>
-          <tr><td>Week 4</td><td>Subsystem assembly, initial code testing</td></tr>
-          <tr><td>Week 5</td><td>Full robot integration, drive practice begins</td></tr>
-          <tr><td>Week 6</td><td>Tuning, autonomous routines, driver practice 调试与练习</td></tr>
+          <tr><td data-en="Week 1">第 1 周</td><td data-en="Game analysis, strategy, prototyping">比赛分析、策略制定和原型验证</td></tr>
+          <tr><td data-en="Week 2">第 2 周</td><td data-en="Final design decisions, CAD start">设计定型，开始 CAD</td></tr>
+          <tr><td data-en="Week 3">第 3 周</td><td data-en="Manufacturing begins, programming framework setup">开始加工，搭建程序框架</td></tr>
+          <tr><td data-en="Week 4">第 4 周</td><td data-en="Subsystem assembly, initial code testing">子系统装配，初步代码测试</td></tr>
+          <tr><td data-en="Week 5">第 5 周</td><td data-en="Full robot integration, drive practice begins">整机集成，开始驾驶练习</td></tr>
+          <tr><td data-en="Week 6">第 6 周</td><td data-en="Tuning, autonomous routines, driver practice">调试、自动程序和驾驶练习</td></tr>
         </tbody>
       </table>
     </section>
@@ -126,9 +126,10 @@
   </main>
 
   <footer>
-    <p>FRC Wiki CN · <a href="index.html">Back to home</a></p>
+    <p>FRC Wiki CN · <a href="index.html" data-en="Back to home">返回主页</a></p>
   </footer>
 
+  <script src="language-toggle.js"></script>
   <script src="supabase-config.js"></script>
   <script type="module" src="supabase-auth.js"></script>
   <script type="module" src="supabase-tracking.js"></script>

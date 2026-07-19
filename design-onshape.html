@@ -13,13 +13,14 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
       <ul class="nav-links">
-        <li><a href="index.html">主页 Home</a></li>
-        <li><a href="info.html">信息 Info</a></li>
-        <li><a href="shopping.html">购物 Shopping</a></li>
-        <li><a href="code.html">代码 Code</a></li>
-        <li><a href="design.html" class="active">设计 Design</a></li>
-        <li><a href="calendar.html">日历 Calendar</a></li>
-        <li><a href="registration.html">注册 Registration</a></li>
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" data-en="Code">代码</a></li>
+        <li><a href="design.html" class="active" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle aria-label="Switch to English"><span class="language-option is-active" data-lang-option="zh">中文</span><span class="language-option" data-lang-option="en">EN</span></button></li>
       </ul>
     </div>
   </nav>
@@ -30,7 +31,7 @@
   </header>
 
   <main>
-    <p class="breadcrumb"><a href="design.html">设计 Design</a> / Onshape 学习步骤</p>
+    <p class="breadcrumb"><a href="design.html" data-en="Design">设计</a> / Onshape 学习步骤</p>
 
     <section>
       <h2>分阶段学习路线</h2>
@@ -39,37 +40,37 @@
           <span class="step-number">1</span>
           <h3>账号与工作区</h3>
           <p>申请教育账号，建立队伍文件夹，统一命名规则、权限和文档模板。</p>
-          <strong>进入详细指导</strong>
+          <strong data-en="Open detailed guide">进入详细指导</strong>
         </a>
         <a class="process-step onshape-stage-card" href="design-onshape-stage2.html">
           <span class="step-number">2</span>
           <h3>基础 CAD</h3>
           <p>完成草图、约束、拉伸、孔、倒角、装配配合和工程图基础练习。</p>
-          <strong>进入详细指导</strong>
+          <strong data-en="Open detailed guide">进入详细指导</strong>
         </a>
         <a class="process-step onshape-stage-card" href="design-onshape-stage3.html">
           <span class="step-number">3</span>
           <h3>FRC 环境</h3>
           <p>连接 MKCad，收藏常用 FeatureScript，建立标准型材、板件和紧固件习惯。</p>
-          <strong>进入详细指导</strong>
+          <strong data-en="Open detailed guide">进入详细指导</strong>
         </a>
         <a class="process-step onshape-stage-card" href="design-onshape-stage4.html">
           <span class="step-number">4</span>
           <h3>机构练习</h3>
           <p>从 2x1 管、轴承孔、轮组、链条/皮带传动开始，逐步做底盘和简单拾取。</p>
-          <strong>进入详细指导</strong>
+          <strong data-en="Open detailed guide">进入详细指导</strong>
         </a>
         <a class="process-step onshape-stage-card" href="design-onshape-stage5.html">
           <span class="step-number">5</span>
           <h3>子系统协作</h3>
           <p>用 top-down 草图控制关键接口，让不同同学并行设计但不会互相打架。</p>
-          <strong>进入详细指导</strong>
+          <strong data-en="Open detailed guide">进入详细指导</strong>
         </a>
         <a class="process-step onshape-stage-card" href="design-onshape-stage6.html">
           <span class="step-number">6</span>
           <h3>发布与复盘</h3>
           <p>冻结比赛版本，导出加工图纸和 BOM，赛后保留设计记录供下一年复用。</p>
-          <strong>进入详细指导</strong>
+          <strong data-en="Open detailed guide">进入详细指导</strong>
         </a>
       </div>
     </section>
@@ -135,6 +136,7 @@
   <footer>
     <p>FRC Wiki CN · <a href="design.html">Back to Design</a></p>
   </footer>
+  <script src="language-toggle.js"></script>
   <script src="supabase-config.js"></script>
   <script type="module" src="supabase-auth.js"></script>
   <script type="module" src="supabase-tracking.js"></script>

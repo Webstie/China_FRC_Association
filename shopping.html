@@ -13,13 +13,14 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
       <ul class="nav-links">
-        <li><a href="index.html">主页 Home</a></li>
-        <li><a href="info.html">信息 Info</a></li>
-        <li><a href="shopping.html" class="active">购物 Shopping</a></li>
-        <li><a href="code.html">代码 Code</a></li>
-        <li><a href="design.html">设计 Design</a></li>
-        <li><a href="calendar.html">日历 Calendar</a></li>
-        <li><a href="registration.html">注册 Registration</a></li>
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" class="active" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" data-en="Code">代码</a></li>
+        <li><a href="design.html" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle aria-label="Switch to English"><span class="language-option is-active" data-lang-option="zh">中文</span><span class="language-option" data-lang-option="en">EN</span></button></li>
       </ul>
     </div>
   </nav>
@@ -31,105 +32,105 @@
 
   <main>
     <section>
-      <h2>International Vendors 国际供应商</h2>
-      <p>These are the major US-based FRC suppliers. They ship internationally
-      but expect long lead times and customs duties.</p>
+      <h2 data-en="International Vendors">国际供应商</h2>
+      <p data-en="These are the major US-based FRC suppliers. They ship internationally but expect long lead times and customs duties.">这些是主要的美国 FRC 供应商，可以国际发货，但要预留较长运输时间和关税预算。</p>
 
       <ul class="resource-list">
         <li>
           <a href="andymark.html">AndyMark</a>
-          <span class="desc">Drivetrain kits, gears, wheels, structural components. See the AndyMark purchase process for China teams.</span>
+          <span class="desc" data-en="Drivetrain kits, gears, wheels, structural components. See the AndyMark purchase process for China teams.">底盘套件、齿轮、轮子和结构件。查看面向中国队伍的 AndyMark 采购流程。</span>
         </li>
         <li>
           <a href="rev.html">REV Robotics</a>
-          <span class="desc">NEO motors, SPARK MAX, MAXTube, ION build system. See the REV purchase process for China teams.</span>
+          <span class="desc" data-en="NEO motors, SPARK MAX, MAXTube, ION build system. See the REV purchase process for China teams.">NEO 电机、SPARK MAX、MAXTube 和 ION 结构系统。查看面向中国队伍的 REV 采购流程。</span>
         </li>
         <li>
           <a href="wcp.html">West Coast Products (WCP)</a>
-          <span class="desc">Swerve modules, gearboxes, drivetrain components. See the WCP purchase process for China teams.</span>
+          <span class="desc" data-en="Swerve modules, gearboxes, drivetrain components. See the WCP purchase process for China teams.">Swerve 模块、齿轮箱和底盘传动件。查看面向中国队伍的 WCP 采购流程。</span>
         </li>
         <li>
           <a href="ctre.html">CTR Electronics</a>
-          <span class="desc">Kraken X60 motors, Pigeon 2 IMU, CANcoders. See the CTRE purchase process for China teams.</span>
+          <span class="desc" data-en="Kraken X60 motors, Pigeon 2 IMU, CANcoders. See the CTRE purchase process for China teams.">Kraken X60 电机、Pigeon 2 IMU 和 CANcoder。查看面向中国队伍的 CTRE 采购流程。</span>
         </li>
       </ul>
     </section>
 
     <section>
-      <h2>Chinese Suppliers 国内供应商</h2>
-      <p>对于中国队伍，以下渠道可以买到许多兼容零件，并且发货快、运费低。</p>
+      <h2 data-en="Chinese Suppliers">国内供应商</h2>
+      <p data-en="For teams in China, the following channels can supply many compatible parts with faster shipping and lower freight costs.">对于中国队伍，以下渠道可以买到许多兼容零件，并且发货快、运费低。</p>
 
       <ul class="resource-list">
         <li>
-          <a href="https://www.taobao.com/" target="_blank">淘宝 Taobao</a>
-          <span class="desc">铝型材、轴承、链条、皮带、3D打印耗材等通用零件。</span>
+          <a href="https://www.taobao.com/" target="_blank" data-en="Taobao">淘宝</a>
+          <span class="desc" data-en="General parts such as aluminum extrusion, bearings, chain, belts, and 3D printing filament.">铝型材、轴承、链条、皮带、3D打印耗材等通用零件。</span>
         </li>
         <li>
-          <a href="https://www.jd.com/" target="_blank">京东 JD.com</a>
-          <span class="desc">电子元件、工具、电源等 — 通常发货更快、有正品保障。</span>
+          <a href="https://www.jd.com/" target="_blank" data-en="JD.com">京东</a>
+          <span class="desc" data-en="Electronics, tools, power supplies, and similar items — often faster shipping with better authenticity guarantees.">电子元件、工具、电源等 — 通常发货更快、有正品保障。</span>
         </li>
         <li>
           <a href="https://www.1688.com/" target="_blank">阿里巴巴 1688</a>
-          <span class="desc">批发渠道，适合大宗采购原材料。</span>
+          <span class="desc" data-en="Wholesale channel, useful for bulk purchasing raw materials.">批发渠道，适合大宗采购原材料。</span>
         </li>
         <li>
           <a href="nicerobotics.html">NiceRobotics</a>
-          <span class="desc">FRC 校友于 2025 年创办的国内零件品牌 — 传动、结构、轮子、五金件，淘宝发货、Onshape 提供 CAD。见 NiceRobotics 采购说明。</span>
+          <span class="desc" data-en="A domestic FRC parts brand founded by FRC alumni in 2025 — drivetrain, structure, wheels, and hardware, shipped through Taobao with CAD available in Onshape. See the NiceRobotics purchase guide.">FRC 校友于 2025 年创办的国内零件品牌 — 传动、结构、轮子、五金件，淘宝发货、Onshape 提供 CAD。见 NiceRobotics 采购说明。</span>
         </li>
       </ul>
     </section>
 
     <section>
-      <h2>Common Parts Reference 常用零件对照表</h2>
+      <h2 data-en="Common Parts Reference">常用零件对照表</h2>
       <table>
         <thead>
           <tr>
-            <th>Part 零件</th>
-            <th>Recommended Vendor 推荐渠道</th>
-            <th>Notes 备注</th>
+            <th data-en="Part">零件</th>
+            <th data-en="Recommended Vendor">推荐渠道</th>
+            <th data-en="Notes">备注</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Falcon 500 / Kraken X60</td>
             <td>CTR Electronics</td>
-            <td>CTRE 主流无刷电机，需搭配 Phoenix 6 生态</td>
+            <td data-en="CTRE's mainstream brushless motor; use with the Phoenix 6 ecosystem.">CTRE 主流无刷电机，需搭配 Phoenix 6 生态</td>
           </tr>
           <tr>
             <td>NEO / NEO Vortex</td>
             <td>REV Robotics</td>
-            <td>需配 SPARK MAX 控制器</td>
+            <td data-en="Requires a SPARK MAX controller.">需配 SPARK MAX 控制器</td>
           </tr>
           <tr>
-            <td>铝型材 (1x1 / 2x1)</td>
+            <td data-en="Aluminum tubing (1x1 / 2x1)">铝型材 (1x1 / 2x1)</td>
             <td>Taobao / 1688</td>
-            <td>国内即可买到 6061-T6</td>
+            <td data-en="6061-T6 can be purchased domestically.">国内即可买到 6061-T6</td>
           </tr>
           <tr>
             <td>Swerve Modules</td>
             <td>WCP / SDS / REV</td>
-            <td>SDS MK4/MK4i、WCP、REV MAXSwerve 等成品模块</td>
+            <td data-en="Commercial modules such as SDS MK4/MK4i, WCP, and REV MAXSwerve.">SDS MK4/MK4i、WCP、REV MAXSwerve 等成品模块</td>
           </tr>
           <tr>
-            <td>电池 (12V SLA)</td>
-            <td>国内电池厂</td>
-            <td>MK ES17-12 或同规格替代</td>
+            <td data-en="Battery (12V SLA)">电池 (12V SLA)</td>
+            <td data-en="Domestic battery supplier">国内电池厂</td>
+            <td data-en="MK ES17-12 or an equivalent replacement with the same specification.">MK ES17-12 或同规格替代</td>
           </tr>
         </tbody>
       </table>
     </section>
 
     <div class="callout">
-      <strong>💡 提示 Tip</strong>
+      <strong data-en="Tip">提示</strong>
       许多 FRC 标准件（如轴承、链条、皮带轮）都可以在国内以更低价格买到，
       但要注意公差和材质，避免影响整车精度。
     </div>
   </main>
 
   <footer>
-    <p>FRC Wiki CN · <a href="index.html">Back to home</a></p>
+    <p>FRC Wiki CN · <a href="index.html" data-en="Back to home">返回主页</a></p>
   </footer>
 
+  <script src="language-toggle.js"></script>
   <script src="supabase-config.js"></script>
   <script type="module" src="supabase-auth.js"></script>
   <script type="module" src="supabase-tracking.js"></script>
