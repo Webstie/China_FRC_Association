@@ -164,12 +164,13 @@
 
 <header class="hero">
   <div class="wrap">
-    <a class="back" href="code-command-based.html">← 返回 Command-Based 指南 · Back to the Command-Based guide</a>
-    <p class="tag">FRC 代码 · Part 2</p>
+    <a class="back" href="code-command-based.html">← 返回 Part 5 · Command-Based 框架 · Back to the Command-Based guide</a>
+    <p class="tag">FRC 代码 · Part 5 · 动手实战 HANDS-ON LAB</p>
     <h1>第一次让东西动：一颗电机，一个按键
       <span class="en">One Motor, One Button — Command-Based + Kraken</span>
     </h1>
-    <p>本章只做一件极小的事，但用的是每台比赛机器人都在用的写法（Command-Based）。读完你会真正理解“按一个键，电机就转”背后发生了什么，并能自己从零写出来、部署到机器人上。</p>
+    <p>这是 Part 5 的动手实战课。<a href="code-command-based.html" style="color:#aecbf0">Part 5 的正文</a>把框架讲了一遍，这一页让你亲手把它敲出来：只做一件极小的事，但用的是每台比赛机器人都在用的写法（Command-Based）。读完你会真正理解“按一个键，电机就转”背后发生了什么，并能自己从零写出来、部署到机器人上。</p>
+    <p style="font-size:14.5px;color:#aecbf0">和 <a href="code-first-motion.html" style="color:#fff">Part 2</a> 是同一个目标、两种写法：Part 2 用裸 <code style="color:#fff">TimedRobot</code> 让你看清循环本身，这一页用 Command-Based 让你看清结构。先做 Part 2，再做这一页，收获最大。</p>
     <div class="goal">
       <span class="pill hot">🎮 按住手柄 A 键</span>
       <span class="arrow">→</span>
@@ -553,7 +554,15 @@
 
   <footer>
     <b>下一步：</b>把 <code>startEnd</code> 换成带 PID 的闭环让电机转到指定<u>位置</u>；给 Kraken 配电流限制保护电机；用 <code>.withTimeout(2)</code> 把这条命令塞进自动阶段。<br>
-    <span class="muted">FRC Wiki CN · <a href="code-command-based.html">返回 Command-Based 指南 · Back to the Command-Based guide</a></span>
+    这三件事分别在 <a href="code-next.html">Part 10</a>、<a href="code-add-mechanism.html">Part 6</a> 和 <a href="code-first-auto.html">Part 7</a> 里展开。回到主线的话，下一站是 Part 6：用同样的模式加一个真正的机构。
+    <p style="margin-top:18px">
+      <a href="code-command-based.html">← Part 5 · Command-Based 框架</a>
+      &nbsp;·&nbsp;
+      <a href="code-add-mechanism.html">Part 6 · 加一个机构 →</a>
+      &nbsp;·&nbsp;
+      <a href="code.html#learning-path">代码总览</a>
+    </p>
+    <span class="muted">FRC Wiki CN</span>
   </footer>
 
 </div>

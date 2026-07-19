@@ -127,7 +127,7 @@
   <header class="software-hero">
     <div>
       <a class="back-link" href="code.html" data-en="Back to Code">返回代码</a>
-      <p class="eyebrow" data-en="First Motion">第一次让机器人动 · First Motion</p>
+      <p class="eyebrow" data-en="Part 2 · First Motion">Part 2 · 第一次让机器人动 · First Motion</p>
       <h1>Your First Motion — One Motor, One Button</h1>
       <p data-en="One motor, one button. The smallest traceable signal path proves your code compiles, the deploy reached the rio, and the rio talks to a motor over CAN.">
         一颗电机、一个按键。用最小的可追踪信号链路，一次验证“代码能编译、部署到了 rio、rio 能通过 CAN 驱动电机”。
@@ -150,7 +150,6 @@
         <li><a href="#minimum-code" data-en="The minimum code">最小代码</a></li>
         <li><a href="#lifecycle" data-en="The lifecycle">生命周期细节</a></li>
         <li><a href="#what-is-timedrobot" data-en="What TimedRobot is">TimedRobot 究竟是什么</a></li>
-        <li><a href="#command-based-route" data-en="The Command-Based route">另一条路：Command-Based</a></li>
         <li><a href="#common-mistakes" data-en="Common mistakes">常见的坑</a></li>
         <li><a href="#read-more" data-en="Where to read more">去哪读更多</a></li>
       </ol>
@@ -420,32 +419,12 @@ public abstract class TimedRobot extends IterativeRobotBase {
       <ul style="margin-left: 20px; line-height: 1.85; color: #374151;">
         <li><span data-en="It tells you where to put what kind of code. Boot-once → constructor or robotInit. Every-tick-regardless-of-mode → robotPeriodic. Every-tick-during-teleop → teleopPeriodic. Every-tick-during-auto → autonomousPeriodic. That is the entire decision tree.">它告诉你哪段代码该放哪里。只执行一次 → 构造函数 或 robotInit。每拍跑（不管什么模式）→ robotPeriodic。teleop 期间每拍跑 → teleopPeriodic。auto 期间每拍跑 → autonomousPeriodic。决策树就这么大。</span></li>
         <li><span data-en="It tells you why you must never write while (true) inside any *Periodic: doing so steals control from the timer, which can no longer fire any further ticks. The robot freezes.">它告诉你为什么任何 *Periodic 里都不许写 while (true) —— 那等于偷走了定时器的控制权，后续节拍再也无法触发，机器人冻住。</span></li>
-        <li><span data-en="It tells you Command-Based is not a different base class. The Command-Based template also extends TimedRobot. The difference is what you put inside the periodic methods.">它告诉你 Command-Based 不是另一个基类。Command-Based 模板同样继承 TimedRobot，区别是往 periodic 里放什么。</span></li>
+        <li><span data-en="It tells you Command-Based is not a different base class. The Command-Based template also extends TimedRobot. The difference is what you put inside the periodic methods — that is what Part 5 is about.">它告诉你 Command-Based 不是另一个基类。Command-Based 模板同样继承 TimedRobot，区别是往 periodic 里放什么 —— 这正是 Part 5 要讲的事。</span> <a href="code-command-based.html" data-en="(Part 5 →)">（Part 5 →）</a></li>
       </ul>
       <div class="callout">
         <p data-en="Historical note: WPILib has shipped several robot bases over the years — SampleRobot (you wrote your own loop; long deprecated), IterativeRobot (older periodic-style base, replaced), and TimedRobot (current). For any new project, the answer is TimedRobot. The Command-Based template just extends it and adds a RobotContainer companion file.">
           历史小注：WPILib 历年提供过几种机器人基类 —— SampleRobot（自己写循环，早已弃用）、IterativeRobot（更早的 periodic 风格，已替换）、TimedRobot（当前）。新项目只用 TimedRobot。Command-Based 模板就是继承它，再多加一个 RobotContainer 文件作伴。
         </p>
-      </div>
-    </section>
-
-    <section id="command-based-route" class="advanced-panel">
-      <div>
-        <p class="eyebrow" data-en="Another route">另一条路</p>
-        <h2 data-en="The Command-Based route — same goal, four pieces">另一条路：Command-Based 实战</h2>
-        <p data-en="The bare TimedRobot loop above is the clearest way to feel the signal path. But the very same goal — hold a button, spin a motor, release, stop — is also the perfect first lab for Command-Based, the framework almost every team eventually adopts. There it's built from four pieces: a Subsystem that owns the motor, a Command that describes the action, a Trigger bound to the A button, and the Scheduler that runs the loop.">
-          上面的裸 TimedRobot 循环是体会信号链路最清晰的方式。但同一个目标 —— 按住按键、电机转，松开、停 —— 也正好是 Command-Based 的第一个实验，而几乎每支队伍最终都会转向这套框架。在那里，它由四个核心部分搭成：持有电机的 Subsystem、描述动作的 Command、绑在 A 键上的 Trigger，以及驱动循环的 Scheduler。
-        </p>
-        <p data-en="The hands-on lab takes the exact same 'one motor, one button' goal and builds it the Command-Based way, step by step from an empty project to a spinning Kraken. Do the TimedRobot version first to understand the loop, then do this one to understand the structure.">
-          这份动手实战拿同样的“一颗电机、一个按键”目标，用 Command-Based 的方式从空项目一步步搭到 Kraken 转动。先做 TimedRobot 版理解循环，再做这一份理解结构。
-        </p>
-        <p style="margin-top: 18px;"><a href="code-command-based-demo.html" class="primary-action" data-en="Open the Command-Based hands-on lab →">打开 Command-Based 动手实战 →</a></p>
-      </div>
-      <div class="topic-tags">
-        <span>Subsystem</span>
-        <span>Command</span>
-        <span>Trigger</span>
-        <span>Scheduler</span>
       </div>
     </section>
 
@@ -521,8 +500,8 @@ public abstract class TimedRobot extends IterativeRobotBase {
           你用一颗电机、一个按键验证了整条链路。下一步把同样的思路放大到真实底盘：读两个摇杆，驱动差速底盘开起来。
         </p>
         <p style="margin-top: 18px;">
-          <a href="code-setup.html" class="secondary-action" data-en="← Setup">← 环境配置 / Setup</a>
-          <a href="code-driving.html" class="primary-action" data-en="Driving →">让底盘开起来 / Driving →</a>
+          <a href="code-setup.html" class="secondary-action" data-en="← Part 1: Setup">← Part 1 · 环境配置</a>
+          <a href="code-driving.html" class="primary-action" data-en="Part 3: Driving →">Part 3 · 让底盘开起来 →</a>
         </p>
       </div>
     </section>

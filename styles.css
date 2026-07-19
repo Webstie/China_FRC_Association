@@ -762,6 +762,32 @@ footer a {
   color: var(--frc-dark);
 }
 
+/* Optional side-branch pages hanging off one step of the journey. */
+.timeline-sub {
+  margin: 10px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.timeline-sub a {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid rgba(0, 102, 179, 0.28);
+  border-radius: 999px;
+  background: rgba(0, 102, 179, 0.06);
+  color: var(--frc-blue);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.timeline-sub a:hover {
+  background: var(--frc-blue);
+  color: white;
+}
+
 .advanced-panel {
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
   background:

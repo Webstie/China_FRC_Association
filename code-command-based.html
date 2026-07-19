@@ -126,8 +126,8 @@
 
   <header class="software-hero">
     <div>
-      <a class="back-link" href="code.html#command-based" data-en="Back to Code page">返回代码页</a>
-      <p class="eyebrow" data-en="Robot programming framework">机器人程序框架</p>
+      <a class="back-link" href="code.html#learning-path" data-en="Back to Code">返回代码</a>
+      <p class="eyebrow" data-en="Part 5 · The framework">Part 5 · 机器人程序框架</p>
       <h1>Command-Based Framework</h1>
       <p data-en="A complete beginner walkthrough of WPILib's Command-Based framework — from project layout to common mistakes. Designed for first-time FRC programmers.">
         一份从零开始、面向第一次接触 FRC 程序员的 WPILib Command-Based 框架完整入门指南 — 涵盖从项目结构到常见坑的方方面面。
@@ -168,9 +168,10 @@
       <div>
         <p class="eyebrow" data-en="What and why">是什么 & 为什么</p>
         <h2 data-en="Why Command-Based exists">为什么有 Command-Based</h2>
-        <p data-en="If you have written Arduino-style code before, the instinct is to put everything in one big loop — read the joystick, drive the motors, check sensors, all in sequence. That model falls apart on an FRC robot, where the drivetrain, intake, shooter, and climber all need to run at the same time, react to inputs the moment they happen, and share hardware without stepping on each other.">
-          如果你之前写过 Arduino 风格的代码，最直觉的做法是把一切都塞进一个大循环 — 读手柄、驱动电机、读传感器，一行一行串起来。这种模型在 FRC 机器人上很快就撑不住：底盘、intake、shooter、climber 需要同时运行、立即响应输入，还要共享硬件而不互相打架。
+        <p data-en="Part 4 ended at a wall: one big loop cannot carry a drivetrain, an intake, a shooter, and a climber that all need to run at once, react the moment an input happens, and share hardware without stepping on each other. This page is the way over that wall. If you came straight here, Part 4 is worth ten minutes first — the framework is much easier to justify once you have felt the problem.">
+          Part 4 停在一堵墙前：一个大循环撑不住底盘、intake、shooter、climber 同时运行、立刻响应输入、还要共享硬件而不互相打架。这一页就是翻过那堵墙的方法。如果你是直接跳到这里的，建议先花十分钟看 Part 4 —— 亲身撞过那个问题之后，这套框架的必要性会清楚得多。
         </p>
+        <p><a href="code-why-framework.html" data-en="← Part 4 · Why we need structure">← Part 4 · 为什么需要框架</a></p>
         <p data-en="Command-Based is WPILib's answer. You split the robot into Subsystems that own hardware (one per mechanism) and Commands that describe actions (one per thing the robot can do). A single Scheduler runs the whole loop, decides which Command can use which Subsystem at any moment, and keeps overall behavior predictable. As a beginner you spend most of your time wiring those pieces together in one file: RobotContainer.">
           Command-Based 是 WPILib 给出的答案。机器人被拆成持有硬件的 Subsystem（每个机构一个）和描述动作的 Command（机器人能做的每件事一个），由一个 Scheduler 统一调度循环、随时决定哪条 Command 能使用哪个 Subsystem，让整体行为可预测。新手 90% 的时间都花在 RobotContainer 这一个文件里把这些片段连起来。
         </p>
@@ -235,6 +236,9 @@
         <h2 data-en="How a Robot Boots Up">机器人是怎么跑起来的</h2>
         <p data-en="From power-on to your first teleop loop the same five steps happen every time. Knowing this flow makes it much easier to find which file to open when something goes wrong.">
           从上电到第一次 teleop 循环，每次都会经过同样的五步。理清这条流程，出问题时就知道该打开哪个文件查。
+        </p>
+        <p data-en="This is the same TimedRobot lifecycle you met in Part 2 — the boot and the 20 ms tick have not changed. Command-Based only adds two things to it: RobotContainer does the wiring at boot, and one scheduler call carries the whole application layer on every tick.">
+          这就是你在 Part 2 见过的那套 TimedRobot 生命周期 —— 启动和 20 毫秒节拍一点没变。Command-Based 只往上加了两样东西：启动时由 RobotContainer 完成接线，每一拍由一次 scheduler 调用扛起整个应用层。
         </p>
       </div>
       <ol class="timeline-list">
@@ -773,32 +777,34 @@ public class RobotContainer {
 
     <section id="next-steps" class="advanced-panel">
       <div>
-        <p class="eyebrow" data-en="What's next">下一步</p>
-        <h2 data-en="Where to Go From Here">学完之后看什么</h2>
-        <p data-en="Once the basics click — a subsystem that works, a button binding that fires the right command, a clean default command for the drivetrain — there is a clear path forward. These are the topics that build on Command-Based and turn a working robot into a competitive one.">
-          当基础都通了 — 写出能跑的 subsystem、按键能触发正确的命令、底盘有干净的默认命令 — 后面就是一条清晰的进阶路。下面这些主题都建立在 Command-Based 之上，是把“能跑”的机器人推向“能比赛”的关键。
+        <p class="eyebrow" data-en="Continue">继续</p>
+        <h2 data-en="Keep Going">接着往下</h2>
+        <p data-en="Once the basics click — a subsystem that works, a button binding that fires the right command, a clean default command for the drivetrain — you are ready to use the framework for real. Part 6 walks you through adding an intake with the exact pattern you will repeat for every mechanism this season.">
+          当基础都通了 —— 写出能跑的 subsystem、按键能触发正确的命令、底盘有干净的默认命令 —— 就可以真正拿这套框架干活了。Part 6 会带你加一个 intake，用的正是这赛季你每个机构都会重复的那套模式。
         </p>
-        <p data-en="Read top teams' Open Alliance repositories — every line of their code is a Command-Based program built on the same four pieces you just learned.">
-          多读顶级队伍的 Open Alliance 仓库 — 他们的每一行代码都是建立在你刚学的四个核心部分上的 Command-Based 程序。
+        <p data-en="Prefer to type it out first? The hands-on lab above builds one motor on one button from an empty project, the Command-Based way. Everything past the journey — swerve, vision, advanced pathing — is mapped out in Part 10.">
+          想先自己敲一遍？上面的动手实战会用 Command-Based 的方式，从空项目一路搭到“一颗电机、一个按键”。至于这条路线之外的东西 —— swerve、视觉、进阶路径规划 —— 都画在 Part 10 那张技能树里。
         </p>
       </div>
       <div class="topic-tags">
-        <span>PathPlanner</span>
-        <span>Choreo</span>
-        <span>Swerve</span>
-        <span>SysId</span>
-        <span>PhotonVision</span>
-        <span>AprilTags</span>
-        <span>AdvantageKit</span>
-        <span>Holonomic Auto</span>
+        <span>Subsystem</span>
+        <span>Command</span>
+        <span>Trigger</span>
+        <span>CommandScheduler</span>
+        <span>Default command</span>
+        <span>Composition</span>
       </div>
+      <p style="margin-top: 22px;">
+        <a href="code-why-framework.html" class="secondary-action" data-en="← Part 4: Why a framework">← Part 4 · 为什么需要框架</a>
+        <a href="code-add-mechanism.html" class="primary-action" data-en="Part 6: Add a mechanism →">Part 6 · 加一个机构 →</a>
+      </p>
     </section>
 
   </main>
   </div>
 
   <footer>
-    <p>FRC Wiki CN · <a href="code.html#command-based" data-en="Back to Code page">返回代码页</a></p>
+    <p>FRC Wiki CN · <a href="code.html#learning-path" data-en="Back to Code">返回代码</a></p>
   </footer>
 
   <script src="language-toggle.js"></script>
