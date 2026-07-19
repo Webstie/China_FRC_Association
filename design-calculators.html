@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>传动计算工具汇总 - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth-boot.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html">代码 Code</a></li>
+        <li><a href="design.html" class="active">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>FRC机器人传动计算工具汇总</h1>
+    <p class="chinese">齿比、速度、扭矩、电机负载、链条皮带和机构校核</p>
+  </header>
+
+  <nav class="page-subnav" aria-label="本页导航">
+    <a href="#transmission-basics">传动基础学习</a>
+    <a href="#calculators">常用计算器</a>
+  </nav>
+
+  <main>
+    <p class="breadcrumb"><a href="design.html">设计 Design</a> / 传动计算工具汇总</p>
+
+    <section id="transmission-basics">
+      <h2>传动基础学习</h2>
+      <p class="section-intro">
+        使用计算器前，先理解“速度、扭矩、齿比、中心距、张紧、回差”这些概念。FRCDesign 的 Stage 1B 把 power transmission 作为独立训练阶段，建议和本页计算器一起使用。
+      </p>
+
+      <div class="concept-grid">
+        <article class="concept-card">
+          <h3>齿轮基础与啮合</h3>
+          <p>齿轮通过齿面接触传递旋转运动。两个外啮合齿轮转向相反；小齿轮带大齿轮会减速增扭，大齿轮带小齿轮会增速降扭。</p>
+          <div class="formula-box">
+            <strong>常用公式</strong>
+            <code>传动比 = 输出齿数 / 输入齿数</code>
+            <code>输出转速 = 输入转速 / 传动比</code>
+            <code>输出扭矩 ≈ 输入扭矩 × 传动比 × 效率</code>
+            <code>齿轮中心距 = (齿数1 + 齿数2) / (2 × DP)</code>
+          </div>
+          <ul class="mini-list">
+            <li>FRC 常见齿轮 DP：20DP、32DP、10DP；DP 越小，齿更大更强。</li>
+            <li>齿轮啮合需要合适中心距，太紧会发热和磨损，太松会增加回差。</li>
+            <li>多级齿轮箱的总传动比等于每一级传动比相乘。</li>
+            <li>高精度机构要尽量减少级数、轴孔间隙和齿轮回差。</li>
+          </ul>
+          <a href="https://frcdesign.org/learning-course/stage1/1b/exercise1/" target="_blank" rel="noopener">FRCDesign: Simple Gearbox</a>
+        </article>
+
+        <article class="concept-card">
+          <h3>皮带传动概念</h3>
+          <p>同步带通过齿形皮带和皮带轮传递运动。和齿轮不同，开口布置的两个皮带轮通常同向旋转，回差很小，适合高速和中低负载机构。</p>
+          <div class="formula-box">
+            <strong>常用公式</strong>
+            <code>传动比 = 输出皮带轮齿数 / 输入皮带轮齿数</code>
+            <code>皮带节线长度 = pitch × 皮带齿数</code>
+            <code>FRC 常见 HTD 5mm：长度 = 5mm × 齿数</code>
+          </div>
+          <ul class="mini-list">
+            <li>FRC 常用 HTD 5mm 同步带，皮带长度通常是 5mm 的整数倍。</li>
+            <li>优点是安静、轻、回差小，适合 intake、indexer、shooter、elevator 等。</li>
+            <li>缺点是抗冲击和高扭矩能力通常弱于链条，需要关注包角和张紧。</li>
+            <li>CAD 中应预留张紧槽、偏心张紧轮或可调中心距。</li>
+          </ul>
+          <a href="https://frcdesign.org/learning-course/stage1/1b/belts/" target="_blank" rel="noopener">FRCDesign: Belt and Pulley Basics</a>
+        </article>
+
+        <article class="concept-card">
+          <h3>链条传动概念</h3>
+          <p>链条通过链节和链轮齿啮合传递动力，适合长距离和较高扭矩场景。两个链轮通常同向旋转，传动比由链轮齿数决定。</p>
+          <div class="formula-box">
+            <strong>常用公式</strong>
+            <code>传动比 = 输出链轮齿数 / 输入链轮齿数</code>
+            <code>链条节线长度 = pitch × 链节数</code>
+            <code>#25 pitch = 0.25in，#35 pitch = 0.375in</code>
+          </div>
+          <ul class="mini-list">
+            <li>#25 链更轻，#35 链更强；高冲击、高扭矩机构更常考虑 #35。</li>
+            <li>尽量使用偶数链节，减少 half-link，因为 half-link 通常更弱。</li>
+            <li>链条需要张紧，常见方式包括滑槽、偏心轴承、张紧轮或可调链轮。</li>
+            <li>链条松弛会导致跳齿和回差，过紧会增加摩擦和轴承负载。</li>
+          </ul>
+          <a href="https://frcdesign.org/learning-course/stage1/1b/chain/" target="_blank" rel="noopener">FRCDesign: Chain and Sprocket Basics</a>
+        </article>
+
+        <article class="concept-card">
+          <h3>回差、张紧与可控性</h3>
+          <p>回差是机构在真正带动输出前的空行程。它会让 pivot、shooter hood、arm 等高精度机构变得难以控制，所以传动设计不能只看速度和扭矩。</p>
+          <div class="formula-box">
+            <strong>设计判断</strong>
+            <code>低回差优先：齿轮 / 同步带 / 预紧链条</code>
+            <code>高扭矩优先：齿轮 / 链条 / 大规格皮带</code>
+            <code>高速低载优先：同步带通常更轻更安静</code>
+          </div>
+          <ul class="mini-list">
+            <li>少一级传动，通常就少一部分间隙和误差来源。</li>
+            <li>支撑轴承、轴孔配合、键连接或 hex 轴间隙也会贡献回差。</li>
+            <li>需要闭环控制的位置机构，应在机械端先减少松动，再依靠 PID。</li>
+            <li>比赛维护时，张紧结构必须容易检查和调整。</li>
+          </ul>
+          <a href="https://frcdesign.org/design-handbook/design-writeups/designing-for-controllability/" target="_blank" rel="noopener">FRCDesign: Designing for Controllability</a>
+        </article>
+      </div>
+
+      <div class="learning-block">
+        <h3>新队员必会：传动比怎么一步步算</h3>
+        <div class="process-grid">
+          <div class="process-step">
+            <span class="step-number">1</span>
+            <h3>先判断输入和输出</h3>
+            <p>输入通常是电机或上一级轴，输出是轮子、滚轮、机械臂或升降机构。不要只看图上谁在左谁在右。</p>
+          </div>
+          <div class="process-step">
+            <span class="step-number">2</span>
+            <h3>每一级单独算</h3>
+            <p>齿轮、链轮、皮带轮都可以先用“输出齿数 / 输入齿数”算单级传动比。</p>
+          </div>
+          <div class="process-step">
+            <span class="step-number">3</span>
+            <h3>多级相乘</h3>
+            <p>如果有两级或三级传动，总传动比就是每一级传动比相乘。</p>
+          </div>
+          <div class="process-step">
+            <span class="step-number">4</span>
+            <h3>换算速度和扭矩</h3>
+            <p>减速后输出速度变慢，输出扭矩变大。再乘上效率，才更接近真实机构。</p>
+          </div>
+        </div>
+
+        <div class="example-panel">
+          <h4>例子：两级减速</h4>
+          <div class="formula-box">
+            <code>第 1 级：12T 小齿轮 → 36T 大齿轮，传动比 = 36 / 12 = 3:1</code>
+            <code>第 2 级：18T 小齿轮 → 54T 大齿轮，传动比 = 54 / 18 = 3:1</code>
+            <code>总传动比 = 3 × 3 = 9:1</code>
+            <code>如果电机转速是 6000 rpm，输出转速约为 6000 / 9 = 667 rpm</code>
+          </div>
+          <p>读法：这个机构不是“有两组 3:1”，而是总共 9:1。新队员最容易漏掉多级相乘这一步。</p>
+        </div>
+      </div>
+
+      <div class="learning-block">
+        <h3>结构安装孔设计：把计算结果变成 CAD 孔位</h3>
+        <p class="section-intro">
+          传动计算的最后一步不是截图保存，而是把齿数、中心距、皮带/链条规格写进 CAD 的 layout sketch。孔位设计决定了机构能不能装上、能不能张紧、能不能维修。
+        </p>
+
+        <div class="card-grid">
+          <article class="card">
+            <h3>齿轮中心距</h3>
+            <p>两个齿轮轴孔之间的距离必须符合齿轮啮合要求。20DP 齿轮常用公式是：</p>
+            <div class="formula-box">
+              <code>中心距 = (齿数1 + 齿数2) / (2 × DP)</code>
+              <code>例：12T 和 60T，20DP 中心距 = (12 + 60) / 40 = 1.8 inch</code>
+            </div>
+            <p>CAD 中应把两个轴孔中心约束到这个距离，并给轴承孔、螺栓孔和板边留足空间。</p>
+          </article>
+
+          <article class="card">
+            <h3>皮带和链条中心距</h3>
+            <p>皮带/链条不是任意长度都能买到。先用 WCP、ReCalc 或 AMB 算出可用中心距，再回到 CAD 定孔位。</p>
+            <div class="formula-box">
+              <code>固定中心距：孔位准确，但装配和张紧容错小</code>
+              <code>滑槽调节：更容易张紧，适合新队员和手工加工</code>
+              <code>偏心张紧：结构紧凑，但需要更高加工和装配意识</code>
+            </div>
+            <p>新队伍建议优先使用可调中心距或张紧轮，减少加工误差带来的装不上问题。</p>
+          </article>
+
+          <article class="card">
+            <h3>孔的类型要分清</h3>
+            <p>CAD 里“孔”不只是圆。轴承孔、螺栓孔、减重孔、滑槽和定位孔的功能完全不同。</p>
+            <ul class="mini-list">
+              <li>轴承孔：决定轴的位置，通常要比普通螺栓孔更谨慎。</li>
+              <li>螺栓孔：用于固定电机、齿轮箱、支架或板件。</li>
+              <li>滑槽：用于调整电机、张紧轮或整个轴的位置。</li>
+              <li>减重孔：不能破坏主要受力路径和边距。</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>安装孔检查清单</h3>
+            <ul class="mini-list">
+              <li>轴孔中心距是否来自计算器或公式，而不是手动拖出来？</li>
+              <li>链条/皮带是否有张紧方式？调节范围是否足够？</li>
+              <li>电机、轴承、螺栓头、垫片和工具是否有装配空间？</li>
+              <li>孔到板边距离是否足够，避免板件开裂或变形？</li>
+              <li>左右两侧板的孔位是否用同一个 layout sketch 驱动？</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>课堂建议</strong>
+        先让队员用纸面公式算一遍，再用 ReCalc、AMB 或 WCP 计算器验证。最后把中心距、齿数、皮带/链条规格写回 CAD 的 layout sketch，而不是只把计算结果留在聊天记录里。
+      </div>
+    </section>
+
+    <section id="calculators">
+      <h2>常用计算器</h2>
+      <p class="section-intro">
+        下面把常见 FRC 机械计算器按用途放在一起。能嵌入的页面已经直接显示在本页；如果浏览器显示空白或被网站阻止，使用卡片右上角的“打开原站”。
+      </p>
+
+      <div class="calculator-stack">
+        <article class="calculator-card">
+          <div class="calculator-card-header">
+            <div>
+              <h3>ReCalc</h3>
+              <p>网页协作型 FRC 机械计算器，覆盖皮带、链条、气动、飞轮等常用模块。</p>
+            </div>
+            <a class="external-action" href="https://www.reca.lc/" target="_blank" rel="noopener">打开原站</a>
+          </div>
+          <dl class="calculator-analysis">
+            <div><dt>优点</dt><dd>界面轻量，常用 FRC 场景集中，适合队员一起快速试参数。</dd></div>
+            <div><dt>适合</dt><dd>早期方案比较、链条/皮带中心距、飞轮和气动快速估算。</dd></div>
+            <div><dt>注意</dt><dd>结果仍需要和供应商实际规格、CAD 空间、加工误差一起校核。</dd></div>
+          </dl>
+          <div class="embedded-calculator">
+            <iframe src="https://www.reca.lc/" title="ReCalc embedded calculator" loading="lazy"></iframe>
+          </div>
+        </article>
+
+        <article class="calculator-card">
+          <div class="calculator-card-header">
+            <div>
+              <h3>AMB Robotics Calculator</h3>
+              <p>覆盖机构齿比、启动校核、底盘仿真、链条/皮带中心距、抛射轨迹、电机曲线等工具。</p>
+            </div>
+            <a class="external-action" href="https://ambcalc.com/" target="_blank" rel="noopener">打开原站</a>
+          </div>
+          <dl class="calculator-analysis">
+            <div><dt>优点</dt><dd>功能范围很广，适合从底盘到单个机构做比较完整的工程校核。</dd></div>
+            <div><dt>适合</dt><dd>需要考虑电机曲线、加速时间、传动负载和机构可行性的设计评审。</dd></div>
+            <div><dt>注意</dt><dd>输入项较多，建议先统一单位和假设条件，再在队内共享计算结果。</dd></div>
+          </dl>
+          <div class="embedded-calculator">
+            <iframe src="https://ambcalc.com/" title="AMB Robotics Calculator embedded page" loading="lazy"></iframe>
+          </div>
+        </article>
+
+        <article class="calculator-card">
+          <div class="calculator-card-header">
+            <div>
+              <h3>WCP Belt Calculator</h3>
+              <p>WestCoast Products 的皮带中心距工具，可根据皮带 pitch、皮带轮齿数和目标中心距寻找可采购的皮带长度。</p>
+            </div>
+            <a class="external-action" href="https://wcproducts.com/pages/calculator-belt" target="_blank" rel="noopener">打开原站</a>
+          </div>
+          <dl class="calculator-analysis">
+            <div><dt>优点</dt><dd>和 WCP 皮带轮/皮带库存体系直接对应，输出短一档、目标档、长一档中心距。</dd></div>
+            <div><dt>适合</dt><dd>FRC 底盘、输送、拾取等同步带传动，尤其是已经准备用 WCP 规格零件时。</dd></div>
+            <div><dt>注意</dt><dd>皮带中心距还要结合张紧方式、包角、齿数啮合和装配公差一起判断。</dd></div>
+          </dl>
+          <div class="embedded-calculator compact-embed">
+            <iframe src="https://wcproducts.com/pages/calculator-belt" title="WCP Belt Calculator embedded page" loading="lazy"></iframe>
+          </div>
+        </article>
+
+        <article class="calculator-card">
+          <div class="calculator-card-header">
+            <div>
+              <h3>WCP Gear Calculator</h3>
+              <p>WestCoast Products 的齿轮中心距工具，用于 20DP、32DP 等常见齿轮组合的中心距、外径和传动比估算。</p>
+            </div>
+            <a class="external-action" href="https://wcproducts.com/pages/calculator-gear" target="_blank" rel="noopener">打开原站</a>
+          </div>
+          <dl class="calculator-analysis">
+            <div><dt>优点</dt><dd>非常适合检查两个齿轮是否能按标准孔距啮合，并快速得到 extra center 和 ratio。</dd></div>
+            <div><dt>适合</dt><dd>齿轮箱、过渡齿轮、单级/多级减速草图，以及确认 20DP WCP 齿轮中心距。</dd></div>
+            <div><dt>注意</dt><dd>中心距过紧会磨损，过松会增加 backlash；最终仍要结合加工精度和轴承支撑。</dd></div>
+          </dl>
+          <div class="embedded-calculator compact-embed">
+            <iframe src="https://wcproducts.com/pages/calculator-gear" title="WCP Gear Calculator embedded page" loading="lazy"></iframe>
+          </div>
+        </article>
+
+        <article class="calculator-card">
+          <div class="calculator-card-header">
+            <div>
+              <h3>JVN Mechanical Design Calculator</h3>
+              <p>FRC 经典机械设计表格，用于电机、齿比、机构速度与力矩估算。</p>
+            </div>
+            <a class="external-action" href="https://www.chiefdelphi.com/t/paper-jvns-mechanical-design-calculator-2016/146281" target="_blank" rel="noopener">打开原站</a>
+          </div>
+          <dl class="calculator-analysis">
+            <div><dt>优点</dt><dd>思路经典，适合训练新人理解电机功率、齿比、速度、扭矩之间的关系。</dd></div>
+            <div><dt>适合</dt><dd>课堂讲解、离线表格复盘、把计算过程作为设计评审附件保存。</dd></div>
+            <div><dt>注意</dt><dd>表格版本较多，使用前要确认电机数据和单位；Google Sheet 可能不适合直接嵌入。</dd></div>
+          </dl>
+          <div class="embed-note">
+            JVN 主要是表格和 Chief Delphi 发布页，本页保留说明与原站入口。建议队伍复制一份到自己的 Google Drive 或本地 Excel，避免多人同时编辑原始模板。
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="design.html">Back to Design</a></p>
+  </footer>
+  <script src="supabase-config.js"></script>
+  <script type="module" src="supabase-auth.js"></script>
+  <script type="module" src="supabase-tracking.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>结构设计网站资源 - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth-boot.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html">代码 Code</a></li>
+        <li><a href="design.html" class="active">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>FRC机器人结构设计常用网站资源</h1>
+    <p class="chinese">从官方资料、社区教程、零件库到公开 CAD 案例</p>
+  </header>
+
+  <main>
+    <p class="breadcrumb"><a href="design.html">设计 Design</a> / 结构设计网站资源</p>
+
+    <section>
+      <h2>优先收藏</h2>
+      <p class="section-intro">
+        这四个网站建议放进队伍浏览器书签栏。新人先用 FRCDesign 建立设计流程，再用 Onshape 官方资源配置账号和协作环境，随后用 Onshape4FRC 找工具和库，最后用 Spectrum 表格沉淀设计决策。
+      </p>
+
+      <div class="resource-feature-list">
+        <article class="resource-feature">
+          <div class="resource-copy">
+            <div class="resource-heading">
+              <h3>FRCDesign.org</h3>
+              <a href="https://frcdesign.org/" target="_blank" rel="noopener">打开网站</a>
+            </div>
+            <p>
+              面向 FRC 的机械设计与 Onshape 学习主线课程。适合新队员从 CAD 基础、传动、结构、子系统建模到 top-down 设计逐步学习。
+            </p>
+            <ul class="mini-list">
+              <li>适合对象：机械新人、CAD 组长、训练营教练。</li>
+              <li>推荐用法：按 learning course 阶段推进，每节课配一个小 CAD 作业。</li>
+              <li>重点价值：把“会画图”推进到“会做 FRC 机器人结构设计”。</li>
+            </ul>
+          </div>
+          <div class="resource-map" aria-label="FRCDesign 结构大纲图">
+            <div class="map-root">FRCDesign</div>
+            <div class="map-row">
+              <span>Learning Course</span>
+              <span>Design Handbook</span>
+              <span>Educator Guide</span>
+            </div>
+            <div class="map-row muted">
+              <span>CAD Basics</span>
+              <span>Mechanisms</span>
+              <span>Lesson Plans</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-feature">
+          <div class="resource-copy">
+            <div class="resource-heading">
+              <h3>Onshape for FIRST Robotics</h3>
+              <a href="https://www.onshape.com/en/education/first-robotics" target="_blank" rel="noopener">打开网站</a>
+            </div>
+            <p>
+              Onshape 官方 FIRST 页面，负责账号申请、教育版入口、团队协作说明和机器人设计资源入口。它更像“官方起点”，不是完整课程。
+            </p>
+            <ul class="mini-list">
+              <li>适合对象：教练、队长、负责建 Onshape 团队空间的队员。</li>
+              <li>推荐用法：先处理教育账号和团队权限，再把队伍模板、库和文档结构统一。</li>
+              <li>重点价值：保证团队使用的是官方支持的教育/竞赛工作流。</li>
+            </ul>
+          </div>
+          <div class="resource-map onshape-map" aria-label="Onshape FIRST 结构大纲图">
+            <div class="map-root">Onshape FIRST</div>
+            <div class="map-row">
+              <span>Education Account</span>
+              <span>Team Sharing</span>
+              <span>Robot CAD</span>
+            </div>
+            <div class="map-row muted">
+              <span>Accounts</span>
+              <span>Permissions</span>
+              <span>Official Resources</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-feature">
+          <div class="resource-copy">
+            <div class="resource-heading">
+              <h3>Onshape4FRC</h3>
+              <a href="https://www.littletonrobotics.org/onshape4frc/" target="_blank" rel="noopener">打开网站</a>
+            </div>
+            <p>
+              FRC 6328 整理的 Onshape/FRC 资源导航。它把 MKCad、FeatureScript、计算器、CAD 库、教程和常用链接集中在一个页面里，非常适合日常查工具。
+            </p>
+            <ul class="mini-list">
+              <li>适合对象：CAD 组、机械组、需要快速找库和工具的队员。</li>
+              <li>推荐用法：作为“工具箱首页”，需要零件库、脚本、计算器时先从这里找。</li>
+              <li>重点价值：减少队员在不同链接之间迷路，快速进入 FRC CAD 生态。</li>
+            </ul>
+          </div>
+          <div class="resource-map library-map" aria-label="Onshape4FRC 结构大纲图">
+            <div class="map-root">Onshape4FRC</div>
+            <div class="map-row">
+              <span>MKCad</span>
+              <span>FeatureScript</span>
+              <span>Calculators</span>
+            </div>
+            <div class="map-row muted">
+              <span>Part Libraries</span>
+              <span>Modeling Tools</span>
+              <span>Engineering Math</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="resource-feature">
+          <div class="resource-copy">
+            <div class="resource-heading">
+              <h3>Spectrum Robot Design Sheet</h3>
+              <a href="https://www.spectrum3847.org/spectrum-robot-design-sheet/" target="_blank" rel="noopener">打开网站</a>
+            </div>
+            <p>
+              FRC 3847 的机器人设计表格模板，用来记录关键参数、计算结果、零件选择和子系统设计决策。它不是教程，而是帮助队伍把设计过程留下来的工作表。
+            </p>
+            <ul class="mini-list">
+              <li>适合对象：机械负责人、项目管理队员、需要做设计评审的子系统小组。</li>
+              <li>推荐用法：每个子系统复制一份，记录目标、约束、计算、BOM 和风险。</li>
+              <li>重点价值：让“为什么这样设计”有记录，方便复盘和传承。</li>
+            </ul>
+          </div>
+          <div class="resource-map sheet-map" aria-label="Spectrum Robot Design Sheet 结构大纲图">
+            <div class="map-root">Design Sheet</div>
+            <div class="map-row">
+              <span>Requirements</span>
+              <span>Calculations</span>
+              <span>BOM</span>
+            </div>
+            <div class="map-row muted">
+              <span>Goals</span>
+              <span>Parameters</span>
+              <span>Parts &amp; Review</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>新人学习阶段推荐</h2>
+      <div class="stage-roadmap">
+        <article>
+          <span>Week 1</span>
+          <h3>Onshape 入门</h3>
+          <p>先完成账号、团队空间、基础草图、拉伸、孔、装配配合。重点不是速度，而是会用约束把草图画稳。</p>
+          <strong>推荐资源：Onshape for FIRST Robotics + FRCDesign Stage 0</strong>
+        </article>
+        <article>
+          <span>Week 2-3</span>
+          <h3>FRC CAD 基础</h3>
+          <p>学习管材、板件、轴承孔、紧固件、MKCad 零件库和简单装配，做一个轮组或小型传动练习。</p>
+          <strong>推荐资源：FRCDesign Learning Course + Onshape4FRC</strong>
+        </article>
+        <article>
+          <span>Week 4</span>
+          <h3>传动与子系统</h3>
+          <p>开始理解齿轮、皮带、链条、中心距和张紧方式，把计算结果写回 CAD 的 layout sketch。</p>
+          <strong>推荐资源：FRCDesign Stage 1B + Onshape4FRC Calculators</strong>
+        </article>
+        <article>
+          <span>Build Season</span>
+          <h3>记录设计决策</h3>
+          <p>每个子系统都记录目标、关键尺寸、计算结果、BOM、风险和迭代结论，方便评审和赛后复盘。</p>
+          <strong>推荐资源：Spectrum Robot Design Sheet</strong>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>第一次打开先看哪里</h2>
+      <div class="first-visit-grid">
+        <article>
+          <h3>FRCDesign.org</h3>
+          <ol>
+            <li>先看 Learning Course，按阶段学习，不要直接跳到复杂案例。</li>
+            <li>遇到传动、结构、控制性问题时，再查 Design Handbook。</li>
+            <li>教练排课时参考 Educator Guide，把内容拆成训练营作业。</li>
+          </ol>
+        </article>
+        <article>
+          <h3>Onshape for FIRST Robotics</h3>
+          <ol>
+            <li>先确认教育账号和团队协作权限。</li>
+            <li>建立队伍文件夹、命名规范和共享方式。</li>
+            <li>再把官方资源和学习路径发给机械组。</li>
+          </ol>
+        </article>
+        <article>
+          <h3>Onshape4FRC</h3>
+          <ol>
+            <li>先找 MKCad，确认常用 FRC 零件库怎么接入。</li>
+            <li>再看 FeatureScript 和计算器，补齐 CAD 效率工具。</li>
+            <li>需要公开 CAD、模板或工具链接时，把它当作导航页。</li>
+          </ol>
+        </article>
+        <article>
+          <h3>Spectrum Design Sheet</h3>
+          <ol>
+            <li>先复制一份到队伍自己的云盘。</li>
+            <li>每个子系统单独建一份，记录目标、参数和计算。</li>
+            <li>设计评审和赛后复盘时，把实际表现补回表格。</li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>资源使用场景对照表</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>你想完成的事</th>
+            <th>优先使用</th>
+            <th>补充资源</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>从零学习 FRC 机械 CAD</td>
+            <td>FRCDesign.org</td>
+            <td>Onshape Learning Center / Onshape for FIRST Robotics</td>
+          </tr>
+          <tr>
+            <td>申请账号、建立队伍协作空间</td>
+            <td>Onshape for FIRST Robotics</td>
+            <td>队伍内部命名规范和权限表</td>
+          </tr>
+          <tr>
+            <td>查 FRC 零件库、脚本和 CAD 工具</td>
+            <td>Onshape4FRC</td>
+            <td>MKCad、供应商 CAD、公开机器人 CAD</td>
+          </tr>
+          <tr>
+            <td>做传动、中心距、皮带链条计算</td>
+            <td>Onshape4FRC Calculators</td>
+            <td>本网站传动计算工具汇总页、ReCalc、AMB、WCP</td>
+          </tr>
+          <tr>
+            <td>记录子系统设计决策和参数</td>
+            <td>Spectrum Robot Design Sheet</td>
+            <td>队伍 CAD 文档、BOM、赛后复盘记录</td>
+          </tr>
+          <tr>
+            <td>给新人安排机械训练营</td>
+            <td>FRCDesign Educator Guide</td>
+            <td>队内小作业、往年机器人 CAD、练习零件库</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>怎么用这些资源</h2>
+      <div class="process-grid">
+        <div class="process-step">
+          <span class="step-number">1</span>
+          <h3>找结构原型</h3>
+          <p>先看近几年公开 CAD 与比赛视频，记录底盘、拾取、输送、得分机构的常见实现。</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">2</span>
+          <h3>查零件尺寸</h3>
+          <p>用 MKCad、供应商官网和设计表格确认孔距、轴径、轮径、链轮、皮带轮和电机尺寸。</p>
+        </div>
+        <div class="process-step">
+          <span class="step-number">3</span>
+          <h3>做队内模板</h3>
+          <p>把常用型材、板厚、紧固件、加工限制和命名规范写成队内 CAD 模板。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>队伍资料库建议</h2>
+      <ul class="checklist">
+        <li>建立一个“公开 CAD 案例”文件夹，按赛季和机构类型分类。</li>
+        <li>保存常用 COTS 零件链接，标注国内采购替代件和交期。</li>
+        <li>每个子系统保留一页设计记录：目标、计算、草图、风险、迭代结果。</li>
+        <li>赛后复盘时补充“实际表现”和“下次不要再踩的坑”。</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="design.html">Back to Design</a></p>
+  </footer>
+  <script src="supabase-config.js"></script>
+  <script type="module" src="supabase-auth.js"></script>
+  <script type="module" src="supabase-tracking.js"></script>
+</body>
+</html>
+

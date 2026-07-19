@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onshape 阶段 4：机构练习 - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth-boot.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html">代码 Code</a></li>
+        <li><a href="design.html" class="active">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+  <header class="page-header">
+    <h1>阶段 4：机构练习</h1>
+    <p class="chinese">从标准小机构开始，训练 FRC 真实结构判断</p>
+  </header>
+  <main>
+    <p class="breadcrumb"><a href="design.html">设计 Design</a> / <a href="design-onshape.html">Onshape 学习步骤</a> / 阶段 4</p>
+    <section class="stage-detail-grid">
+      <article class="card">
+        <h2>练习清单</h2>
+        <ol class="mini-list">
+          <li>2x1 管件：画孔阵列、安装孔、减重孔和端部连接。</li>
+          <li>轮组：轴承、轴、轮子、垫片、锁紧方式和侧板支撑。</li>
+          <li>皮带或链条传动：中心距、张紧方式、护板和装配路径。</li>
+          <li>简易拾取：入口高度、滚轮压缩量、导向板和维修空间。</li>
+          <li>简易底盘：框架、轮子、齿轮箱、电池和电控空间。</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h2>设计判断</h2>
+        <ul class="mini-list">
+          <li>零件是否能从真实材料加工出来。</li>
+          <li>螺丝刀、扳手和手是否能伸进去维修。</li>
+          <li>皮带、链条、轴承和轮子是否能按顺序装进去。</li>
+          <li>机构是否有足够刚度，不会靠薄板单独承受大力。</li>
+        </ul>
+      </article>
+    </section>
+    <section>
+      <h2>交付物</h2>
+      <table>
+        <thead><tr><th>机构</th><th>必须展示</th><th>常见错误</th></tr></thead>
+        <tbody>
+          <tr><td>轮组</td><td>轴承、垫片、锁紧件、轮距</td><td>轴向没有限位，轮子左右窜动</td></tr>
+          <tr><td>传动</td><td>中心距、张紧、护板</td><td>皮带装不进去或无法张紧</td></tr>
+          <tr><td>拾取</td><td>game piece 路径、压缩量</td><td>只画滚轮，没有画导向和卡料出口</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <footer><p>FRC Wiki CN · <a href="design-onshape.html">Back to Onshape</a></p></footer>
+  <script src="supabase-config.js"></script>
+  <script type="module" src="supabase-auth.js"></script>
+  <script type="module" src="supabase-tracking.js"></script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>机械专有名词解析 - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth-boot.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html">代码 Code</a></li>
+        <li><a href="design.html" class="active">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>FRC机器人机械专有名词解析</h1>
+    <p class="chinese">传动、结构、轴承、加工装配与控制相关机械词汇</p>
+  </header>
+
+  <main>
+    <p class="breadcrumb"><a href="design.html">设计 Design</a> / 机械专有名词解析</p>
+
+    <section>
+      <h2>图解核心术语</h2>
+      <p class="section-intro">
+        下面这些词会频繁出现在 FRC 机械设计、计算器和英文资料中。先把含义对齐，讨论齿比、中心距和可控性时会顺很多。
+      </p>
+
+      <div class="term-grid">
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/backlash.jpg" alt="两个金属齿轮之间留有回差间隙的真实示意图">
+          <p class="visual-caption">图解：两个齿轮中间留出的空隙，就是方向反转时先“空转”一小段的来源。</p>
+          <h3>Backlash 回差 / 间隙</h3>
+          <p>输入端已经转动，但输出端还没有立刻跟着动的空行程。齿轮间隙、链条松弛、轴孔配合松动都会造成 backlash。</p>
+          <span>影响：位置控制变差，机械臂、转台、hood 等机构会抖动或定位不准。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/pitch.jpg" alt="同步带齿距 pitch 的真实示意图">
+          <p class="visual-caption">图解：相邻两个齿、孔或链节中心之间的距离，就是 pitch。</p>
+          <h3>Pitch 节距</h3>
+          <p>链条相邻销轴之间的距离，或同步带相邻齿之间的距离。皮带、链条、链轮、皮带轮必须使用匹配的 pitch。</p>
+          <span>例子：HTD 5mm 皮带、#25 链条 0.25 inch、#35 链条 0.375 inch。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/diametral-pitch.jpg" alt="不同齿形大小对比的齿轮径节示意图">
+          <p class="visual-caption">图解：同样直径下齿越多，DP 越大；齿越小，通常承受冲击能力越低。</p>
+          <h3>DP Diametral Pitch 径节</h3>
+          <p>英制齿轮常用参数，表示每英寸节圆直径上有多少个齿。FRC 常见 20DP、32DP、10DP。</p>
+          <span>判断：DP 数字越小，齿越大，通常更抗冲击；不同 DP 的齿轮不能啮合。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/center-distance.jpg" alt="两个皮带轮或轴之间中心距的真实示意图">
+          <p class="visual-caption">图解：从左轴中心量到右轴中心，这段距离就是中心距。</p>
+          <h3>Center Distance 中心距</h3>
+          <p>两个轴中心之间的距离。齿轮、链轮、皮带轮都需要合适中心距才能正常传动。</p>
+          <span>注意：中心距不是“差不多就行”，它会影响啮合、张紧、磨损和装配难度。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/gear-ratio.jpg" alt="小齿轮带动大齿轮形成传动比的真实示意图">
+          <p class="visual-caption">图解：小齿轮带大齿轮时，输出会变慢，但输出扭矩会变大。</p>
+          <h3>Gear Ratio 传动比 / 齿比</h3>
+          <p>输入和输出速度、扭矩的比例。减速会让输出更慢但扭矩更大；增速会让输出更快但扭矩更小。</p>
+          <span>常用：传动比 = 输出齿数 / 输入齿数。多级传动比相乘得到总传动比。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/reduction.jpg" alt="电机通过齿轮箱减速输出的真实示意图">
+          <p class="visual-caption">图解：电机高速转动，经过减速后，机构输出更慢但更有力。</p>
+          <h3>Reduction 减速</h3>
+          <p>通过齿轮、链条、皮带或齿轮箱降低输出转速，同时放大输出扭矩。</p>
+          <span>FRC 里多数机构都需要 reduction，因为电机空载转速很高，直接驱动通常扭矩不足。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/torque.jpg" alt="轴和力臂产生扭矩的真实示意图">
+          <p class="visual-caption">图解：同样的力，作用点离轴越远，产生的旋转力矩越大。</p>
+          <h3>Torque 扭矩</h3>
+          <p>让机构旋转的“转动力”。机械臂、升降、轮子加速、爬升都需要足够扭矩。</p>
+          <span>直觉：同样的力作用在更长的力臂上，会产生更大的扭矩。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/stall.jpg" alt="电机输出被挡块阻止造成堵转的真实示意图">
+          <p class="visual-caption">图解：电机想转，但输出端被挡住不动，这就是堵转。</p>
+          <h3>Stall 堵转</h3>
+          <p>电机被负载卡住无法转动时的状态。堵转电流很大，容易发热、掉压、烧电机或触发保护。</p>
+          <span>设计目标：不要让机构长时间接近堵转工作，尤其是升降、机械臂和爬升。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/efficiency.jpg" alt="齿轮箱输入输出能量损失的真实示意图">
+          <p class="visual-caption">图解：输入的能量经过传动后会损失一部分，输出不会等于 100%。</p>
+          <h3>Efficiency 效率</h3>
+          <p>传动过程中真正传到输出端的功率比例。摩擦、皮带弯折、链条啮合、轴承和齿轮箱都会损失能量。</p>
+          <span>计算时：输出扭矩通常要乘以效率，不要按 100% 理想情况设计。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/tension.jpg" alt="同步带和张紧轮调节张紧的真实示意图">
+          <p class="visual-caption">图解：皮带或链条太松会跳齿，太紧会增加摩擦和轴承负担。</p>
+          <h3>Tension 张紧</h3>
+          <p>链条或皮带需要保持合适松紧。太松会跳齿、甩链或增加 backlash；太紧会增加摩擦和轴承负载。</p>
+          <span>常见做法：滑槽调节、电机板可调、偏心轴承、张紧轮。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/wrap-angle.jpg" alt="皮带包住皮带轮形成包角的真实示意图">
+          <p class="visual-caption">图解：皮带接触轮子的角度越大，参与咬合的齿越多，越不容易打滑。</p>
+          <h3>Wrap Angle 包角</h3>
+          <p>皮带或链条包住皮带轮/链轮的角度。包角越小，参与传动的齿越少，越容易打滑或跳齿。</p>
+          <span>设计建议：小皮带轮、高负载机构要特别注意包角和张紧。</span>
+        </article>
+
+        <article class="term-card">
+          <img class="term-visual" src="assets/design-terms/idler.jpg" alt="惰轮改变皮带路径的真实示意图">
+          <p class="visual-caption">图解：中间的小轮不输出动力，只改变路径、增加包角或帮助张紧。</p>
+          <h3>Idler 惰轮 / 张紧轮</h3>
+          <p>不直接提供动力，只用来改变皮带/链条路径、增加包角或调整张紧的轮子。</p>
+          <span>注意：惰轮也会增加摩擦和零件数量，位置要方便维护。</span>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>更多 FRC 机械术语速查</h2>
+      <div class="more-terms">
+        <div class="term-table-grid">
+          <article>
+            <h4>传动与动力</h4>
+            <dl>
+              <div><dt>Sprocket 链轮</dt><dd>和链条啮合的轮子，齿数决定链传动的传动比。</dd></div>
+              <div><dt>Pulley 皮带轮</dt><dd>和同步带配合使用的轮子，常见 HTD 5mm 规格。</dd></div>
+              <div><dt>Stage 传动级</dt><dd>一组齿轮、链条或皮带传动叫一级；多级传动比相乘。</dd></div>
+              <div><dt>Free Speed 空载速度</dt><dd>电机或机构在几乎没有负载时的最高速度。</dd></div>
+              <div><dt>Current Draw 电流消耗</dt><dd>机构负载越大，电机电流通常越高；过高会发热或掉压。</dd></div>
+            </dl>
+          </article>
+          <article>
+            <h4>轴、轴承与支撑</h4>
+            <dl>
+              <div><dt>Bearing 轴承</dt><dd>支撑旋转轴并降低摩擦，FRC 常见法兰轴承和径向轴承。</dd></div>
+              <div><dt>Bushing 衬套</dt><dd>比轴承更简单的滑动支撑，便宜但摩擦通常更大。</dd></div>
+              <div><dt>Live Axle 主动轴</dt><dd>轴和轮子一起旋转，扭矩通过轴传递。</dd></div>
+              <div><dt>Dead Axle 固定轴</dt><dd>轴固定不转，轮子或滚轮绕轴承旋转。</dd></div>
+              <div><dt>Hex Shaft 六角轴</dt><dd>FRC 常用 1/2 inch 六角轴，不需要键槽也能传扭矩。</dd></div>
+            </dl>
+          </article>
+          <article>
+            <h4>结构与连接</h4>
+            <dl>
+              <div><dt>Gusset 连接板</dt><dd>用于连接铝管、加固角部或把结构固定成直角。</dd></div>
+              <div><dt>Standoff 支撑柱</dt><dd>用来保持两块板之间距离的柱状连接件。</dd></div>
+              <div><dt>Spacer 垫片 / 间隔套</dt><dd>用于调整轴上零件位置，避免轮子、链轮左右窜动。</dd></div>
+              <div><dt>Rivet 铆钉</dt><dd>快速连接薄板和管材，轻、快，但拆卸不如螺栓方便。</dd></div>
+              <div><dt>Belly Pan 底板</dt><dd>底盘中间的大板，常用于安装电控，也能增加底盘刚度。</dd></div>
+            </dl>
+          </article>
+          <article>
+            <h4>机构与运动</h4>
+            <dl>
+              <div><dt>Intake 拾取机构</dt><dd>把场地上的 game piece 吸入机器人。</dd></div>
+              <div><dt>Indexer / Conveyor 输送机构</dt><dd>把 game piece 从 intake 送到 shooter 或 scoring mechanism。</dd></div>
+              <div><dt>Elevator 升降机构</dt><dd>通过滑轨、链条、皮带或绳索让机构上下移动。</dd></div>
+              <div><dt>Arm 机械臂</dt><dd>绕一个或多个关节旋转的机构，常用于触达不同高度。</dd></div>
+              <div><dt>Hard Stop 机械限位</dt><dd>用实体结构限制机构最大行程，保护电机和连杆。</dd></div>
+            </dl>
+          </article>
+          <article>
+            <h4>加工与装配</h4>
+            <dl>
+              <div><dt>Tolerance 公差</dt><dd>实际加工尺寸允许偏离设计尺寸的范围。</dd></div>
+              <div><dt>Clearance 间隙</dt><dd>两个零件之间预留的空间，避免干涉或方便装配。</dd></div>
+              <div><dt>Interference 干涉</dt><dd>两个零件在 CAD 或实物中占据同一空间，通常需要修改。</dd></div>
+              <div><dt>Pocketing 减重开槽</dt><dd>在板件上挖掉不必要材料，降低重量但要保留强度。</dd></div>
+              <div><dt>BOM 物料清单</dt><dd>Bill of Materials，记录零件名称、数量、规格、供应商和采购状态。</dd></div>
+            </dl>
+          </article>
+          <article>
+            <h4>控制相关机械概念</h4>
+            <dl>
+              <div><dt>Moment of Inertia 转动惯量</dt><dd>机构越重、质量离转轴越远，越难加速和刹停。</dd></div>
+              <div><dt>Center of Gravity 重心</dt><dd>机器人整体质量集中位置，影响翻车风险和爬坡稳定性。</dd></div>
+              <div><dt>Compliance 柔顺性</dt><dd>机构受力后会弹性变形的程度；太软会影响控制精度。</dd></div>
+              <div><dt>Resonance 共振</dt><dd>机构在某些速度或控制频率下明显抖动，需要机械或控制上避开。</dd></div>
+              <div><dt>Factor of Safety 安全系数</dt><dd>设计强度相对实际负载的余量，比赛冲击场景不能只按静态负载设计。</dd></div>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="design.html">Back to Design</a></p>
+  </footer>
+  <script src="supabase-config.js"></script>
+  <script type="module" src="supabase-auth.js"></script>
+  <script type="module" src="supabase-tracking.js"></script>
+</body>
+</html>
+

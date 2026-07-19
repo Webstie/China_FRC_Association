@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onshape 阶段 2：基础 CAD - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth-boot.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html">代码 Code</a></li>
+        <li><a href="design.html" class="active">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+  <header class="page-header">
+    <h1>阶段 2：基础 CAD</h1>
+    <p class="chinese">掌握草图、约束、特征、装配和工程图的基本功</p>
+  </header>
+  <main>
+    <p class="breadcrumb"><a href="design.html">设计 Design</a> / <a href="design-onshape.html">Onshape 学习步骤</a> / 阶段 2</p>
+    <section class="stage-detail-grid">
+      <article class="card">
+        <h2>必须掌握</h2>
+        <ul class="mini-list">
+          <li>草图完全约束：尺寸、水平垂直、同心、相切、对称、重合。</li>
+          <li>常用特征：Extrude、Remove、Fillet、Chamfer、Mirror、Pattern、Hole。</li>
+          <li>装配配合：Fastened、Revolute、Slider，以及 Mate Connector 的方向。</li>
+          <li>工程图：视图、尺寸、公差备注、孔表和导出 PDF。</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>推荐练习顺序</h2>
+        <ol class="mini-list">
+          <li>画一个 2x1 管件，长度 300 mm，孔距 0.5 inch 或 1 inch 网格。</li>
+          <li>画一块 3 mm 板件，包含轴承孔、安装孔和倒角。</li>
+          <li>把管件和板件装配起来，使用 Fastened Mate 定位。</li>
+          <li>创建一个转动轴，使用 Revolute Mate 检查旋转自由度。</li>
+          <li>导出工程图，标清关键孔距、孔径、板厚和材料。</li>
+        </ol>
+      </article>
+    </section>
+    <section>
+      <h2>检查标准</h2>
+      <ul class="checklist">
+        <li>草图没有蓝色欠约束线段。</li>
+        <li>零件尺寸可以通过少数核心尺寸驱动，而不是堆很多无关尺寸。</li>
+        <li>装配不会因为拖动鼠标而散架。</li>
+        <li>工程图能让加工同学独立理解零件。</li>
+      </ul>
+    </section>
+  </main>
+  <footer><p>FRC Wiki CN · <a href="design-onshape.html">Back to Onshape</a></p></footer>
+  <script src="supabase-config.js"></script>
+  <script type="module" src="supabase-auth.js"></script>
+  <script type="module" src="supabase-tracking.js"></script>
+</body>
+</html>
