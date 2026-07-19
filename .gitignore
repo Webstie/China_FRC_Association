@@ -1,0 +1,33 @@
+# ---- OS ----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ---- Editors / IDEs ----
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ---- Node / tooling (this static site has no build step, but keep it clean) ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.cache/
+.tmp/
+tmp/
+
+# ---- Logs ----
+*.log
+
+# NOTE: supabase-config.js is intentionally NOT ignored.
+# The site is a static GitHub Pages deploy, so this file must ship to the browser.
+# It only holds the Supabase project URL + the publishable (anon) key, which are
+# safe for public clients and are protected by Row Level Security. Never put a
+# service_role key in this repo.

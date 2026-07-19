@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - FRC Wiki CN</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth-boot.js"></script>
+  <style>
+    .admin-main {
+      display: grid;
+      gap: 28px;
+    }
+
+    .admin-panel {
+      padding: 24px;
+      border: 1px solid var(--frc-border);
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 12px 28px rgba(15, 39, 65, 0.06);
+      overflow-x: auto;
+    }
+
+    .admin-status {
+      color: var(--frc-gray);
+      font-weight: 700;
+    }
+
+    .admin-status.is-error {
+      color: var(--frc-red);
+    }
+
+    .admin-panel h2 {
+      margin-bottom: 18px;
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .admin-panel code {
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
+      <ul class="nav-links">
+        <li><a href="index.html">主页 Home</a></li>
+        <li><a href="info.html">信息 Info</a></li>
+        <li><a href="shopping.html">购物 Shopping</a></li>
+        <li><a href="code.html">代码 Code</a></li>
+        <li><a href="design.html">设计 Design</a></li>
+        <li><a href="calendar.html">日历 Calendar</a></li>
+        <li><a href="registration.html">注册 Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>Admin</h1>
+    <p class="chinese">用户与页面统计后台</p>
+  </header>
+
+  <main class="admin-main">
+    <p class="admin-status" data-admin-status>正在加载后台数据...</p>
+
+    <section class="admin-panel">
+      <h2>用户 Users</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>邮箱</th>
+            <th>UID</th>
+            <th>角色</th>
+            <th>注册时间</th>
+            <th>最近登录</th>
+          </tr>
+        </thead>
+        <tbody data-admin-users></tbody>
+      </table>
+    </section>
+
+    <section class="admin-panel">
+      <h2>页面统计 Page Stats</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>页面</th>
+            <th>浏览次数</th>
+            <th>平均停留</th>
+            <th>总停留</th>
+          </tr>
+        </thead>
+        <tbody data-admin-stats></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>FRC Wiki CN · <a href="index.html">返回主页</a></p>
+  </footer>
+
+  <script src="supabase-config.js"></script>
+  <script type="module" src="supabase-auth.js"></script>
+  <script type="module" src="admin.js"></script>
+
+</body>
+</html>
