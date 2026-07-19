@@ -19,14 +19,15 @@
     /* Hero */
     .info-hero {
       background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 212, 255, 0.18), transparent 70%),
-        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(237, 28, 36, 0.12), transparent 60%),
-        linear-gradient(180deg, #0a0e1a 0%, #11162a 100%);
+        radial-gradient(circle at 18% 18%, rgba(237, 28, 36, 0.34), transparent 28%),
+        radial-gradient(circle at 82% 12%, rgba(251, 191, 36, 0.24), transparent 26%),
+        radial-gradient(circle at 78% 86%, rgba(0, 212, 255, 0.2), transparent 30%),
+        linear-gradient(135deg, #071320 0%, #102f52 50%, #081b2f 100%);
       padding: 100px 24px 80px;
       text-align: center;
       position: relative;
       overflow: hidden;
-      border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .info-hero::before {
@@ -34,11 +35,24 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0, 212, 255, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 212, 255, 0.06) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: radial-gradient(ellipse 80% 60% at center, black 30%, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 60% at center, black 30%, transparent 80%);
+        linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(ellipse 82% 72% at 42% 28%, black 34%, transparent 82%);
+      -webkit-mask-image: radial-gradient(ellipse 82% 72% at 42% 28%, black 34%, transparent 82%);
+      pointer-events: none;
+    }
+
+    .info-hero::after {
+      content: '';
+      position: absolute;
+      inset: auto -12% -42% 38%;
+      height: 82%;
+      transform: rotate(-9deg);
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0)),
+        linear-gradient(90deg, rgba(0, 102, 179, 0.32), rgba(237, 28, 36, 0.2));
+      filter: blur(1px);
       pointer-events: none;
     }
 

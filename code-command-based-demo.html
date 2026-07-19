@@ -25,7 +25,20 @@
   code,kbd,.mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
 
   /* hero */
-  .hero{padding:56px 22px 40px; background:linear-gradient(180deg,#0b2348,#0f3a6e); color:#fff}
+  .hero{position:relative; overflow:hidden; padding:56px 22px 40px; color:#fff;
+    background:
+      radial-gradient(circle at 18% 18%, rgba(237,28,36,.34), transparent 28%),
+      radial-gradient(circle at 82% 12%, rgba(251,191,36,.26), transparent 26%),
+      radial-gradient(circle at 78% 86%, rgba(16,185,129,.18), transparent 30%),
+      linear-gradient(135deg,#0b1d33 0%,#0f3a63 48%,#082743 100%)}
+  .hero::before{content:""; position:absolute; inset:0; background-image:
+    linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+    background-size:46px 46px; mask-image:radial-gradient(ellipse 82% 72% at 42% 28%, black 34%, transparent 82%);
+    -webkit-mask-image:radial-gradient(ellipse 82% 72% at 42% 28%, black 34%, transparent 82%)}
+  .hero::after{content:""; position:absolute; inset:auto -12% -42% 38%; height:82%; transform:rotate(-9deg);
+    background:linear-gradient(90deg,rgba(255,255,255,.16),rgba(255,255,255,0)),linear-gradient(90deg,rgba(0,102,179,.32),rgba(237,28,36,.2)); filter:blur(1px)}
+  .hero > *{position:relative; z-index:1}
   .hero .wrap{max-width:880px}
   .hero .tag{display:inline-block; font-size:13px; letter-spacing:2px; text-transform:uppercase;
     color:#9fc4ef; font-weight:700; margin:0 0 10px}
