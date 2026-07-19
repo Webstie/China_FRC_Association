@@ -6,27 +6,27 @@
   <title>Information Hub — FRC Wiki CN</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* ===== Info page — scoped dark tech theme ===== */
-    body.info-dark {
-      background: #0a0e1a;
-      color: #e0e0e8;
+    /* ===== Info page — light theme, consistent with the rest of the site ===== */
+    body.info-page {
+      background: var(--frc-light);
+      color: var(--frc-dark);
     }
 
-    .info-dark main {
+    .info-page main {
       max-width: 1280px;
+      padding: 64px 24px;
     }
 
-    /* Hero */
+    /* Hero — blue banner, matching the site's hero/page-header */
     .info-hero {
       background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 212, 255, 0.18), transparent 70%),
-        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(237, 28, 36, 0.12), transparent 60%),
-        linear-gradient(180deg, #0a0e1a 0%, #11162a 100%);
-      padding: 100px 24px 80px;
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 255, 255, 0.12), transparent 70%),
+        linear-gradient(135deg, var(--frc-blue) 0%, #003d6b 100%);
+      padding: 84px 24px 68px;
       text-align: center;
       position: relative;
       overflow: hidden;
-      border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+      color: #ffffff;
     }
 
     .info-hero::before {
@@ -34,8 +34,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0, 212, 255, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 212, 255, 0.06) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
       background-size: 48px 48px;
       mask-image: radial-gradient(ellipse 80% 60% at center, black 30%, transparent 80%);
       -webkit-mask-image: radial-gradient(ellipse 80% 60% at center, black 30%, transparent 80%);
@@ -52,35 +52,32 @@
       font-size: 0.8rem;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: #00d4ff;
+      color: #ffffff;
       padding: 6px 16px;
-      border: 1px solid rgba(0, 212, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.5);
       border-radius: 100px;
-      background: rgba(0, 212, 255, 0.06);
+      background: rgba(255, 255, 255, 0.12);
       margin-bottom: 24px;
     }
 
     .info-hero h1 {
-      font-size: 4rem;
+      font-size: 3.6rem;
       font-weight: 800;
-      letter-spacing: -2px;
-      background: linear-gradient(135deg, #ffffff 0%, #00d4ff 50%, #4361ee 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      letter-spacing: -1.5px;
+      color: #ffffff;
       margin-bottom: 16px;
       line-height: 1.05;
     }
 
     .info-hero .chinese-title {
-      font-size: 1.4rem;
-      color: #b0b0c8;
+      font-size: 1.35rem;
+      color: rgba(255, 255, 255, 0.9);
       margin-bottom: 8px;
       font-weight: 300;
     }
 
     .info-hero .tagline {
-      color: #8888a8;
+      color: rgba(255, 255, 255, 0.78);
       max-width: 620px;
       margin: 24px auto 0;
       font-size: 1.05rem;
@@ -97,8 +94,8 @@
 
     .stat {
       padding: 20px;
-      background: rgba(20, 25, 45, 0.6);
-      border: 1px solid rgba(0, 212, 255, 0.15);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 14px;
       backdrop-filter: blur(8px);
     }
@@ -106,29 +103,22 @@
     .stat-number {
       font-size: 2.4rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #00d4ff, #4361ee);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #ffffff;
       display: block;
       line-height: 1;
     }
 
     .stat-label {
-      color: #8888a0;
+      color: rgba(255, 255, 255, 0.75);
       font-size: 0.78rem;
       margin-top: 8px;
       text-transform: uppercase;
       letter-spacing: 1.5px;
     }
 
-    /* Main content */
-    .info-dark main {
-      padding: 64px 24px;
-    }
-
-    .info-dark h2 {
-      color: white;
+    /* Section headings */
+    .info-page h2 {
+      color: var(--frc-dark);
       border: none;
       padding: 0;
       display: block;
@@ -137,10 +127,8 @@
 
     /* Featured card */
     .featured-block {
-      background:
-        linear-gradient(135deg, rgba(0, 102, 179, 0.2) 0%, rgba(237, 28, 36, 0.1) 100%),
-        rgba(20, 25, 45, 0.6);
-      border: 1px solid rgba(0, 212, 255, 0.3);
+      background: #ffffff;
+      border: 1px solid var(--frc-border);
       border-radius: 20px;
       padding: 40px;
       margin-bottom: 64px;
@@ -150,14 +138,15 @@
       align-items: center;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 12px 32px rgba(15, 39, 65, 0.06);
     }
 
     .featured-block::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #00d4ff, #ED1C24, #00d4ff, transparent);
+      height: 4px;
+      background: linear-gradient(90deg, var(--frc-red), var(--frc-blue));
     }
 
     .featured-badge {
@@ -165,27 +154,27 @@
       font-size: 0.72rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #ED1C24;
+      color: var(--frc-red);
       padding: 4px 12px;
-      border: 1px solid rgba(237, 28, 36, 0.5);
+      border: 1px solid rgba(237, 28, 36, 0.4);
       border-radius: 100px;
-      background: rgba(237, 28, 36, 0.08);
+      background: rgba(237, 28, 36, 0.06);
       margin-bottom: 12px;
     }
 
     .featured-block h3 {
       font-size: 1.75rem;
-      color: white;
+      color: var(--frc-dark);
       margin: 0 0 8px;
     }
 
     .featured-block .chinese {
-      color: #00d4ff;
+      color: var(--frc-blue);
       margin-bottom: 16px;
     }
 
     .featured-block p {
-      color: #b0b0c8;
+      color: var(--frc-gray);
       margin-bottom: 0;
       font-size: 1rem;
     }
@@ -193,18 +182,19 @@
     .featured-cta {
       display: inline-block;
       padding: 14px 28px;
-      background: linear-gradient(135deg, #00d4ff, #4361ee);
-      color: white;
+      background: var(--frc-blue);
+      color: #ffffff;
       text-decoration: none;
       border-radius: 10px;
-      font-weight: 600;
+      font-weight: 700;
       white-space: nowrap;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
     }
 
     .featured-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+      background: #0a5aa0;
+      box-shadow: 0 10px 24px rgba(0, 102, 179, 0.25);
     }
 
     /* Category sections */
@@ -218,7 +208,7 @@
       gap: 20px;
       margin-bottom: 32px;
       padding-bottom: 16px;
-      border-bottom: 1px solid rgba(0, 212, 255, 0.12);
+      border-bottom: 1px solid var(--frc-border);
     }
 
     .category-icon {
@@ -228,8 +218,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(67, 97, 238, 0.1));
-      border: 1px solid rgba(0, 212, 255, 0.3);
+      background: linear-gradient(135deg, rgba(0, 102, 179, 0.1), rgba(0, 102, 179, 0.04));
+      border: 1px solid rgba(0, 102, 179, 0.2);
       border-radius: 14px;
       flex-shrink: 0;
     }
@@ -241,24 +231,24 @@
     .category-title {
       font-size: 1.5rem;
       font-weight: 700;
-      color: white;
+      color: var(--frc-dark);
       margin: 0;
       display: block;
     }
 
     .category-subtitle {
-      color: #8888a0;
+      color: var(--frc-gray);
       font-size: 0.9rem;
       margin-top: 4px;
     }
 
     .category-count {
-      color: #00d4ff;
+      color: var(--frc-blue);
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       padding: 6px 14px;
-      background: rgba(0, 212, 255, 0.08);
-      border: 1px solid rgba(0, 212, 255, 0.25);
+      background: rgba(0, 102, 179, 0.07);
+      border: 1px solid rgba(0, 102, 179, 0.2);
       border-radius: 100px;
     }
 
@@ -270,11 +260,11 @@
     }
 
     .tech-card {
-      background: linear-gradient(145deg, rgba(20, 25, 45, 0.7), rgba(15, 20, 35, 0.4));
-      border: 1px solid rgba(0, 212, 255, 0.12);
+      background: #ffffff;
+      border: 1px solid var(--frc-border);
       border-radius: 14px;
       padding: 24px;
-      transition: all 0.25s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
       position: relative;
       overflow: hidden;
       text-decoration: none;
@@ -287,17 +277,16 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #00d4ff, transparent);
+      height: 3px;
+      background: linear-gradient(90deg, var(--frc-blue), var(--frc-red));
       opacity: 0;
       transition: opacity 0.3s;
     }
 
     .tech-card:hover {
-      border-color: rgba(0, 212, 255, 0.4);
+      border-color: rgba(0, 102, 179, 0.35);
       transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0, 212, 255, 0.12);
-      background: linear-gradient(145deg, rgba(25, 30, 55, 0.8), rgba(20, 25, 45, 0.5));
+      box-shadow: 0 12px 28px rgba(15, 39, 65, 0.1);
     }
 
     .tech-card:hover::before {
@@ -307,24 +296,23 @@
     .card-logo {
       font-size: 2rem;
       margin-bottom: 14px;
-      filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.25));
     }
 
     .tech-card h3 {
-      color: white;
+      color: var(--frc-dark);
       margin: 0 0 4px;
       font-size: 1.1rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .tech-card .chinese-name {
-      color: #00d4ff;
+      color: var(--frc-blue);
       font-size: 0.85rem;
       margin-bottom: 12px;
     }
 
     .tech-card .desc {
-      color: #9090a8;
+      color: var(--frc-gray);
       font-size: 0.88rem;
       line-height: 1.55;
       margin-bottom: 16px;
@@ -341,63 +329,36 @@
       font-size: 0.65rem;
       padding: 3px 10px;
       border-radius: 100px;
-      background: rgba(0, 212, 255, 0.1);
-      border: 1px solid rgba(0, 212, 255, 0.25);
-      color: #5ce1ff;
-      font-weight: 600;
+      background: rgba(0, 102, 179, 0.08);
+      border: 1px solid rgba(0, 102, 179, 0.22);
+      color: var(--frc-blue);
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
     }
 
     .tag.official {
-      background: rgba(237, 28, 36, 0.08);
-      border-color: rgba(237, 28, 36, 0.35);
-      color: #ff6b75;
+      background: rgba(237, 28, 36, 0.07);
+      border-color: rgba(237, 28, 36, 0.3);
+      color: var(--frc-red);
     }
 
     .tag.chinese {
-      background: rgba(255, 195, 0, 0.08);
-      border-color: rgba(255, 195, 0, 0.35);
-      color: #ffd44d;
+      background: rgba(181, 130, 10, 0.09);
+      border-color: rgba(181, 130, 10, 0.3);
+      color: #b5820a;
     }
 
     .tag.beginner {
-      background: rgba(76, 217, 100, 0.08);
-      border-color: rgba(76, 217, 100, 0.35);
-      color: #6ee082;
+      background: rgba(4, 120, 87, 0.08);
+      border-color: rgba(4, 120, 87, 0.3);
+      color: #047857;
     }
 
     .tag.advanced {
-      background: rgba(175, 82, 222, 0.1);
-      border-color: rgba(175, 82, 222, 0.35);
-      color: #c78fff;
-    }
-
-    /* Callout in dark theme */
-    .info-dark .callout {
-      background: rgba(255, 195, 0, 0.06);
-      border-left: 3px solid #ffd44d;
-      color: #d0d0e0;
-    }
-
-    .info-dark .callout strong {
-      color: #ffd44d;
-    }
-
-    .info-dark .callout.todo {
-      background: rgba(237, 28, 36, 0.06);
-      border-left-color: #ff6b75;
-    }
-
-    .info-dark .callout.todo strong {
-      color: #ff6b75;
-    }
-
-    /* Footer override */
-    .info-dark footer {
-      background: #050810;
-      margin-top: 0;
-      border-top: 1px solid rgba(0, 212, 255, 0.1);
+      background: rgba(124, 58, 175, 0.08);
+      border-color: rgba(124, 58, 175, 0.3);
+      color: #7c3aaf;
     }
 
     @media (max-width: 768px) {
@@ -410,7 +371,7 @@
   </style>
   <script src="auth-boot.js"></script>
 </head>
-<body class="info-dark">
+<body class="info-page">
 
   <nav class="navbar">
     <div class="nav-container">
@@ -619,7 +580,7 @@
           <div class="category-title">Chinese Community</div>
           <div class="category-subtitle">中文社区 — 国内队伍最常用的中文渠道</div>
         </div>
-        <span class="category-count">2 links</span>
+        <span class="category-count">1 link</span>
       </div>
 
       <div class="resource-grid">
@@ -635,17 +596,6 @@
           </div>
         </a>
 
-        <a class="tech-card" href="https://www.zhihu.com/search?type=content&amp;q=FRC%20机器人竞赛" target="_blank">
-          <div class="card-logo">📰</div>
-          <h3>知乎 FRC 话题</h3>
-          <div class="chinese-name">Zhihu FRC Topics</div>
-          <p class="desc">知乎上关于 FRC 的讨论与经验分享 — 适合阅读队伍故事和深度复盘。</p>
-          <div class="tags">
-            <span class="tag chinese">中文</span>
-            <span class="tag">Discussion</span>
-          </div>
-        </a>
-
       </div>
     </section>
 
@@ -657,7 +607,7 @@
           <div class="category-title">Forums &amp; Community</div>
           <div class="category-subtitle">英文社区论坛 — where the global FRC community lives</div>
         </div>
-        <span class="category-count">4 links</span>
+        <span class="category-count">2 links</span>
       </div>
 
       <div class="resource-grid">
@@ -673,29 +623,7 @@
           </div>
         </a>
 
-        <a class="tech-card" href="https://www.reddit.com/r/FRC/" target="_blank">
-          <div class="card-logo">🤖</div>
-          <h3>r/FRC Reddit</h3>
-          <div class="chinese-name">Reddit FRC 板块</div>
-          <p class="desc">Casual discussion, memes, and quick questions. Less formal than Chief Delphi.</p>
-          <div class="tags">
-            <span class="tag">Forum</span>
-            <span class="tag">Casual</span>
-          </div>
-        </a>
-
-        <a class="tech-card" href="https://www.thebluealliance.com/discord" target="_blank">
-          <div class="card-logo">🎮</div>
-          <h3>FRC Discord</h3>
-          <div class="chinese-name">FRC Discord 服务器</div>
-          <p class="desc">Real-time chat with mentors and students worldwide. Multiple topic channels.</p>
-          <div class="tags">
-            <span class="tag">Chat</span>
-            <span class="tag">Live</span>
-          </div>
-        </a>
-
-        <a class="tech-card" href="https://www.chiefdelphi.com/c/general/open-alliance/" target="_blank">
+        <a class="tech-card" href="https://www.chiefdelphi.com/c/first/open-alliance/89" target="_blank">
           <div class="card-logo">📂</div>
           <h3>Open Alliance</h3>
           <div class="chinese-name">公开同盟</div>
@@ -745,11 +673,11 @@
           </div>
         </a>
 
-        <a class="tech-card" href="https://www.youtube.com/@team1678" target="_blank">
+        <a class="tech-card" href="https://www.youtube.com/playlist?list=PLkZ6_Ld1x9Y_GDGwzzxD_vi_5tnlmAWJo" target="_blank">
           <div class="card-logo">📺</div>
-          <h3>Team 1678 Software Sessions</h3>
-          <div class="chinese-name">1678 软件教程</div>
-          <p class="desc">Citrus Circuits' deep technical sessions — swerve, vision, advanced control.</p>
+          <h3>Behind the Bumpers</h3>
+          <div class="chinese-name">FUN Robotics 机器人拆解</div>
+          <p class="desc">FUN Robotics Network interviews teams in the pits and walks through real FRC robot mechanisms, packaging, and strategy choices.</p>
           <div class="tags">
             <span class="tag advanced">Advanced</span>
             <span class="tag">Video</span>
