@@ -411,7 +411,6 @@ function allowSite(user) {
   document.documentElement.classList.remove("auth-loading", "auth-required");
   document.querySelector(".auth-gate")?.remove();
   renderUserBar(user);
-  renderNavLogout(user);
   window.dispatchEvent(new CustomEvent("frc-auth-ready", { detail: { user } }));
   authReadyResolve(user);
 }
@@ -452,23 +451,6 @@ function renderUserBar(user) {
   }
 
   bar.querySelector("[data-auth-user-email]").textContent = user.email || "已登录";
-}
-
-function renderNavLogout(user) {
-  const navLinks = document.querySelector(".nav-links");
-  if (!navLinks || navLinks.querySelector("[data-auth-nav-logout]")) {
-    return;
-  }
-
-  const item = document.createElement("li");
-  item.innerHTML = `
-    <button class="language-toggle" type="button" data-auth-nav-logout title="${user.email || "已登录"}">退出</button>
-  `;
-  navLinks.appendChild(item);
-  item.querySelector("[data-auth-nav-logout]").addEventListener("click", async () => {
-    await supabase.auth.signOut();
-    window.location.assign(HOME_PAGE);
-  });
 }
 
 function showConfigError() {

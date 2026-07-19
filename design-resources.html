@@ -13,13 +13,14 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
       <ul class="nav-links">
-        <li><a href="index.html">主页 Home</a></li>
-        <li><a href="info.html">信息 Info</a></li>
-        <li><a href="shopping.html">购物 Shopping</a></li>
-        <li><a href="code.html">代码 Code</a></li>
-        <li><a href="design.html" class="active">设计 Design</a></li>
-        <li><a href="calendar.html">日历 Calendar</a></li>
-        <li><a href="registration.html">注册 Registration</a></li>
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" data-en="Code">代码</a></li>
+        <li><a href="design.html" class="active" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle aria-label="Switch to English"><span class="language-option is-active" data-lang-option="zh">中文</span><span class="language-option" data-lang-option="en">EN</span></button></li>
       </ul>
     </div>
   </nav>
@@ -30,7 +31,7 @@
   </header>
 
   <main>
-    <p class="breadcrumb"><a href="design.html">设计 Design</a> / 结构设计网站资源</p>
+    <p class="breadcrumb"><a href="design.html" data-en="Design">设计</a> / 结构设计网站资源</p>
 
     <section>
       <h2>优先收藏</h2>
@@ -43,7 +44,7 @@
           <div class="resource-copy">
             <div class="resource-heading">
               <h3>FRCDesign.org</h3>
-              <a href="https://frcdesign.org/" target="_blank" rel="noopener">打开网站</a>
+              <a href="https://frcdesign.org/" target="_blank" rel="noopener" data-en="Open site">打开网站</a>
             </div>
             <p>
               面向 FRC 的机械设计与 Onshape 学习主线课程。适合新队员从 CAD 基础、传动、结构、子系统建模到 top-down 设计逐步学习。
@@ -73,7 +74,7 @@
           <div class="resource-copy">
             <div class="resource-heading">
               <h3>Onshape for FIRST Robotics</h3>
-              <a href="https://www.onshape.com/en/education/first-robotics" target="_blank" rel="noopener">打开网站</a>
+              <a href="https://www.onshape.com/en/education/first-robotics" target="_blank" rel="noopener" data-en="Open site">打开网站</a>
             </div>
             <p>
               Onshape 官方 FIRST 页面，负责账号申请、教育版入口、团队协作说明和机器人设计资源入口。它更像“官方起点”，不是完整课程。
@@ -103,7 +104,7 @@
           <div class="resource-copy">
             <div class="resource-heading">
               <h3>Onshape4FRC</h3>
-              <a href="https://www.littletonrobotics.org/onshape4frc/" target="_blank" rel="noopener">打开网站</a>
+              <a href="https://www.littletonrobotics.org/onshape4frc/" target="_blank" rel="noopener" data-en="Open site">打开网站</a>
             </div>
             <p>
               FRC 6328 整理的 Onshape/FRC 资源导航。它把 MKCad、FeatureScript、计算器、CAD 库、教程和常用链接集中在一个页面里，非常适合日常查工具。
@@ -133,7 +134,7 @@
           <div class="resource-copy">
             <div class="resource-heading">
               <h3>Spectrum Robot Design Sheet</h3>
-              <a href="https://www.spectrum3847.org/spectrum-robot-design-sheet/" target="_blank" rel="noopener">打开网站</a>
+              <a href="https://www.spectrum3847.org/spectrum-robot-design-sheet/" target="_blank" rel="noopener" data-en="Open site">打开网站</a>
             </div>
             <p>
               FRC 3847 的机器人设计表格模板，用来记录关键参数、计算结果、零件选择和子系统设计决策。它不是教程，而是帮助队伍把设计过程留下来的工作表。
@@ -309,6 +310,7 @@
   <footer>
     <p>FRC Wiki CN · <a href="design.html">Back to Design</a></p>
   </footer>
+  <script src="language-toggle.js"></script>
   <script src="supabase-config.js"></script>
   <script type="module" src="supabase-auth.js"></script>
   <script type="module" src="supabase-tracking.js"></script>

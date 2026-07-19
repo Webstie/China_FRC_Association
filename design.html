@@ -13,100 +13,96 @@
     <div class="nav-container">
       <a href="index.html" class="nav-logo">FRC <span class="accent">Wiki</span> CN</a>
       <ul class="nav-links">
-        <li><a href="index.html">主页 Home</a></li>
-        <li><a href="info.html">信息 Info</a></li>
-        <li><a href="shopping.html">购物 Shopping</a></li>
-        <li><a href="code.html">代码 Code</a></li>
-        <li><a href="design.html" class="active">设计 Design</a></li>
-        <li><a href="calendar.html">日历 Calendar</a></li>
-        <li><a href="registration.html">注册 Registration</a></li>
+        <li><a href="index.html" data-en="Home">主页</a></li>
+        <li><a href="info.html" data-en="Info">信息</a></li>
+        <li><a href="shopping.html" data-en="Shopping">购物</a></li>
+        <li><a href="code.html" data-en="Code">代码</a></li>
+        <li><a href="design.html" class="active" data-en="Design">设计</a></li>
+        <li><a href="calendar.html" data-en="Calendar">日历</a></li>
+        <li><a href="registration.html" data-en="Registration">注册</a></li>
+        <li><button class="language-toggle" type="button" data-language-toggle aria-label="Switch to English"><span class="language-option is-active" data-lang-option="zh">中文</span><span class="language-option" data-lang-option="en">EN</span></button></li>
       </ul>
     </div>
   </nav>
 
   <header class="page-header">
-    <h1>设计 Design</h1>
-    <p class="chinese">FRC 机器人结构、传动、设计理论与 Onshape 学习路线</p>
+    <h1 data-en="Design">设计</h1>
+    <p class="chinese" data-en="Robot structure, power transmission, design theory, and an Onshape learning path for FRC teams">FRC 机器人结构、传动、设计理论与 Onshape 学习路线</p>
   </header>
 
   <main>
     <section>
-      <h2>设计学习模块</h2>
-      <p class="section-intro">
+      <h2 data-en="Design Learning Modules">设计学习模块</h2>
+      <p class="section-intro" data-en="This section breaks FRC mechanical design into five entry points: find reliable resources, learn terminology and core concepts, use calculators to verify designs, study design theory, and finally build an Onshape CAD workflow for the team.">
         这里把 FRC 机械设计拆成五个入口：先找到可靠资源，再学习术语和基础概念，用计算工具验证方案，随后学习设计理论，最后用 Onshape 建立团队 CAD 流程。
       </p>
 
       <div class="card-grid design-module-grid">
         <a class="card module-card" href="design-resources.html">
           <div class="icon">🔗</div>
-          <h3>FRC机器人结构设计常用网站资源</h3>
-          <div class="chinese">Design resources</div>
-          <p>官方文档、FRCDesign、MKCad、Spectrum 资源、公开 CAD 与零件资料入口。</p>
+          <h3 data-en="FRC Mechanical Design Resources">FRC机器人结构设计常用网站资源</h3>
+          <p data-en="Official docs, FRCDesign, MKCad, Spectrum resources, public CAD, and parts references.">官方文档、FRCDesign、MKCad、Spectrum 资源、公开 CAD 与零件资料入口。</p>
         </a>
 
         <a class="card module-card" href="design-terms.html">
           <div class="icon">📚</div>
-          <h3>FRC机器人机械专有名词解析</h3>
-          <div class="chinese">Mechanical terminology</div>
-          <p>Backlash、Pitch、DP、中心距、张紧、包角、轴承、结构连接和控制相关机械概念。</p>
+          <h3 data-en="FRC Mechanical Terminology">FRC机器人机械专有名词解析</h3>
+          <p data-en="Backlash, pitch, diametral pitch, center distance, tensioning, wrap angle, bearings, structural joints, and control-related mechanical concepts.">Backlash、Pitch、DP、中心距、张紧、包角、轴承、结构连接和控制相关机械概念。</p>
         </a>
 
         <a class="card module-card" href="design-calculators.html">
           <div class="icon">🧮</div>
-          <h3>FRC机器人传动计算工具汇总</h3>
-          <div class="chinese">Drivetrain and mechanism calculators</div>
-          <p>齿比、链条/皮带中心距、飞轮、升降、电机曲线、气动与梁弯曲计算工具。</p>
+          <h3 data-en="FRC Drivetrain and Mechanism Calculators">FRC机器人传动计算工具汇总</h3>
+          <p data-en="Gear ratio, chain and belt center distance, flywheel, elevator, motor curve, pneumatic, and beam bending calculators.">齿比、链条/皮带中心距、飞轮、升降、电机曲线、气动与梁弯曲计算工具。</p>
         </a>
 
         <a class="card module-card" href="design-theory.html">
           <div class="icon">📐</div>
-          <h3>FRC机器人设计理论课堂</h3>
-          <div class="chinese">Design theory classroom</div>
-          <p>从需求分析、原型验证、传动选择到重量、可制造性和比赛维护的课堂框架。</p>
+          <h3 data-en="FRC Design Theory Classroom">FRC机器人设计理论课堂</h3>
+          <p data-en="A classroom framework from requirements and prototypes to transmission choices, weight, manufacturability, and competition maintenance.">从需求分析、原型验证、传动选择到重量、可制造性和比赛维护的课堂框架。</p>
         </a>
 
         <a class="card module-card" href="design-onshape.html">
           <div class="icon">🧩</div>
-          <h3>FRC Onshape学习步骤</h3>
-          <div class="chinese">Onshape learning path</div>
-          <p>账号准备、基础建模、FRC 库配置、子系统 CAD、装配与团队协作步骤。</p>
+          <h3 data-en="FRC Onshape Learning Path">FRC Onshape学习步骤</h3>
+          <p data-en="Account setup, basic modeling, FRC library configuration, subsystem CAD, assemblies, and team collaboration workflow.">账号准备、基础建模、FRC 库配置、子系统 CAD、装配与团队协作步骤。</p>
         </a>
       </div>
     </section>
 
     <section>
-      <h2>建议学习顺序</h2>
+      <h2 data-en="Recommended Learning Order">建议学习顺序</h2>
       <div class="process-grid">
         <div class="process-step">
           <span class="step-number">1</span>
-          <h3>先看案例</h3>
-          <p>浏览优秀队伍的公开 CAD、设计复盘和零件库，建立“常见结构长什么样”的直觉。</p>
+          <h3 data-en="Start with examples">先看案例</h3>
+          <p data-en="Browse public CAD, design reviews, and parts libraries from strong teams to build intuition for common FRC structures.">浏览优秀队伍的公开 CAD、设计复盘和零件库，建立“常见结构长什么样”的直觉。</p>
         </div>
         <div class="process-step">
           <span class="step-number">2</span>
-          <h3>理解术语</h3>
-          <p>先把 backlash、pitch、DP、center distance、tension 等词对齐，避免讨论时误解。</p>
+          <h3 data-en="Understand the terms">理解术语</h3>
+          <p data-en="Align terms like backlash, pitch, diametral pitch, center distance, and tension first, so design discussions do not drift.">先把 backlash、pitch、DP、center distance、tension 等词对齐，避免讨论时误解。</p>
         </div>
         <div class="process-step">
           <span class="step-number">3</span>
-          <h3>再算参数</h3>
-          <p>在画最终 CAD 前计算速度、扭矩、电机负载和传动比，避免凭感觉选方案。</p>
+          <h3 data-en="Calculate before CAD">再算参数</h3>
+          <p data-en="Before final CAD, calculate speed, torque, motor load, and reduction so choices are not made by feel.">在画最终 CAD 前计算速度、扭矩、电机负载和传动比，避免凭感觉选方案。</p>
         </div>
         <div class="process-step">
           <span class="step-number">4</span>
-          <h3>落到 Onshape</h3>
-          <p>用统一文档结构、MKCad、FeatureScript 和版本管理，把设计变成团队协作流程。</p>
+          <h3 data-en="Move into Onshape">落到 Onshape</h3>
+          <p data-en="Use a consistent document structure, MKCad, FeatureScript, and version control to turn CAD into a team workflow.">用统一文档结构、MKCad、FeatureScript 和版本管理，把设计变成团队协作流程。</p>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>FRC Wiki CN · <a href="index.html">Back to home</a></p>
+    <p>FRC Wiki CN · <a href="index.html" data-en="Back to home">返回主页</a></p>
   </footer>
+  <script src="language-toggle.js"></script>
   <script src="supabase-config.js"></script>
   <script type="module" src="supabase-auth.js"></script>
   <script type="module" src="supabase-tracking.js"></script>
 </body>
 </html>
-
