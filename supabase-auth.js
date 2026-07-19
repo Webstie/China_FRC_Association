@@ -13,15 +13,33 @@ const authReady = new Promise((resolve) => {
   authReadyResolve = resolve;
 });
 
+let isPasswordRecovery = false;
+let resolvePasswordRecovery;
+const passwordRecoveryDetected = new Promise((resolve) => {
+  resolvePasswordRecovery = resolve;
+});
+
 function clearLegacyAuthStorage() {
   return;
 }
 
-function getAuthCallbackType() {
+// Capture the auth callback params from the URL at load time, BEFORE the Supabase
+// client is created. In the implicit flow, recovery / signup-confirmation links
+// arrive as `#access_token=...&type=recovery|signup`, and expired or already-used
+// links arrive as `#error=...&error_description=...`. `detectSessionInUrl` wipes
+// the hash during client init (via history.replaceState), so reading it later
+// would always come back empty — that is why the reset view used to be skipped
+// and the underlying page opened directly.
+const AUTH_CALLBACK = (function readAuthCallback() {
   const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
   const searchParams = new URLSearchParams(window.location.search);
-  return hashParams.get("type") || searchParams.get("type") || "";
-}
+  return {
+    type: hashParams.get("type") || searchParams.get("type") || "",
+    hasCode: searchParams.has("code"),
+    errorDescription:
+      hashParams.get("error_description") || searchParams.get("error_description") || ""
+  };
+})();
 
 function cleanAuthCallbackUrl() {
   if (window.location.hash || window.location.search) {
@@ -651,17 +669,32 @@ async function init() {
   supabase = createClient(config.supabaseUrl, config.supabaseAnonKey, {
     auth: {
       persistSession: true,
-      autoRefreshToken: true
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      // Keep recovery / confirmation links as hash tokens (`type=recovery`) that
+      // we can detect reliably and that survive opening the email on another
+      // device — PKCE would need the code_verifier stored on the same browser.
+      flowType: "implicit"
     }
   });
   window.FRC_SUPABASE = supabase;
 
-  let isPasswordRecovery = false;
   supabase.auth.onAuthStateChange((event) => {
     if (event === "PASSWORD_RECOVERY") {
       isPasswordRecovery = true;
+      resolvePasswordRecovery(true);
     }
   });
+
+  // An expired or already-used recovery / confirmation link redirects back with
+  // an error instead of a session. Surface it on the login gate rather than
+  // silently dropping the user onto the site.
+  if (AUTH_CALLBACK.errorDescription) {
+    cleanAuthCallbackUrl();
+    requireAuthView();
+    setStatus(`${AUTH_CALLBACK.errorDescription}。链接可能已失效，请重新发送邮件后再试。`, "error");
+    return;
+  }
 
   const {
     data: { user },
@@ -670,19 +703,25 @@ async function init() {
 
   if (error) {
     console.warn(error);
-    await supabase.auth.signOut();
   }
 
-  const callbackType = getAuthCallbackType();
-  const urlLooksLikeRecovery = callbackType === "recovery";
-  const urlLooksLikeSignupConfirmation = callbackType === "signup";
+  // Recovery detection uses the hash captured at load (reliable for the implicit
+  // flow); the PASSWORD_RECOVERY event is a secondary signal, and for a bare
+  // `?code=` callback we give that event a brief window to fire.
+  let isRecovery = AUTH_CALLBACK.type === "recovery" || isPasswordRecovery;
+  if (!isRecovery && AUTH_CALLBACK.hasCode) {
+    isRecovery = await Promise.race([
+      passwordRecoveryDetected,
+      new Promise((resolve) => setTimeout(() => resolve(false), 1200))
+    ]);
+  }
 
-  if (user && (isPasswordRecovery || urlLooksLikeRecovery)) {
+  if (user && isRecovery) {
     requirePasswordResetView(user);
     return;
   }
 
-  if (urlLooksLikeSignupConfirmation) {
+  if (AUTH_CALLBACK.type === "signup") {
     await supabase.auth.signOut();
     cleanAuthCallbackUrl();
     requireAuthView();
